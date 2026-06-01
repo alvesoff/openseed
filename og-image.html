@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    background:
+      radial-gradient(900px 500px at 18% -10%, rgba(86,200,132,0.16), transparent 60%),
+      #0a0b09;
+    color: #f2f0e9;
+    font-family: "Inter", system-ui, sans-serif;
+    padding: 76px 84px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .brand { display: flex; align-items: center; gap: 14px; font-weight: 700; font-size: 30px; letter-spacing: -0.02em; }
+  .brand svg { width: 40px; height: 40px; }
+  h1 {
+    font-family: "Unbounded", sans-serif;
+    font-weight: 600;
+    font-size: 78px;
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+    max-width: 1000px;
+  }
+  h1 em { font-style: normal; color: #56c884; }
+  .tag { font-size: 26px; color: #9a9b92; letter-spacing: -0.01em; }
+</style>
+</head>
+<body>
+  <div class="brand">
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 21c0-6 3-9 8-10-1 6-4 9-8 10z" fill="#2f7d4f"/>
+      <path d="M12 21C12 14 9 11 4 10c1 5 3 8 8 11z" fill="#56c884"/>
+      <path d="M2 21c3-2.5 7-2.5 10 0M12 21c3-2.5 7-2.5 10 0" stroke="#f2f0e9" stroke-width="1.4" stroke-linecap="round"/>
+    </svg>
+    SeedWave
+  </div>
+
+  <h1>Toda revolução começou com uma <em>Seed</em>.</h1>
+
+  <div class="tag">Soluções com IA que facilitam a vida das pessoas.</div>
+</body>
+</html>

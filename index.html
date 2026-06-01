@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SeedWave</title>
+<meta name="description" content="Soluções com IA que facilitam a vida das pessoas. Metade de tudo que você lê online já nasce de uma máquina; a questão é a serviço de quem.">
+<meta name="theme-color" content="#0a0b09">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%230a0b09'/><path d='M12 21c0-6 3-9 8-10-1 6-4 9-8 10z' fill='%232f7d4f'/><path d='M12 21C12 14 9 11 4 10c1 5 3 8 8 11z' fill='%2356c884'/><path d='M2 21c3-2.5 7-2.5 10 0M12 21c3-2.5 7-2.5 10 0' stroke='%23f2f0e9' stroke-width='1.4' stroke-linecap='round' fill='none'/></svg>">
+<!-- Open Graph / preview ao compartilhar o link -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="SeedWave">
+<meta property="og:description" content="Soluções com IA que facilitam a vida das pessoas. Toda revolução começou com uma Seed.">
+<meta property="og:url" content="https://seedwave.co">
+<meta property="og:image" content="https://seedwave.co/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SeedWave">
+<meta name="twitter:description" content="Soluções com IA que facilitam a vida das pessoas. Toda revolução começou com uma Seed.">
+<meta name="twitter:image" content="https://seedwave.co/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0b09;
+    --panel: #121410;
+    --ink: #f2f0e9;
+    --muted: #9a9b92;
+    --faint: #62635c;
+    --line: #21231d;
+    --seed: #56c884;
+    --amber: #e6b53d;
+    --mono: "JetBrains Mono", ui-monospace, "SF Mono", Consolas, monospace;
+    --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+    --display: "Unbounded", "Inter", system-ui, sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* ---------- TOPO ---------- */
+  .topbar {
+    position: sticky; top: 0; z-index: 30;
+    text-align: center; padding: 18px 0;
+    background: transparent;
+    transition: background .25s ease, backdrop-filter .25s ease;
+  }
+  .topbar.scrolled {
+    background: rgba(10, 11, 9, 0.72);
+    backdrop-filter: blur(12px);
+  }
+  .brand {
+    display: inline-flex; align-items: center; gap: 12px;
+    font-weight: 700; font-size: 24px; letter-spacing: -0.02em;
+    text-decoration: none; color: var(--ink);
+  }
+  .brand svg { width: 32px; height: 32px; }
+
+  /* ---------- RELATÓRIO (coluna única) ---------- */
+  .report { width: 100%; max-width: 800px; margin: 0 auto; padding: 64px clamp(24px, 6vw, 64px) 96px; }
+
+  h1 {
+    font-family: var(--display);
+    font-size: clamp(28px, 4.6vw, 40px);
+    line-height: 1.28; font-weight: 600; letter-spacing: -0.01em;
+    margin-bottom: 38px;
+  }
+  h1 em { font-style: normal; color: var(--seed); }
+
+  .lead { font-size: 22px; line-height: 1.5; color: var(--ink); margin-bottom: 30px; }
+
+  p { font-size: 19px; line-height: 1.72; color: #d6d5cd; margin-bottom: 26px; }
+  .report p em { font-style: italic; color: var(--ink); }
+
+  h2 {
+    font-family: var(--display);
+    font-size: clamp(24px, 4vw, 34px);
+    line-height: 1.3; font-weight: 600; letter-spacing: -0.01em;
+    margin: 62px 0 30px;
+  }
+  h2 .syn { color: var(--seed); }
+
+  .hl {
+    color: var(--ink);
+    text-decoration: underline;
+    text-decoration-color: var(--seed);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 5px;
+  }
+
+  .couplet {
+    font-family: var(--display);
+    margin: 44px 0;
+    font-size: clamp(20px, 2.7vw, 26px); line-height: 1.4;
+    font-weight: 600; letter-spacing: -0.01em;
+  }
+  .couplet .a { color: var(--muted); display: block; }
+  .couplet .b { color: var(--ink); display: block; }
+
+  .turn {
+    font-family: var(--display);
+    font-size: clamp(20px, 2.7vw, 26px); font-weight: 600; letter-spacing: -0.01em;
+    line-height: 1.4; margin: 48px 0 22px;
+  }
+  .turn em { font-style: normal; color: var(--seed); }
+
+  .blist { list-style: none; margin: 20px 0 30px; }
+  .blist li { position: relative; padding-left: 26px; margin-bottom: 16px; font-size: 18px; line-height: 1.6; color: #d6d5cd; }
+  .blist li::before { content: ""; position: absolute; left: 2px; top: 11px; width: 8px; height: 8px; border-radius: 50%; background: var(--seed); }
+  .blist b { color: var(--ink); font-weight: 700; }
+
+  /* ---------- GRÁFICO ---------- */
+  .chart-card { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 30px 26px 24px; margin: 44px 0; }
+  .chart-title { font-family: var(--mono); font-size: 14px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 22px; }
+  svg.chart { width: 100%; height: auto; display: block; font-family: var(--mono); }
+  svg.chart .grid { stroke: #23251f; stroke-width: 1; }
+  svg.chart .grid.zero { stroke: #3a3c36; }
+  svg.chart .axis { fill: var(--faint); font-size: 12px; }
+  svg.chart .line { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  svg.chart .anno { fill: var(--muted); font-size: 11px; }
+  svg.chart .tag { font-size: 12px; font-weight: 700; }
+  .chart-foot { margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--line); }
+  .chart-foot .cap { font-size: 15px; color: var(--muted); line-height: 1.5; margin-bottom: 12px; }
+  .chart-foot .src { font-family: var(--mono); font-size: 11px; color: var(--faint); }
+  .chart-foot .src a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
+  .chart-foot .src a:hover { color: var(--seed); }
+
+  /* ---------- RODAPÉ ---------- */
+  .foot { margin-top: 80px; }
+  .foot-tag { font-style: italic; color: var(--muted); font-size: 16px; margin-bottom: 10px; }
+  .foot-cop { font-family: var(--mono); font-size: 12px; color: var(--faint); }
+
+  @media (max-width: 540px) {
+    .report { padding: 56px 22px 72px; }
+    .lead { font-size: 20px; }
+    p { font-size: 18px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 21c0-6 3-9 8-10-1 6-4 9-8 10z" fill="#2f7d4f"/>
+        <path d="M12 21C12 14 9 11 4 10c1 5 3 8 8 11z" fill="#56c884"/>
+        <path d="M2 21c3-2.5 7-2.5 10 0M12 21c3-2.5 7-2.5 10 0" stroke="#f2f0e9" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      SeedWave
+    </a>
+  </div>
+
+  <main class="report" id="top">
+
+    <h1>Toda revolução começou com uma <em>Seed</em>.</h1>
+
+    <p class="lead">As ferramentas que mudaram a humanidade sempre fizeram a mesma coisa: transformaram esforço em tempo livre.</p>
+
+    <p>Mas, por décadas, foi a pessoa que se curvou diante da máquina, quando deveria ser o contrário. Construímos um mundo inteiro de repositórios escritos por humanos apenas para serem interpretados por computadores. E uma pergunta sempre incomodou: <span class="hl">por que ainda somos nós que precisamos falar a língua delas?</span></p>
+
+    <p>Setenta anos de programação, do assembly às frameworks. E o esforço continuou do lado errado.</p>
+
+    <p class="couplet">
+      <span class="a">A pessoa se curvava diante da máquina.</span>
+      <span class="b">Chegou a hora de inverter.</span>
+    </p>
+
+    <h2>Metade de tudo que você lê já é<span class="syn"> sintético.</span></h2>
+
+    <p>A internet chegou a um ponto curioso: metade de tudo que você lê hoje foi escrito, ao menos em parte, por uma máquina.</p>
+
+    <p>A virada foi rápida. Antes do ChatGPT, em 2022, textos gerados por IA eram cerca de 10% dos artigos publicados online. Em 2024, já passavam de 40%. Em 2025, pela primeira vez, alcançaram a metade. E hoje seguem lado a lado com a escrita humana.</p>
+
+    <div class="chart-card">
+      <div class="chart-title">O conteúdo gerado por IA já alcançou o humano</div>
+      <svg class="chart" viewBox="0 0 600 360" role="img" aria-label="Participação de conteúdo gerado por IA versus humano de 2020 a 2025">
+        <g>
+          <line class="grid zero" x1="60" y1="320" x2="600" y2="320"/>
+          <line class="grid" x1="60" y1="247.5" x2="600" y2="247.5"/>
+          <line class="grid" x1="60" y1="175" x2="600" y2="175"/>
+          <line class="grid" x1="60" y1="102.5" x2="600" y2="102.5"/>
+          <line class="grid" x1="60" y1="30" x2="600" y2="30"/>
+          <text class="axis" x="48" y="34" text-anchor="end">100%</text>
+          <text class="axis" x="48" y="106.5" text-anchor="end">75%</text>
+          <text class="axis" x="48" y="179" text-anchor="end">50%</text>
+          <text class="axis" x="48" y="251.5" text-anchor="end">25%</text>
+          <text class="axis" x="48" y="324" text-anchor="end">0%</text>
+        </g>
+        <g>
+          <text class="axis" x="60" y="344" text-anchor="middle">2020</text>
+          <text class="axis" x="150" y="344" text-anchor="middle">2021</text>
+          <text class="axis" x="240" y="344" text-anchor="middle">2022</text>
+          <text class="axis" x="330" y="344" text-anchor="middle">2023</text>
+          <text class="axis" x="420" y="344" text-anchor="middle">2024</text>
+          <text class="axis" x="510" y="344" text-anchor="middle">2025</text>
+        </g>
+        <path id="lineHuman" class="line" stroke="#56c884"/>
+        <path id="lineAI" class="line" stroke="#e6b53d"/>
+        <circle cx="312" cy="291" r="5" fill="#0a0b09" stroke="#e6b53d" stroke-width="2"/>
+        <text class="anno" x="300" y="276" text-anchor="end">Nov 2022</text>
+        <text class="anno" x="300" y="290" text-anchor="end">ChatGPT lança</text>
+        <g>
+          <rect x="66" y="22" width="72" height="22" rx="5" fill="#56c884"/>
+          <text class="tag" x="102" y="37" text-anchor="middle" fill="#0a0b09">Humano</text>
+          <rect x="66" y="302" width="44" height="22" rx="5" fill="#e6b53d"/>
+          <text class="tag" x="88" y="317" text-anchor="middle" fill="#0a0b09">IA</text>
+        </g>
+      </svg>
+      <div class="chart-foot">
+        <div class="cap">Em 2020, quase tudo era escrito por gente. Hoje, metade do que se lê online já nasce de uma máquina. A questão não é mais <em>se</em> a IA faz parte da vida, mas <strong>a serviço de quem</strong>.</div>
+        <div class="src">Fonte: <a href="https://graphite.io/five-percent/more-articles-are-now-created-by-ai-than-humans" target="_blank" rel="noopener">Graphite</a> &amp; Common Crawl, ~65 mil artigos (2020 a 2025).</div>
+      </div>
+    </div>
+
+    <p class="turn">E isso não é motivo de medo. É o <span class="hl">maior salto de alavanca</span> da nossa geração.</p>
+
+    <p>Usada com intenção, a inteligência artificial faz o que toda grande ferramenta fez antes dela: devolve tempo às pessoas.</p>
+
+    <ul class="blist">
+      <li><b>Faz em segundos</b> o que antes levava dias, liberando a pessoa para o que só ela sabe fazer.</li>
+      <li><b>Cuida do repetitivo</b> para que a criatividade, o cuidado e o julgamento humano voltem ao centro.</li>
+      <li><b>Democratiza o poder de construir:</b> qualquer um com uma boa ideia pode tirá-la do papel, sem precisar falar a língua da máquina.</li>
+      <li><b>Aprende com você</b> e some quando o trabalho está feito. Uma ferramenta que serve, não que prende.</li>
+    </ul>
+
+    <p class="couplet">
+      <span class="a">Ideias não faltam. Falta o incentivo para levá-las adiante.</span>
+      <span class="b">Essa onda é a SeedWave.</span>
+    </p>
+
+    <div class="foot">
+      <div class="foot-tag">SeedWave · Todos os Direitos Reservados.</div>
+      <div class="foot-cop">© 2026 SeedWave.co</div>
+    </div>
+
+  </main>
+
+<script>
+  (function () {
+    var sx = function (year) { return 60 + (year - 2020) * 90; };
+    var sy = function (val) { return 320 - val * 2.9; };
+
+    var human = [
+      [2020, 98], [2020.5, 97], [2021, 98], [2021.5, 95], [2022, 97],
+      [2022.4, 96], [2022.8, 90], [2023, 78], [2023.4, 68], [2023.8, 62],
+      [2024, 60], [2024.3, 56], [2024.6, 58], [2025, 52], [2025.3, 49], [2025.6, 50]
+    ];
+    var ai = human.map(function (p) { return [p[0], 100 - p[1]]; });
+
+    var toXY = function (data) {
+      return data.map(function (p) { return [sx(p[0]), sy(p[1])]; });
+    };
+
+    var smooth = function (pts) {
+      var d = 'M ' + pts[0][0] + ' ' + pts[0][1];
+      for (var i = 0; i < pts.length - 1; i++) {
+        var p0 = pts[i - 1] || pts[i];
+        var p1 = pts[i];
+        var p2 = pts[i + 1];
+        var p3 = pts[i + 2] || p2;
+        var c1x = p1[0] + (p2[0] - p0[0]) / 6;
+        var c1y = p1[1] + (p2[1] - p0[1]) / 6;
+        var c2x = p2[0] - (p3[0] - p1[0]) / 6;
+        var c2y = p2[1] - (p3[1] - p1[1]) / 6;
+        d += ' C ' + c1x + ' ' + c1y + ' ' + c2x + ' ' + c2y + ' ' + p2[0] + ' ' + p2[1];
+      }
+      return d;
+    };
+
+    var draw = function (id, data) {
+      var el = document.getElementById(id);
+      el.setAttribute('d', smooth(toXY(data)));
+      var len = el.getTotalLength();
+      el.style.strokeDasharray = len;
+      el.style.strokeDashoffset = len;
+      requestAnimationFrame(function () {
+        el.style.transition = 'stroke-dashoffset 1.4s cubic-bezier(.3,.7,.2,1)';
+        el.style.strokeDashoffset = 0;
+      });
+    };
+
+    draw('lineHuman', human);
+    draw('lineAI', ai);
+
+    // faixa do topo só aparece ao rolar
+    var topbar = document.querySelector('.topbar');
+    var onScroll = function () {
+      topbar.classList.toggle('scrolled', window.scrollY > 8);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  })();
+</script>
+</body>
+</html>

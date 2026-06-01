@@ -1,0 +1,14 @@
+# Projetos têm repositórios próprios
+projetos/
+
+# Notas internas (não publicar)
+CONTEXTO.md
+
+# SO / temporários
+.DS_Store
+Thumbs.db
+desktop.ini
+.*.cjs
+.inner.html
+.shot*.png
+preview-*.png
