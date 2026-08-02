@@ -3,9 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OpenSeed</title>
+<title>OpenSeed · Soluções com IA que facilitam a vida das pessoas</title>
 <meta name="description" content="Soluções com IA que facilitam a vida das pessoas. Metade de tudo que você lê online já nasce de uma máquina; a questão é a serviço de quem.">
 <meta name="theme-color" content="#0a0b09">
+<link rel="canonical" href="https://openseed.com.br/">
 <!-- selo da marca: ladrilho tinta + broto areia (brand/badge.svg) -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231D2A26'/><path d='M16 24.4C16 20.4 15.6 16.6 16 12.6' fill='none' stroke='%23F2F4EF' stroke-width='1.9' stroke-linecap='round'/><path d='M16 18.2C20.1 17.6 23.4 14.6 24 10C19.5 10.6 16.5 13.7 16 18.2Z' fill='%23F2F4EF'/><path d='M15.6 21C12.4 20.5 9.9 18.1 9.4 14.5C12.9 15 15.2 17.5 15.6 21Z' fill='%23F2F4EF'/><ellipse cx='16' cy='26.2' rx='4.6' ry='2.6' fill='%23F2F4EF'/></svg>">
 <!-- Open Graph / preview ao compartilhar o link -->
@@ -13,7 +14,7 @@
 <meta property="og:title" content="OpenSeed">
 <meta property="og:description" content="Soluções com IA que facilitam a vida das pessoas. Toda revolução começou com uma Seed.">
 <!-- Domínio próprio, servido pelo GitHub Pages via o arquivo CNAME na raiz.
-     Mexeu no domínio? Trocar aqui, no twitter:image e no CNAME — os três juntos. -->
+     Mexeu no domínio? Trocar aqui, no twitter:image e no CNAME, os três juntos. -->
 <meta property="og:url" content="https://openseed.com.br/">
 <meta property="og:image" content="https://openseed.com.br/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
@@ -29,7 +30,9 @@
     --panel: #121410;
     --ink: #f2f0e9;
     --muted: #9a9b92;
-    --faint: #62635c;
+    /* --faint precisa render no mínimo 4,5:1 contra --bg para texto pequeno.
+       #62635c dava 3,05:1 e deixava as legendas do eixo ilegíveis. */
+    --faint: #797a73;
     --line: #21231d;
     --seed: #56c884;
     --amber: #e6b53d;
@@ -61,7 +64,7 @@
   }
   /* Lockup da marca: broto sem ladrilho + nome em Bricolage Grotesque 600,
      que é a tipografia oficial do wordmark. Em fundo escuro a marca vai numa
-     cor só (areia) — o ladrilho tinta sumiria contra o --bg. */
+     cor só (areia), porque o ladrilho tinta sumiria contra o --bg. */
   .brand {
     display: inline-flex; align-items: center; gap: 11px;
     font-family: var(--wordmark);
@@ -212,7 +215,7 @@
 
     <p>A internet chegou a um ponto curioso: metade de tudo que você lê hoje foi escrito, ao menos em parte, por uma máquina.</p>
 
-    <p>A virada foi rápida. Antes do ChatGPT, texto gerado por máquina era resíduo estatístico. Doze meses depois do lançamento, já respondia por 39% dos artigos publicados. Em <span class="hl">novembro de 2024</span> ultrapassou o que era escrito por gente — e desde então os dois seguem lado a lado.</p>
+    <p>A virada foi rápida. Antes do ChatGPT, texto gerado por máquina era resíduo estatístico. Doze meses depois do lançamento, já respondia por 39% dos artigos publicados. Em <span class="hl">novembro de 2024</span> ultrapassou o que era escrito por gente, e desde então os dois seguem lado a lado.</p>
 
     <div class="chart-card">
       <div class="chart-title">O conteúdo gerado por IA já alcançou o humano</div>
@@ -245,9 +248,9 @@
         <text class="anno" x="308" y="272" text-anchor="end">Nov 2022</text>
         <text class="anno" x="308" y="286" text-anchor="end">ChatGPT lança</text>
         <!-- Anotação no vazio do canto superior direito, com linha-guia descendo
-             até o cruzamento das duas linhas (x≈497 é o ponto de nov/2024). -->
+             até o cruzamento das duas linhas. O x≈497 é o ponto de nov/2024. -->
         <line class="leader" x1="497" y1="110" x2="497" y2="167"/>
-        <text class="anno turn-anno" x="584" y="100" text-anchor="end">Nov 2024 — a virada</text>
+        <text class="anno turn-anno" x="584" y="100" text-anchor="end">Nov 2024: a virada</text>
         <g>
           <rect x="66" y="22" width="72" height="22" rx="5" fill="#56c884"/>
           <text class="tag" x="102" y="37" text-anchor="middle" fill="#0a0b09">Humano</text>
@@ -257,7 +260,7 @@
       </svg>
       <div class="chart-foot">
         <div class="cap">Em 2020, quase tudo era escrito por gente. Hoje, metade do que se lê online já nasce de uma máquina. A questão não é mais <em>se</em> a IA faz parte da vida, mas <strong>a serviço de quem</strong>.</div>
-        <div class="src">Fonte: <a href="https://graphite.io/five-percent/more-articles-are-now-created-by-ai-than-humans" target="_blank" rel="noopener">Graphite</a> &amp; Common Crawl — 43 mil URLs em inglês, jan/2020 a mai/2025. Os pontos marcados são os do estudo; o traçado entre eles é interpolação.</div>
+        <div class="src">Fonte: <a href="https://graphite.io/five-percent/more-articles-are-now-created-by-ai-than-humans" target="_blank" rel="noopener">Graphite</a> &amp; Common Crawl, 43 mil URLs em inglês, jan/2020 a mai/2025. Os pontos marcados são os do estudo; o traçado entre eles é interpolação.</div>
       </div>
     </div>
 
@@ -305,10 +308,10 @@
     var sy = function (val) { return 320 - val * 2.9; };
 
     // Participação da IA. Só quatro valores vêm do estudo da Graphite:
-    //   até nov/2022  4,2%  — piso de base (é também a taxa de falso positivo do detector)
-    //   nov/2023       39%  — doze meses depois do lançamento do ChatGPT
-    //   nov/2024       50%  — a virada, quando ultrapassa o texto humano
-    //   mai/2025       51%  — estável desde então, fim da janela do estudo
+    //   até nov/2022  4,2%   piso de base (é também a taxa de falso positivo do detector)
+    //   nov/2023       39%   doze meses depois do lançamento do ChatGPT
+    //   nov/2024       50%   a virada, quando ultrapassa o texto humano
+    //   mai/2025       51%   estável desde então, fim da janela do estudo
     // Os demais pontos existem só para dar forma à curva e estão marcados como
     // interpolação na legenda. Mexeu aqui? Atualize também a nota de fonte.
     var anchors = [2022.85, 2023.85, 2024.85, 2025.4];
