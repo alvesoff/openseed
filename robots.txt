@@ -7,7 +7,7 @@ Allow: /
 # Página de erro não deve entrar no índice (também marcada com noindex).
 Disallow: /404.html
 
-# Modelo usado só para gerar o og-image.png — não é página do site.
+# Modelo usado só para gerar o og-image.png, não é página do site.
 Disallow: /og-image.html
 
 # Ativos da marca: arquivos de apoio, não conteúdo.
