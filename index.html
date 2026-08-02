@@ -3,23 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SeedWave</title>
+<title>OpenSeed</title>
 <meta name="description" content="Soluções com IA que facilitam a vida das pessoas. Metade de tudo que você lê online já nasce de uma máquina; a questão é a serviço de quem.">
 <meta name="theme-color" content="#0a0b09">
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><rect width='24' height='24' rx='5' fill='%230a0b09'/><path d='M12 21c0-6 3-9 8-10-1 6-4 9-8 10z' fill='%232f7d4f'/><path d='M12 21C12 14 9 11 4 10c1 5 3 8 8 11z' fill='%2356c884'/><path d='M2 21c3-2.5 7-2.5 10 0M12 21c3-2.5 7-2.5 10 0' stroke='%23f2f0e9' stroke-width='1.4' stroke-linecap='round' fill='none'/></svg>">
+<!-- selo da marca: ladrilho tinta + broto areia (brand/badge.svg) -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231D2A26'/><path d='M16 24.4C16 20.4 15.6 16.6 16 12.6' fill='none' stroke='%23F2F4EF' stroke-width='1.9' stroke-linecap='round'/><path d='M16 18.2C20.1 17.6 23.4 14.6 24 10C19.5 10.6 16.5 13.7 16 18.2Z' fill='%23F2F4EF'/><path d='M15.6 21C12.4 20.5 9.9 18.1 9.4 14.5C12.9 15 15.2 17.5 15.6 21Z' fill='%23F2F4EF'/><ellipse cx='16' cy='26.2' rx='4.6' ry='2.6' fill='%23F2F4EF'/></svg>">
 <!-- Open Graph / preview ao compartilhar o link -->
 <meta property="og:type" content="website">
-<meta property="og:title" content="SeedWave">
+<meta property="og:title" content="OpenSeed">
 <meta property="og:description" content="Soluções com IA que facilitam a vida das pessoas. Toda revolução começou com uma Seed.">
-<meta property="og:url" content="https://seedwave.co">
-<meta property="og:image" content="https://seedwave.co/og-image.png">
+<meta property="og:url" content="https://openseed.com.br">
+<meta property="og:image" content="https://openseed.com.br/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="SeedWave">
+<meta name="twitter:title" content="OpenSeed">
 <meta name="twitter:description" content="Soluções com IA que facilitam a vida das pessoas. Toda revolução começou com uma Seed.">
-<meta name="twitter:image" content="https://seedwave.co/og-image.png">
+<meta name="twitter:image" content="https://openseed.com.br/og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #0a0b09;
@@ -33,6 +34,7 @@
     --mono: "JetBrains Mono", ui-monospace, "SF Mono", Consolas, monospace;
     --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
     --display: "Unbounded", "Inter", system-ui, sans-serif;
+    --wordmark: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -55,12 +57,16 @@
     background: rgba(10, 11, 9, 0.72);
     backdrop-filter: blur(12px);
   }
+  /* Lockup da marca: broto sem ladrilho + nome em Bricolage Grotesque 600,
+     que é a tipografia oficial do wordmark. Em fundo escuro a marca vai numa
+     cor só (areia) — o ladrilho tinta sumiria contra o --bg. */
   .brand {
-    display: inline-flex; align-items: center; gap: 12px;
-    font-weight: 700; font-size: 24px; letter-spacing: -0.02em;
+    display: inline-flex; align-items: center; gap: 11px;
+    font-family: var(--wordmark);
+    font-weight: 600; font-size: 24px; letter-spacing: -0.025em;
     text-decoration: none; color: var(--ink);
   }
-  .brand svg { width: 32px; height: 32px; }
+  .brand svg { width: auto; height: 30px; }
 
   /* ---------- RELATÓRIO (coluna única) ---------- */
   .report { width: 100%; max-width: 800px; margin: 0 auto; padding: 64px clamp(24px, 6vw, 64px) 96px; }
@@ -156,12 +162,14 @@
 
   <div class="topbar">
     <a class="brand" href="#top">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M12 21c0-6 3-9 8-10-1 6-4 9-8 10z" fill="#2f7d4f"/>
-        <path d="M12 21C12 14 9 11 4 10c1 5 3 8 8 11z" fill="#56c884"/>
-        <path d="M2 21c3-2.5 7-2.5 10 0M12 21c3-2.5 7-2.5 10 0" stroke="#f2f0e9" stroke-width="1.4" stroke-linecap="round"/>
+      <!-- viewBox recortado na caixa real do broto, para casar de altura com o nome -->
+      <svg viewBox="9.4 10 14.6 18.8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M16 24.4C16 20.4 15.6 16.6 16 12.6" stroke="#f2f0e9" stroke-width="1.9" stroke-linecap="round"/>
+        <path d="M16 18.2C20.1 17.6 23.4 14.6 24 10C19.5 10.6 16.5 13.7 16 18.2Z" fill="#f2f0e9"/>
+        <path d="M15.6 21C12.4 20.5 9.9 18.1 9.4 14.5C12.9 15 15.2 17.5 15.6 21Z" fill="#f2f0e9"/>
+        <ellipse cx="16" cy="26.2" rx="4.6" ry="2.6" fill="#f2f0e9"/>
       </svg>
-      SeedWave
+      OpenSeed
     </a>
   </div>
 
@@ -240,12 +248,12 @@
 
     <p class="couplet">
       <span class="a">Ideias não faltam. Falta o incentivo para levá-las adiante.</span>
-      <span class="b">Essa onda é a SeedWave.</span>
+      <span class="b">Esse incentivo é a OpenSeed.</span>
     </p>
 
     <div class="foot">
-      <div class="foot-tag">SeedWave · Todos os Direitos Reservados.</div>
-      <div class="foot-cop">© 2026 SeedWave.co</div>
+      <div class="foot-tag">OpenSeed · Todos os Direitos Reservados.</div>
+      <div class="foot-cop">© 2026 OpenSeed</div>
     </div>
 
   </main>
