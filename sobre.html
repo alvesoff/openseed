@@ -51,26 +51,25 @@
   .shell { width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 var(--shell); }
   .narrow { max-width: 760px; }
 
-  /* ---------- NAV ---------- */
-  .nav {
+  /* ---------- TOPO ----------
+     Idêntico ao do index.html: só a marca, centralizada, sem ações.
+     Mexeu num, mexa no outro. */
+  .topbar {
     position: sticky; top: 0; z-index: 40;
-    border-bottom: 1px solid transparent;
-    transition: background .25s ease, backdrop-filter .25s ease, border-color .25s ease;
+    text-align: center; padding: 18px 0;
+    background: transparent;
+    transition: background .25s ease, backdrop-filter .25s ease;
   }
-  .nav.scrolled { background: rgba(10, 11, 9, .78); backdrop-filter: blur(12px); border-bottom-color: var(--line); }
-  .nav-in { display: flex; align-items: center; gap: 20px; padding: 15px 0; }
+  .topbar.scrolled { background: rgba(10, 11, 9, .72); backdrop-filter: blur(12px); }
   .brand {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-family: var(--wordmark); font-weight: 600; font-size: 21px; letter-spacing: -0.025em;
-    text-decoration: none; color: var(--ink); margin-right: auto;
+    display: inline-flex; align-items: center; gap: 11px;
+    font-family: var(--wordmark); font-weight: 600; font-size: 24px; letter-spacing: -0.025em;
+    text-decoration: none; color: var(--ink);
   }
-  .brand svg { width: auto; height: 26px; }
-  .nav-links { display: flex; gap: 26px; }
-  .nav-links a {
-    font-size: 15px; color: var(--muted); text-decoration: none;
-    transition: color .16s ease;
-  }
-  .nav-links a:hover, .nav-links a:focus-visible { color: var(--ink); }
+  .brand svg { width: auto; height: 30px; }
+  /* no rodapé a marca é menor, para não competir com o topo */
+  .foot-brand .brand { font-size: 21px; }
+  .foot-brand .brand svg { height: 26px; }
 
   /* ---------- BOTÕES ---------- */
   .btn {
@@ -193,7 +192,6 @@
     .foot-brand { grid-column: 1 / -1; }
   }
   @media (max-width: 620px) {
-    .nav-links { display: none; }
     .foot-grid { grid-template-columns: 1fr; gap: 32px; }
     p { font-size: 17px; }
     .steps { padding-left: 34px; }
@@ -212,29 +210,17 @@
 </head>
 <body>
 
-<nav class="nav" id="nav">
-  <div class="shell nav-in">
-    <a class="brand" href="index.html">
-      <svg viewBox="9.4 10 14.6 18.8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M16 24.4C16 20.4 15.6 16.6 16 12.6" stroke="#f2f0e9" stroke-width="1.9" stroke-linecap="round"/>
-        <path d="M16 18.2C20.1 17.6 23.4 14.6 24 10C19.5 10.6 16.5 13.7 16 18.2Z" fill="#f2f0e9"/>
-        <path d="M15.6 21C12.4 20.5 9.9 18.1 9.4 14.5C12.9 15 15.2 17.5 15.6 21Z" fill="#f2f0e9"/>
-        <ellipse cx="16" cy="26.2" rx="4.6" ry="2.6" fill="#f2f0e9"/>
-      </svg>
-      OpenSeed
-    </a>
-    <div class="nav-links">
-      <a href="#atendemos">O que atendemos</a>
-      <a href="#modelo">Modelo</a>
-      <a href="#processo">Processo</a>
-      <a href="index.html">Manifesto</a>
-    </div>
-    <a class="btn btn-primary js-wa" href="#contato">
-      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24a8.2 8.2 0 0 1 8.24 8.25c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.54.06-.25-.13-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.47c-.16 0-.43.06-.65.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.13.17 1.74 2.66 4.22 3.73.59.25 1.05.4 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.68-1.18.2-.58.2-1.08.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
-      Falar no WhatsApp
-    </a>
-  </div>
-</nav>
+<div class="topbar" id="topbar">
+  <a class="brand" href="index.html">
+    <svg viewBox="9.4 10 14.6 18.8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <path d="M16 24.4C16 20.4 15.6 16.6 16 12.6" stroke="#f2f0e9" stroke-width="1.9" stroke-linecap="round"/>
+      <path d="M16 18.2C20.1 17.6 23.4 14.6 24 10C19.5 10.6 16.5 13.7 16 18.2Z" fill="#f2f0e9"/>
+      <path d="M15.6 21C12.4 20.5 9.9 18.1 9.4 14.5C12.9 15 15.2 17.5 15.6 21Z" fill="#f2f0e9"/>
+      <ellipse cx="16" cy="26.2" rx="4.6" ry="2.6" fill="#f2f0e9"/>
+    </svg>
+    OpenSeed
+  </a>
+</div>
 
 <header class="hero">
   <div class="shell">
@@ -384,6 +370,7 @@
         <div class="foot-h">Contato</div>
         <a class="js-wa" href="#contato">WhatsApp</a>
         <a href="https://instagram.com/openseedbr" target="_blank" rel="noopener">Instagram</a>
+        <a href="privacidade.html">Privacidade</a>
       </div>
     </div>
     <div class="foot-base">
@@ -413,8 +400,8 @@
       console.warn('[OpenSeed] Número de WhatsApp não configurado em sobre.html — os botões de contato estão inertes.');
     }
 
-    var nav = document.getElementById('nav');
-    var onScroll = function () { nav.classList.toggle('scrolled', window.scrollY > 8); };
+    var topbar = document.getElementById('topbar');
+    var onScroll = function () { topbar.classList.toggle('scrolled', window.scrollY > 8); };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
   })();

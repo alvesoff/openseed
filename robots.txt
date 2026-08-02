@@ -1,0 +1,16 @@
+# openseed.com.br
+# Site institucional. Tudo aqui é público e pode ser indexado.
+
+User-agent: *
+Allow: /
+
+# Página de erro não deve entrar no índice (também marcada com noindex).
+Disallow: /404.html
+
+# Modelo usado só para gerar o og-image.png — não é página do site.
+Disallow: /og-image.html
+
+# Ativos da marca: arquivos de apoio, não conteúdo.
+Disallow: /brand/
+
+Sitemap: https://openseed.com.br/sitemap.xml
