@@ -132,12 +132,26 @@
   svg.chart .axis { fill: var(--faint); font-size: 12px; }
   svg.chart .line { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
   svg.chart .anno { fill: var(--muted); font-size: 11px; }
+  svg.chart .turn-anno { fill: var(--amber); font-weight: 700; }
   svg.chart .tag { font-size: 12px; font-weight: 700; }
   .chart-foot { margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--line); }
   .chart-foot .cap { font-size: 15px; color: var(--muted); line-height: 1.5; margin-bottom: 12px; }
   .chart-foot .src { font-family: var(--mono); font-size: 11px; color: var(--faint); }
   .chart-foot .src a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
   .chart-foot .src a:hover { color: var(--seed); }
+
+  /* ---------- CHAMADA PARA A PÁGINA INSTITUCIONAL ---------- */
+  .cta-wrap { margin: 50px 0 4px; }
+  .cta {
+    display: inline-flex; align-items: center; gap: 12px;
+    background: var(--seed); color: #07130c;
+    font-weight: 700; font-size: 17px; letter-spacing: -0.01em;
+    padding: 16px 26px; border-radius: 999px; text-decoration: none;
+    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+  }
+  .cta:hover, .cta:focus-visible { background: #6bd897; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(86, 200, 132, .2); }
+  .cta svg { width: 18px; height: 18px; flex: none; }
+  .cta-note { margin-top: 16px; font-size: 15px; color: var(--faint); }
 
   /* ---------- RODAPÉ ---------- */
   .foot { margin-top: 80px; }
@@ -194,7 +208,7 @@
 
     <p>A internet chegou a um ponto curioso: metade de tudo que você lê hoje foi escrito, ao menos em parte, por uma máquina.</p>
 
-    <p>A virada foi rápida. Antes do ChatGPT, em 2022, textos gerados por IA eram cerca de 10% dos artigos publicados online. Em 2024, já passavam de 40%. Em 2025, pela primeira vez, alcançaram a metade. E hoje seguem lado a lado com a escrita humana.</p>
+    <p>A virada foi rápida. Antes do ChatGPT, texto gerado por máquina era resíduo estatístico. Doze meses depois do lançamento, já respondia por 39% dos artigos publicados. Em <span class="hl">novembro de 2024</span> ultrapassou o que era escrito por gente — e desde então os dois seguem lado a lado.</p>
 
     <div class="chart-card">
       <div class="chart-title">O conteúdo gerado por IA já alcançou o humano</div>
@@ -221,9 +235,12 @@
         </g>
         <path id="lineHuman" class="line" stroke="#56c884"/>
         <path id="lineAI" class="line" stroke="#e6b53d"/>
-        <circle cx="312" cy="291" r="5" fill="#0a0b09" stroke="#e6b53d" stroke-width="2"/>
-        <text class="anno" x="300" y="276" text-anchor="end">Nov 2022</text>
-        <text class="anno" x="300" y="290" text-anchor="end">ChatGPT lança</text>
+        <!-- pontos do estudo: preenchidos pelo JS a partir do mesmo array da linha,
+             para nunca dessincronizar do traçado -->
+        <g id="anchors"></g>
+        <text class="anno" x="308" y="272" text-anchor="end">Nov 2022</text>
+        <text class="anno" x="308" y="286" text-anchor="end">ChatGPT lança</text>
+        <text class="anno turn-anno" x="489" y="160" text-anchor="end">Nov 2024 — a virada</text>
         <g>
           <rect x="66" y="22" width="72" height="22" rx="5" fill="#56c884"/>
           <text class="tag" x="102" y="37" text-anchor="middle" fill="#0a0b09">Humano</text>
@@ -233,7 +250,7 @@
       </svg>
       <div class="chart-foot">
         <div class="cap">Em 2020, quase tudo era escrito por gente. Hoje, metade do que se lê online já nasce de uma máquina. A questão não é mais <em>se</em> a IA faz parte da vida, mas <strong>a serviço de quem</strong>.</div>
-        <div class="src">Fonte: <a href="https://graphite.io/five-percent/more-articles-are-now-created-by-ai-than-humans" target="_blank" rel="noopener">Graphite</a> &amp; Common Crawl, ~65 mil artigos (2020 a 2025).</div>
+        <div class="src">Fonte: <a href="https://graphite.io/five-percent/more-articles-are-now-created-by-ai-than-humans" target="_blank" rel="noopener">Graphite</a> &amp; Common Crawl — 43 mil URLs em inglês, jan/2020 a mai/2025. Os pontos marcados são os do estudo; o traçado entre eles é interpolação.</div>
       </div>
     </div>
 
@@ -253,6 +270,16 @@
       <span class="b">Esse incentivo é a OpenSeed.</span>
     </p>
 
+    <div class="cta-wrap">
+      <a class="cta" href="sobre.html">
+        Conheça a OpenSeed
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M5 12h13M12 5.5 18.5 12 12 18.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <div class="cta-note">Como trabalhamos, o que atendemos e o modelo por trás disso.</div>
+    </div>
+
     <div class="foot">
       <div class="foot-tag">OpenSeed · Todos os Direitos Reservados.</div>
       <div class="foot-cop">© 2026 OpenSeed</div>
@@ -265,12 +292,20 @@
     var sx = function (year) { return 60 + (year - 2020) * 90; };
     var sy = function (val) { return 320 - val * 2.9; };
 
-    var human = [
-      [2020, 98], [2020.5, 97], [2021, 98], [2021.5, 95], [2022, 97],
-      [2022.4, 96], [2022.8, 90], [2023, 78], [2023.4, 68], [2023.8, 62],
-      [2024, 60], [2024.3, 56], [2024.6, 58], [2025, 52], [2025.3, 49], [2025.6, 50]
+    // Participação da IA. Só quatro valores vêm do estudo da Graphite:
+    //   até nov/2022  4,2%  — piso de base (é também a taxa de falso positivo do detector)
+    //   nov/2023       39%  — doze meses depois do lançamento do ChatGPT
+    //   nov/2024       50%  — a virada, quando ultrapassa o texto humano
+    //   mai/2025       51%  — estável desde então, fim da janela do estudo
+    // Os demais pontos existem só para dar forma à curva e estão marcados como
+    // interpolação na legenda. Mexeu aqui? Atualize também a nota de fonte.
+    var anchors = [2022.85, 2023.85, 2024.85, 2025.4];
+    var ai = [
+      [2020, 4.2], [2021, 4.2], [2022, 4.2], [2022.85, 4.2],
+      [2023.3, 20], [2023.85, 39],
+      [2024.35, 45], [2024.85, 50], [2025.4, 51]
     ];
-    var ai = human.map(function (p) { return [p[0], 100 - p[1]]; });
+    var human = ai.map(function (p) { return [p[0], 100 - p[1]]; });
 
     var toXY = function (data) {
       return data.map(function (p) { return [sx(p[0]), sy(p[1])]; });
@@ -306,6 +341,21 @@
 
     draw('lineHuman', human);
     draw('lineAI', ai);
+
+    // marca os pontos que vêm do estudo, para separá-los da interpolação
+    var g = document.getElementById('anchors');
+    var NS = 'http://www.w3.org/2000/svg';
+    ai.filter(function (p) { return anchors.indexOf(p[0]) !== -1; })
+      .forEach(function (p) {
+        var c = document.createElementNS(NS, 'circle');
+        c.setAttribute('cx', sx(p[0]));
+        c.setAttribute('cy', sy(p[1]));
+        c.setAttribute('r', 4.5);
+        c.setAttribute('fill', '#121410');
+        c.setAttribute('stroke', '#e6b53d');
+        c.setAttribute('stroke-width', '2');
+        g.appendChild(c);
+      });
 
     // faixa do topo só aparece ao rolar
     var topbar = document.querySelector('.topbar');
