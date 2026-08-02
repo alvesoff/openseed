@@ -68,8 +68,10 @@ www   3600  IN  CNAME  alvesoff.github.io.
    GitHub emite o certificado (Let's Encrypt, automático) — costuma levar mais
    uma hora depois do DNS ficar pronto.
 
-   Se passar de umas 3 horas e a caixa continuar cinza, **não adianta esperar
-   mais** — provavelmente é a validação travada descrita em *Se der errado*.
+   Se passar de umas 3 horas e a caixa continuar cinza, pare de esperar e vá
+   checar a seção *Validação travada* mais abaixo. A documentação do GitHub fala
+   em até 24h, mas se a validação travou o relógio não vai resolver — e o
+   diagnóstico é um comando só.
 
 3. **Confira o preview do link.** Cole `https://openseed.com.br` no
    [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) e
@@ -105,17 +107,28 @@ gh api repos/alvesoff/openseed/pages --jq '{cname, https_enforced, cert: (.https
 **Antes de mexer, descarte as causas de DNS**, que dão o mesmo sintoma:
 
 ```powershell
-Resolve-DnsName openseed.com.br -Type CAA            # um CAA pode barrar o Let's Encrypt
-Resolve-DnsName openseed.com.br -Server 8.8.8.8 -Type A   # SERVFAIL = DNSSEC quebrado
+# 1. CAA — um registro CAA pode barrar o Let's Encrypt.
+#    NÃO use Resolve-DnsName -Type CAA nem nslookup -type=CAA no Windows:
+#    o primeiro nem aceita "CAA" no enum e o segundo devolve registros A
+#    caladamente. Pergunte por DNS-over-HTTPS:
+curl.exe -s "https://dns.google/resolve?name=openseed.com.br&type=CAA" | ConvertFrom-Json |
+  Select-Object Status, Answer
+# Status 0 e sem "Answer" = não há CAA, Let's Encrypt liberado.
+
+# 2. DNSSEC quebrado — o 8.8.8.8 valida; se a cadeia estiver ruim ele dá SERVFAIL
+#    e o Let's Encrypt enxerga o mesmo, mesmo que o seu resolver local responda.
+Resolve-DnsName openseed.com.br -Server 8.8.8.8 -Type A
 ```
 
 **O que não resolve:** reenviar o mesmo domínio (`-f cname=openseed.com.br` com o
 valor que já está lá). É no-op — o GitHub não re-roda a validação quando o valor não
 muda. Esperar também não resolve.
 
-**O que resolve:** forçar uma mudança real de valor, ida e volta. Sem downtime,
-porque o arquivo `CNAME` nunca é apagado — no intervalo o apex só redireciona pro
-`www`.
+**O que resolve:** forçar uma mudança real de valor, ida e volta. É bem menos
+invasivo que remover e recolocar o domínio, porque o arquivo `CNAME` nunca chega a
+ser apagado — no intervalo o site continua publicado, com o apex redirecionando pro
+`www`. Ainda assim o Pages passa por `status: building` nas duas trocas, então conte
+com alguns segundos instáveis; não faça em horário de pico.
 
 ```bash
 gh api -X PUT repos/alvesoff/openseed/pages -f cname=www.openseed.com.br
