@@ -133,6 +133,7 @@
   svg.chart .line { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
   svg.chart .anno { fill: var(--muted); font-size: 11px; }
   svg.chart .turn-anno { fill: var(--amber); font-weight: 700; }
+  svg.chart .leader { stroke: rgba(230, 181, 61, .45); stroke-width: 1; }
   svg.chart .tag { font-size: 12px; font-weight: 700; }
   .chart-foot { margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--line); }
   .chart-foot .cap { font-size: 15px; color: var(--muted); line-height: 1.5; margin-bottom: 12px; }
@@ -243,7 +244,10 @@
         <g id="anchors"></g>
         <text class="anno" x="308" y="272" text-anchor="end">Nov 2022</text>
         <text class="anno" x="308" y="286" text-anchor="end">ChatGPT lança</text>
-        <text class="anno turn-anno" x="489" y="160" text-anchor="end">Nov 2024 — a virada</text>
+        <!-- Anotação no vazio do canto superior direito, com linha-guia descendo
+             até o cruzamento das duas linhas (x≈497 é o ponto de nov/2024). -->
+        <line class="leader" x1="497" y1="110" x2="497" y2="167"/>
+        <text class="anno turn-anno" x="584" y="100" text-anchor="end">Nov 2024 — a virada</text>
         <g>
           <rect x="66" y="22" width="72" height="22" rx="5" fill="#56c884"/>
           <text class="tag" x="102" y="37" text-anchor="middle" fill="#0a0b09">Humano</text>
