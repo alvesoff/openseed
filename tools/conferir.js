@@ -111,6 +111,34 @@ const CHAMADA_ERRADA = /(?<!\$)\$\([^)]*\)\.(map|forEach|filter|slice|some|every
   }
 }
 
+/* 3d. llms.txt existe para uma ferramenta de IA não ter que adivinhar. Resumo
+   desatualizado é pior que resumo nenhum, e ele desatualiza calado. Confere o
+   que dá para conferir por máquina: a lista de tecnologias e o nome da API. */
+{
+  const llms = fs.readFileSync(path.join(DOCS, "llms.txt"), "utf8");
+  const pagina = fs.readFileSync(path.join(DOCS, "index.html"), "utf8");
+  const bloco = pagina.match(/<div class="chips">([\s\S]*?)<\/div>/);
+  if (bloco) {
+    const naPagina = (bloco[1].match(/<span>([^<]+)<\/span>/g) || []).map(m => m.replace(/<\/?span>/g, "").trim());
+    const linha = llms.match(/^## Tecnologias\s*\n+([^\n]+)/m);
+    if (!linha) erro("llms", "docs/llms.txt não tem a seção Tecnologias.");
+    else {
+      const noResumo = linha[1].replace(/\.$/, "").split(",").map(t => t.trim());
+      const faltando = naPagina.filter(t => noResumo.indexOf(t) < 0);
+      const sobrando = noResumo.filter(t => naPagina.indexOf(t) < 0);
+      if (faltando.length || sobrando.length) {
+        erro("llms", "a lista de tecnologias de docs/llms.txt não bate com a da página."
+          + (faltando.length ? "\n        falta no llms.txt: " + faltando.join(", ") : "")
+          + (sobrando.length ? "\n        sobra no llms.txt: " + sobrando.join(", ") : ""));
+      }
+    }
+  }
+  const apiNoJs = js.indexOf("document.modelContext") > -1;
+  if (apiNoJs && !/document\.modelContext/.test(llms)) {
+    erro("llms", "docs/llms.txt descreve uma API WebMCP diferente da que site.js usa.");
+  }
+}
+
 /* 4. Nada de arquivo de trabalho dentro de docs/.
    O motivo de docs/ existir é que o repositório inteiro ia para o ar. */
 const PERMITIDO = /\.(html|css|js|png|jpg|jpeg|svg|ico|webmanifest|xml|txt|woff2?)$/;

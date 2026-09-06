@@ -8,7 +8,7 @@ quem programa, sem camada de intermediário.
 
 - Base: Ribeirão Preto, SP. Atende presencialmente Sertãozinho, Cravinhos e Jardinópolis, e remoto nas demais cidades.
 - Contato: WhatsApp +55 16 99705-2711, contato@openseed.com.br
-- Resposta no mesmo dia útil. Primeira conversa de 20 minutos, gratuita e sem compromisso.
+- Resposta no mesmo dia útil. Primeira conversa de 20 minutos, sem custo.
 - Sem fidelidade e sem mensalidade obrigatória.
 
 ## Licença e propriedade
@@ -21,7 +21,7 @@ com formato e valor combinados antes do fechamento.
 ## Serviços
 
 - Software sob demanda: sistema web completo, do desenho da tela ao deploy, para quando nenhuma ferramenta de prateleira resolve o processo.
-- MVP para startup: primeira versão no ar em 4 a 8 semanas, com o essencial para validar com usuário real e métricas desde o primeiro dia.
+- MVP para startup: o essencial no ar em 4 a 8 semanas, com usuário real usando e métricas desde o primeiro dia.
 - Sistema interno: estoque, pedido, ordem de serviço e aprovação, com histórico, permissão por perfil e migração dos dados que já existem.
 - Automação com IA: agentes que consultam o sistema e resolvem, leitura de nota e contrato, busca em linguagem normal sobre os dados da empresa.
 - Integrações: WhatsApp Business API, ERP, planilha e gateway de pagamento.
@@ -34,20 +34,31 @@ com formato e valor combinados antes do fechamento.
 
 ## Tecnologias
 
-React, Next.js, TypeScript, Node.js, Python, PostgreSQL, Supabase, API da Anthropic, API da OpenAI, n8n, WhatsApp Business API, Vercel, AWS.
+React, Next.js, TypeScript, Node.js, Python, PostgreSQL, Supabase, API da Anthropic, WhatsApp Business API.
 
 ## Páginas
 
 - [Início, em português](https://openseed.com.br/): serviços, processo, tecnologias e perguntas frequentes.
 - [Home, in English](https://openseed.com.br/en/): the same page in English.
-- [Sobre a OpenSeed](https://openseed.com.br/sobre.html): como o estúdio trabalha e o que atende.
+- [Sobre a OpenSeed](https://openseed.com.br/sobre.html): no que a OpenSeed acredita, a diferença entre SaaS e o modelo OaaS, e o que ela atende.
 - [Manifesto](https://openseed.com.br/manifesto.html): posicionamento da empresa sobre IA, com dados sobre conteúdo gerado por máquina.
 - [Privacidade](https://openseed.com.br/privacidade.html): tratamento de dados.
 
 ## Para agentes que rodam no navegador
 
-A página inicial, nas duas línguas, registra ferramentas WebMCP em `navigator.modelContext`:
+A página inicial, nas duas línguas, registra ferramentas WebMCP em
+`document.modelContext`, com `navigator.modelContext` como alternativa para
+navegador mais antigo:
 `openseed_listar_servicos`, `openseed_explicar_processo`, `openseed_listar_tecnologias`,
 `openseed_listar_projetos`, `openseed_responder_duvida_comum` e `openseed_montar_contato`.
-Todas são de leitura. Nenhuma envia mensagem: a de contato devolve um link de
-WhatsApp para a pessoa abrir.
+
+Todas são de leitura e respondem em blocos de conteúdo, com o mesmo dado repetido em
+`structuredContent`. Nenhuma envia mensagem: a de contato devolve um link de WhatsApp
+para a pessoa abrir, e diz isso na própria resposta.
+
+Nas páginas internas só `openseed_montar_contato` é registrada, porque as outras leem
+dados que só existem na página inicial. Ferramenta que devolve lista vazia é pior que
+ferramenta ausente.
+
+Os projetos entregues são oito. Os casos ainda não estão publicados no site: para um
+exemplo próximo da necessidade de quem pergunta, use `openseed_montar_contato`.
