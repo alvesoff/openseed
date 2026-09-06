@@ -435,8 +435,8 @@
 
   <!-- ===================== 3. PROJETOS =====================
        Para incluir um projeto, copie um bloco <article class="proj"> inteiro.
-       A capa procura a imagem em /assets/img/cases/. Enquanto a linha da tag
-       de imagem estiver comentada, o card mostra a capa tipográfica.
+       A capa procura a imagem em /assets/img/cases/. Sem a tag de imagem, o
+       card mostra a capa tipográfica com a inicial.
        Se o projeto tiver link público, troque <article class="proj"> por
        <a class="proj" href="..." target="_blank" rel="noopener">.
   -->
@@ -559,6 +559,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
         integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
-<script src="/assets/js/site.js" defer></script>
+<!-- onerror é o que evita a página ficar escondida esperando: se este
+     arquivo não chegar, o liberar() nunca roda e o esconde-esconde do CSS só
+     cairia no tempo limite de 2,5 s do cabeçalho. Aqui cai na hora. -->
+<script src="/assets/js/site.js" defer onerror="document.documentElement.removeAttribute('data-anim')"></script>
 </body>
 </html>

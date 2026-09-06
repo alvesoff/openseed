@@ -64,10 +64,30 @@ const contagens = new Set();
 (js.match(/total_entregue:\s*(\d+)/g) || []).forEach(t => contagens.add(t.replace(/\D/g, "")));
 (js.match(/entregou (\d+) projetos/g) || []).forEach(t => contagens.add(t.replace(/\D/g, "")));
 (js.match(/delivered (\d+) projects/g) || []).forEach(t => contagens.add(t.replace(/\D/g, "")));
-const PALAVRAS = { oito: "8", eight: "8", nove: "9", nine: "9", dez: "10", ten: "10", sete: "7", seven: "7" };
-for (const [, s] of conteudo) {
-  const m = s.match(/(Oito|Eight|Nove|Nine|Dez|Ten|Sete|Seven) (?:sistemas entregues|systems delivered)/i);
-  if (m) contagens.add(PALAVRAS[m[1].toLowerCase()] || m[1]);
+/* Por extenso e em algarismo, todas as ocorrências de cada página: escrever
+   "8 sistemas entregues" é a forma mais natural, e antes ela escapava inteira
+   da checagem. Vai de um a vinte porque acima disso ninguém escreve por
+   extenso. */
+const PALAVRAS = {
+  um: 1, one: 1, dois: 2, two: 2, tres: 3, três: 3, three: 3, quatro: 4, four: 4,
+  cinco: 5, five: 5, seis: 6, six: 6, sete: 7, seven: 7, oito: 8, eight: 8,
+  nove: 9, nine: 9, dez: 10, ten: 10, onze: 11, eleven: 11, doze: 12, twelve: 12,
+  treze: 13, thirteen: 13, quatorze: 14, catorze: 14, fourteen: 14, quinze: 15,
+  fifteen: 15, dezesseis: 16, sixteen: 16, dezessete: 17, seventeen: 17,
+  dezoito: 18, eighteen: 18, dezenove: 19, nineteen: 19, vinte: 20, twenty: 20,
+};
+const CONTAGEM = /([A-Za-zÀ-ÿ]+|\d+)\s+(?:sistemas? entregues?|systems? delivered)/gi;
+for (const [p, s] of conteudo) {
+  let m; CONTAGEM.lastIndex = 0;
+  while ((m = CONTAGEM.exec(s))) {
+    const bruto = m[1].toLowerCase();
+    const n = /^\d+$/.test(bruto) ? Number(bruto) : PALAVRAS[bruto];
+    if (n === undefined) {
+      aviso("projetos", rel(p) + ': achei "' + m[0].trim() + '" e não sei ler esse número. Confira à mão.');
+      continue;
+    }
+    contagens.add(String(n));
+  }
 }
 if (contagens.size > 1) {
   erro("projetos", "a quantidade de projetos entregues está escrita de formas diferentes: " + [...contagens].join(", ")
@@ -108,6 +128,23 @@ const CHAMADA_ERRADA = /(?<!\$)\$\([^)]*\)\.(map|forEach|filter|slice|some|every
       erro("animacao", "a lista de html[data-anim] em site.css não bate com SEL_ENTRADA mais SEL_REVELA em site.js.\n"
         + "        css: " + noCss + "\n        js : " + noJs);
     }
+  }
+}
+
+/* 3c-bis. O ponto de corte da tela larga está escrito no CSS, na @media do
+   leque, e no JavaScript, em CONSULTA_LARGA. Se os dois divergirem, o CSS
+   entra em modo leque enquanto o JavaScript continua em modo carrossel, e
+   ninguém junta os dois até alguém recarregar a página. */
+{
+  const cssTexto = fs.readFileSync(path.join(DOCS, "assets", "css", "site.css"), "utf8");
+  const noJs = (js.match(/var CONSULTA_LARGA = "([^"]+)"/) || [])[1];
+  const noCss = (cssTexto.match(/@media \(min-width: \d+px\) and \(hover: hover\) \{\s*\n\s*\.leque \{/) || [])[0];
+  const consultaCss = noCss ? noCss.match(/\(min-width: \d+px\) and \(hover: hover\)/)[0] : null;
+  if (!noJs) erro("animacao", "não achei CONSULTA_LARGA em site.js.");
+  else if (!consultaCss) erro("animacao", "não achei a @media do leque em site.css.");
+  else if (noJs !== consultaCss) {
+    erro("animacao", "o ponto de corte da tela larga difere entre os dois arquivos.\n"
+      + "        css: " + consultaCss + "\n        js : " + noJs);
   }
 }
 
@@ -224,8 +261,10 @@ if (fs.existsSync(pt) && fs.existsSync(en)) {
    na resposta de um agente de IA. */
 for (const [p, s] of conteudo) {
   if (s.indexOf('class="proj"') < 0) continue;
-  const moldes = (s.match(/<h3>(?:Nome do projeto|Project name)<\/h3>/g) || []).length;
-  const marcados = (s.match(/<article class="proj" data-exemplo>/g) || []).length;
+  /* Os títulos que o molde de tools/capas-de-projeto.md pode deixar para trás.
+     Quem cola o molde e esquece de preencher cai aqui. */
+  const moldes = (s.match(/<h3>(?:Nome do projeto|Project name|Nome ou apelido do sistema|Project name or nickname)<\/h3>/g) || []).length;
+  const marcados = (s.match(/<article class="proj"[^>]*\bdata-exemplo\b/g) || []).length;
   if (moldes > marcados) {
     erro("projetos", rel(p) + " tem " + moldes + " card(s) com título de molde e só " + marcados
       + " com data-exemplo. Card sem o atributo é devolvido a agente de IA como projeto entregue.");

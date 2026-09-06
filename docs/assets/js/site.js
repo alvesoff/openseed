@@ -293,7 +293,10 @@
      reduzido, tudo já está visível. Os estados iniciais só são aplicados no
      instante em que a animação correspondente é criada. */
   var semMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var telaLarga = window.matchMedia("(min-width: 1000px) and (hover: hover)").matches;
+  /* Este texto tem que ser igual ao da @media do leque em site.css.
+     tools/conferir.js compara os dois. */
+  var CONSULTA_LARGA = "(min-width: 1000px) and (hover: hover)";
+  var telaLarga = window.matchMedia(CONSULTA_LARGA).matches;
 
   /* Estas duas listas existem também em site.css, na regra html[data-anim],
      que esconde os mesmos elementos antes da primeira pintura para o conteúdo
@@ -351,6 +354,12 @@
       duration: .85, ease: "back.out(1.3)", stagger: { each: .06, from: telaLarga ? "center" : "start" }
     }, .85);
 
+  /* ScrollTrigger é um segundo <script>, com o próprio resumo de integridade:
+     dá para o gsap chegar e ele não. Sem esta guarda a linha abaixo lançaria
+     ReferenceError e nada depois dela rodaria, inclusive o liberar() que tira
+     o esconde-esconde do CSS. A página ficaria em branco até o tempo limite. */
+  if (!window.ScrollTrigger) { liberar(); return; }
+
   gsap.registerPlugin(ScrollTrigger);
   /* Sem isto, a barra de endereço do Safari e do Chrome no celular, que
      aparece e some ao rolar, dispara um recálculo a cada gesto. */
@@ -389,65 +398,105 @@
 
   /* Daqui para baixo, só tela larga com mouse: leque que abre na rolagem,
      inclinação 3D no card e parallax do ponteiro. Nada disso tem equivalente
-     no toque, e no celular seria peso sem ganho. */
-  if (!telaLarga) return;
+     no toque, e no celular seria peso sem ganho.
 
-  var meio = (cards.length - 1) / 2;
-  var aberturaLeque = 0;
-  var giroAtual = function (card) {
-    return parseFloat(card.getAttribute("data-giro")) + (cards.indexOf(card) - meio) * 5 * aberturaLeque;
-  };
+     gsap.matchMedia monta quando a consulta passa a valer e desmonta quando
+     deixa de valer, revertendo sozinho o que o GSAP pôs. Sem ele, ampliar a
+     janela de 900 para 1200 deixava o CSS em modo leque e o JavaScript em modo
+     carrossel, sem nada para juntar os dois até alguém recarregar a página. */
+  gsap.matchMedia().add(CONSULTA_LARGA, function () {
+    var meio = (cards.length - 1) / 2;
+    var aberturaLeque = 0;
+    var alvoLeque = 0;
 
-  /* Parallax de mouse em translate, propriedade separada do transform que o
-     GSAP controla, para os dois não brigarem. */
-  var hero = $("#hero");
-  var mx = 0, my = 0, tx = 0, ty = 0;
-  hero.addEventListener("mousemove", function (e) {
-    var r = hero.getBoundingClientRect();
-    mx = ((e.clientX - r.left) / r.width - .5) * 2;
-    my = ((e.clientY - r.top) / r.height - .5) * 2;
-  });
-  hero.addEventListener("mouseleave", function () { mx = 0; my = 0; });
-  (function parallax() {
-    /* Parado é parado: sem esta saída o laço reescrevia translate nos cinco
-       cards a cada quadro, com o mouse imóvel. */
-    if (Math.abs(mx - tx) > .0005 || Math.abs(my - ty) > .0005) {
-      tx += (mx - tx) * .05; ty += (my - ty) * .05;
-      cards.forEach(function (card) {
-        var d = parseFloat(card.getAttribute("data-depth")) || 8;
-        card.style.translate = (tx * d).toFixed(2) + "px " + (ty * d * .5).toFixed(2) + "px";
+    /* data-giro e data-depth são escritos uma vez e não mudam mais. Ler o
+       atributo e converter para número a cada quadro, cinco vezes por laço,
+       é trabalho jogado fora. */
+    var giro = cards.map(function (c) { return parseFloat(c.getAttribute("data-giro")) || 0; });
+    var fundo = cards.map(function (c) { return parseFloat(c.getAttribute("data-depth")) || 8; });
+
+    /* Card com o ponteiro em cima tem a rotação controlada pelo tween de
+       saída. O leque não escreve rotação nesses: gsap.set não é tween, então
+       overwrite não o cancela, e ele atropelaria a volta elástica quadro a
+       quadro. */
+    var ocupado = cards.map(function () { return false; });
+
+    var hero = $("#hero");
+    var mx = 0, my = 0, tx = 0, ty = 0;
+    var aoMoverNoHero = function (e) {
+      var r = hero.getBoundingClientRect();
+      mx = ((e.clientX - r.left) / r.width - .5) * 2;
+      my = ((e.clientY - r.top) / r.height - .5) * 2;
+    };
+    var aoSairDoHero = function () { mx = 0; my = 0; };
+    hero.addEventListener("mousemove", aoMoverNoHero);
+    hero.addEventListener("mouseleave", aoSairDoHero);
+
+    var ouvintes = cards.map(function (card, i) {
+      var entrar = function (e) {
+        ocupado[i] = true;
+        var r = card.getBoundingClientRect();
+        gsap.to(card, {
+          rotateX: -((e.clientY - r.top) / r.height - .5) * 14,
+          rotateY: ((e.clientX - r.left) / r.width - .5) * 14,
+          scale: 1.09, zIndex: 20, duration: .4, ease: "power2.out",
+          transformPerspective: 700, overwrite: "auto"
+        });
+      };
+      var sair = function () {
+        gsap.to(card, {
+          rotateX: 0, rotateY: 0, scale: 1, zIndex: "auto",
+          rotation: giro[i] + (i - meio) * 5 * aberturaLeque,
+          duration: .7, ease: "elastic.out(1, .6)", overwrite: "auto",
+          onComplete: function () { ocupado[i] = false; }
+        });
+      };
+      card.addEventListener("mousemove", entrar);
+      card.addEventListener("mouseleave", sair);
+      return { card: card, entrar: entrar, sair: sair };
+    });
+
+    /* Sem animação anexada, scrub não faria nada: a abertura vem do progresso
+       cru, suavizada na mão para não pular com roda de mouse grossa. */
+    ScrollTrigger.create({
+      trigger: ".hero", start: "top top", end: "bottom top",
+      onUpdate: function (self) { alvoLeque = self.progress; }
+    });
+
+    /* Um condutor de quadros só, o do próprio GSAP, em vez de um
+       requestAnimationFrame paralelo rodando a vida inteira em separado.
+       Cada metade sai cedo quando não tem o que fazer. */
+    var porQuadro = function () {
+      if (Math.abs(mx - tx) > .0005 || Math.abs(my - ty) > .0005) {
+        tx += (mx - tx) * .05;
+        ty += (my - ty) * .05;
+        for (var i = 0; i < cards.length; i++) {
+          cards[i].style.translate = (tx * fundo[i]).toFixed(2) + "px " + (ty * fundo[i] * .5).toFixed(2) + "px";
+        }
+      }
+      if (Math.abs(alvoLeque - aberturaLeque) < .0005) return;
+      aberturaLeque += (alvoLeque - aberturaLeque) * .12;
+      for (var j = 0; j < cards.length; j++) {
+        var dist = j - meio;
+        var estado = { x: dist * 64 * aberturaLeque, y: (26 - Math.abs(dist) * 11) * aberturaLeque };
+        if (!ocupado[j]) estado.rotation = giro[j] + dist * 5 * aberturaLeque;
+        gsap.set(cards[j], estado);
+      }
+    };
+    gsap.ticker.add(porQuadro);
+
+    /* Devolvido ao sair da consulta. O GSAP reverte os tweens e o
+       ScrollTrigger criados aqui dentro; ouvinte de evento e style inline
+       escrito na mão ficam por nossa conta. */
+    return function () {
+      gsap.ticker.remove(porQuadro);
+      hero.removeEventListener("mousemove", aoMoverNoHero);
+      hero.removeEventListener("mouseleave", aoSairDoHero);
+      ouvintes.forEach(function (o) {
+        o.card.removeEventListener("mousemove", o.entrar);
+        o.card.removeEventListener("mouseleave", o.sair);
+        o.card.style.translate = "";
       });
-    }
-    requestAnimationFrame(parallax);
-  })();
-
-  cards.forEach(function (card) {
-    card.addEventListener("mousemove", function (e) {
-      var r = card.getBoundingClientRect();
-      gsap.to(card, {
-        rotateX: -((e.clientY - r.top) / r.height - .5) * 14, rotateY: ((e.clientX - r.left) / r.width - .5) * 14,
-        scale: 1.09, zIndex: 20, duration: .4, ease: "power2.out", transformPerspective: 700, overwrite: "auto"
-      });
-    });
-    card.addEventListener("mouseleave", function () {
-      gsap.to(card, { rotateX: 0, rotateY: 0, scale: 1, zIndex: "auto", rotation: giroAtual(card), duration: .7, ease: "elastic.out(1, .6)", overwrite: "auto" });
-    });
+    };
   });
-
-  /* Sem animação anexada, scrub não faria nada: a abertura vem do progresso
-     cru, suavizada aqui na mão para não pular com roda de mouse grossa. */
-  var alvoLeque = 0;
-  ScrollTrigger.create({
-    trigger: ".hero", start: "top top", end: "bottom top",
-    onUpdate: function (self) { alvoLeque = self.progress; }
-  });
-  gsap.ticker.add(function () {
-    if (Math.abs(alvoLeque - aberturaLeque) < .0005) return;
-    aberturaLeque += (alvoLeque - aberturaLeque) * .12;
-    cards.forEach(function (card, i) {
-      var dist = i - meio;
-      gsap.set(card, { x: dist * 64 * aberturaLeque, y: (26 - Math.abs(dist) * 11) * aberturaLeque, rotation: parseFloat(card.getAttribute("data-giro")) + dist * 5 * aberturaLeque });
-    });
-  });
-
 })();

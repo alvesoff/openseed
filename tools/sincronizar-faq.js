@@ -16,9 +16,14 @@ const paginas = [
   path.join(__dirname, "..", "docs", "en", "index.html"),
 ];
 
-// O HTML aqui é escrito à mão e bem formado, então extrair por expressão
-// regular é seguro. Se um dia virar template gerado, troque por um parser.
-const BLOCO = /<details data-assunto="([^"]+)">\s*<summary>([\s\S]*?)<\/summary>\s*<p>([\s\S]*?)<\/p>\s*<\/details>/g;
+// Em dois passos, de propósito. A primeira versão casava a pergunta inteira
+// numa expressão só, o que exigia data-assunto como único atributo e um <p>
+// exatamente antes de </details>. Escrever <details open data-assunto="x"> ou
+// dar duas frases de resposta fazia a pergunta sumir do JSON-LD sem avisar.
+const DETALHE = /<details\b([^>]*)>([\s\S]*?)<\/details>/g;
+const ASSUNTO = /data-assunto="([^"]+)"/;
+const SUMARIO = /<summary>([\s\S]*?)<\/summary>/;
+const PARAGRAFO = /<p\b[^>]*>([\s\S]*?)<\/p>/g;
 
 function texto(html) {
   return html
@@ -43,11 +48,26 @@ for (const arq of paginas) {
 
   const visiveis = [];
   let m;
-  BLOCO.lastIndex = 0;
-  while ((m = BLOCO.exec(s))) {
-    visiveis.push({ assunto: m[1], pergunta: texto(m[2]), resposta: texto(m[3]) });
+  DETALHE.lastIndex = 0;
+  while ((m = DETALHE.exec(s))) {
+    const atributos = m[1], dentro = m[2];
+    const assunto = (atributos.match(ASSUNTO) || [])[1];
+    if (!assunto) {
+      console.error("um <details> desta página não tem data-assunto: " + arq
+        + "\n  " + dentro.trim().slice(0, 90).replace(/\s+/g, " ")
+        + "\n  Sem o atributo ele fica de fora do JSON-LD e da ferramenta de IA.");
+      process.exit(1);
+    }
+    const sumario = (dentro.match(SUMARIO) || [])[1];
+    if (!sumario) { console.error("<details data-assunto=\"" + assunto + "\"> sem <summary> em " + arq); process.exit(1); }
+    // Resposta com mais de um parágrafo vira um texto só, separado por espaço.
+    const partes = [];
+    let p; PARAGRAFO.lastIndex = 0;
+    while ((p = PARAGRAFO.exec(dentro))) partes.push(texto(p[1]));
+    if (!partes.length) { console.error("<details data-assunto=\"" + assunto + "\"> sem <p> de resposta em " + arq); process.exit(1); }
+    visiveis.push({ assunto: assunto, pergunta: texto(sumario), resposta: partes.join(" ") });
   }
-  if (!visiveis.length) { console.error("sem <details data-assunto> em " + arq); process.exit(1); }
+  if (!visiveis.length) { console.error("sem <details> em " + arq); process.exit(1); }
 
   const abre = s.indexOf('<script type="application/ld+json">');
   const fecha = s.indexOf("</script>", abre);

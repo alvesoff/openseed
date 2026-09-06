@@ -12,14 +12,13 @@ São três passos, e nenhum é opcional:
 
 1. Salve o arquivo em `docs/assets/img/cases/`, com o nome `01.png`, `02.png`,
    `03.png`, na mesma ordem dos cards da página.
-2. Abra `docs/index.html`, ache o card correspondente e tire a linha `<img ...>`
-   de dentro do comentário. As tags nascem comentadas para o site não pedir um
-   arquivo que ainda não existe.
+2. Abra `docs/index.html` e cole o molde do fim deste arquivo dentro de
+   `<div class="proj-grid">`, apontando o `src` para o arquivo que você salvou.
 3. Repita em `docs/en/index.html`, com o `alt` em inglês.
 
-Ao descomentar, troque o texto do `alt`, que descreve a tela para quem usa leitor
-de tela. Algo como `alt="Painel de pedidos do sistema, com a lista do dia"`.
-Descreva o que a tela mostra, não o fato de ser uma imagem.
+Escreva um `alt` que descreva a tela para quem usa leitor de tela. Algo como
+`alt="Painel de pedidos do sistema, com a lista do dia"`. Descreva o que a tela
+mostra, não o fato de ser uma imagem.
 
 ## Quando o card deixa de ser molde
 
@@ -37,9 +36,9 @@ não basta.
 - Até 300 KB por imagem. PNG para tela de sistema, JPG para foto.
 - Sem dado sensível de cliente na tela: nome real, documento, valor, telefone.
 
-Enquanto a linha continuar comentada, o card mostra a capa tipográfica com a
-inicial. Se você descomentar e o arquivo não existir, aí sim aparece o ícone de
-imagem quebrada, então os passos andam juntos.
+Sem a tag `<img>`, o card mostra a capa tipográfica com a inicial. Com a tag
+apontando para arquivo que não existe, aparece o ícone de imagem quebrada, então
+salvar o arquivo e escrever o `src` andam juntos.
 
 ---
 
@@ -48,8 +47,13 @@ imagem quebrada, então os passos andam juntos.
 Cole dentro de `<div class="proj-grid">`, em `docs/index.html` e em
 `docs/en/index.html`. Um bloco por projeto.
 
+O molde **nasce com `data-exemplo`**, e é assim que tem que ser: se você colar e
+esquecer de preencher, a ferramenta de IA não devolve o card como projeto entregue,
+e o `node tools/conferir.js` avisa que sobrou um molde. Apague o atributo na hora
+em que o card virar projeto de verdade.
+
 ```html
-<article class="proj">
+<article class="proj" data-exemplo>
   <div class="proj-capa">
     <span class="selo">Sistema interno</span>
     <span class="inicial" aria-hidden="true">S</span>
