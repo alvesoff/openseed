@@ -23,6 +23,7 @@ openseed/
 │   ├── assets/
 │   │   ├── css/site.css       estilo das duas landings
 │   │   ├── js/site.js         comportamento das duas landings
+│   │   ├── marca/            marca em SVG e PNG, mais o pacote para baixar
 │   │   └── img/
 │   │       ├── og-image.png   imagem de compartilhamento (1200x630)
 │   │       ├── cases/         prints dos projetos, ver tools/capas-de-projeto.md
@@ -38,6 +39,8 @@ openseed/
 │   ├── conferir.js            roda as regras do site antes do PR
 │   ├── sincronizar-faq.js     escreve o FAQ do JSON-LD a partir da tela
 │   ├── grafico-manifesto.js   dados e traçado do gráfico do manifesto
+│   ├── empacotar-marca.js     monta o zip da marca a partir da pasta
+│   ├── instagram.html         template da foto de perfil, com prova em círculo
 │   ├── og-image.html          template da imagem de compartilhamento
 │   ├── icons.html             template dos ícones
 │   ├── capas-de-projeto.md    como publicar o print de um projeto
@@ -93,12 +96,13 @@ Para parar, `Ctrl+C`.
 node tools/conferir.js
 ```
 
-Doze regras que ninguém guarda de cabeça: FAQ visível contra JSON-LD, número de
+Treze regras que ninguém guarda de cabeça: FAQ visível contra JSON-LD, número de
 WhatsApp igual em toda parte, contagem de projetos coerente, `$` usado onde só `$$`
 funciona, a lista de `html[data-anim]` batendo com a do JavaScript, arquivo de
 trabalho dentro de `docs/`, sitemap nos dois sentidos, link e caminho de imagem
 quebrados, canonical apontando para a própria página, `hreflang` recíproco, card de
-exemplo marcado e o traçado do gráfico do manifesto contra os dados que o geram.
+exemplo marcado, o traçado do gráfico do manifesto contra os dados que o geram e o
+pacote da marca contra os arquivos da pasta dela.
 Sai com erro e diz o arquivo. Cada checagem está lá porque o erro correspondente já
 aconteceu neste repositório.
 
@@ -160,6 +164,47 @@ O atributo `data-assunto` de cada `<details>` é o que a ferramenta de IA usa pa
 a resposta certa. Se criar uma pergunta nova, escolha um `data-assunto` e acrescente ao
 `enum` da ferramenta `openseed_responder_duvida_comum`, em `docs/assets/js/site.js`.
 
+### Mexer na marca
+
+Os arquivos ficam em `docs/assets/marca/` e estão no ar:
+
+| arquivo | quando usar |
+| --- | --- |
+| `openseed-marca.svg` | fundo escuro, cores da marca |
+| `openseed-marca-preta.svg` | fundo claro |
+| `openseed-marca-branca.svg` | fundo colorido ou foto |
+| `openseed-marca-*-1024.png`, `-2048.png` | quando o destino não aceita SVG |
+| `openseed-instagram-perfil.png` | foto de perfil do Instagram, 1080 x 1080 |
+| `openseed-marca.zip` | o pacote completo, com um LEIA-ME dentro |
+
+**Por que existe um zip.** O GitHub Pages não deixa mandar
+`Content-Disposition`, então um SVG ou um PNG **abre** no navegador em vez de
+baixar. Com `.zip` o navegador baixa, porque não sabe exibir. É a única forma de
+ter um link que baixa num site estático, e é por isso que `.zip` aparece na lista
+de extensões permitidas dentro de `docs/`.
+
+**O texto já está em contorno.** As letras não são `<text>`: são caminhos
+vetoriais extraídos da Outfit Black, então os arquivos não dependem de a fonte
+estar instalada em lugar nenhum. A geometria foi conferida contra o que o
+navegador pinta no site, e bate dentro de um pixel.
+
+**A foto de perfil sai de `/tools/instagram.html`**, que já traz o círculo do
+recorte como guia e mostra a prova nos três tamanhos em que o Instagram exibe a
+foto: 110 px no perfil, 56 nos stories e 32 no comentário. A marca ocupa 76% da
+largura, e não mais: o Instagram recorta em círculo, os cantos somem, e com
+story ativo ele desenha um anel em volta e encolhe a imagem. Apague a classe
+`guia` antes de fotografar.
+
+Acrescentou ou trocou uma variante? Refaça o pacote, senão quem baixar leva um zip
+incompleto:
+
+```bash
+node tools/empacotar-marca.js              # refaz o zip
+node tools/empacotar-marca.js --conferir   # só compara
+```
+
+`node tools/conferir.js` chama esse `--conferir` sozinho.
+
 ### Mexer no gráfico do manifesto
 
 O traçado das duas linhas é um bezier de 24 pontos de controle escrito no atributo
@@ -178,22 +223,24 @@ recorte do estudo. `node tools/conferir.js` chama esse `--conferir` sozinho.
 ### Gerar a imagem de compartilhamento e os ícones
 
 Os templates são páginas HTML que você fotografa. `tools/serve.js` publica só
-`docs/`, então sirva `tools/` à parte, numa porta qualquer:
+`docs/`, então sirva a **raiz do repositório** à parte, numa porta qualquer:
 
 ```bash
-npx --yes serve tools -l 8901
+npx --yes serve . -l 8901
 ```
 
-**Não abra por `file://`.** A fonte Outfit vem do Google Fonts e não carrega nesse
-protocolo; a imagem sai com a fonte errada e ninguém percebe até estar no ar.
+**Tem que ser a raiz, não a pasta `tools/`.** O template do Instagram lê o SVG da
+marca lá em `docs/`; servindo só `tools/` a página abre em branco. E **não abra por
+`file://`**: a fonte Outfit vem do Google Fonts e não carrega nesse protocolo, então
+a imagem sai com a fonte errada e ninguém percebe até estar no ar.
 
-1. Abra <http://127.0.0.1:8901/og-image.html> e espere `document.fonts.ready`
+1. Abra <http://127.0.0.1:8901/tools/og-image.html> e espere `document.fonts.ready`
    resolver, mais um segundo de folga.
 2. Fotografe o elemento `#og` e salve em `docs/assets/img/og-image.png`. Repita com
    `#og-en` para `og-image-en.png`.
 3. **Confira o tamanho: tem que dar exatamente 1200 por 630.** Se vier maior, alguém
    tirou o `box-sizing: border-box` do template e o padding virou tamanho.
-4. Os ícones saem de `icons.html` do mesmo jeito, cada bloco com o nome do atributo
+4. Os ícones saem de `/tools/icons.html` do mesmo jeito, cada bloco com o nome do atributo
    `data-arquivo`, dentro de `docs/assets/img/icons/`.
 5. O `favicon.svg` é desenhado à mão, não sai de template. O `favicon-32.png` é ele
    rasterizado: se mudar um, refaça o outro. O SVG precisa começar no caractere `<`,
