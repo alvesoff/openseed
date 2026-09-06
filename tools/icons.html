@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Ícones da marca (template)</title>
+<!-- Template dos ícones de docs/assets/img/icons/. Não é página do site.
+
+     Receita que funciona:
+     1. Sirva a pasta tools/ numa porta qualquer. Abrir por file:// não
+        carrega a fonte do Google e o ícone sai com a fonte errada.
+     2. Espere document.fonts.ready resolver, mais um segundo de folga.
+     3. Fotografe cada .tile pelo id e salve com o nome do data-arquivo.
+        Confira o tamanho do arquivo gerado: tem que bater com o do bloco.
+
+     Duas coisas que já deram errado aqui e não podem voltar:
+
+     - NADA de border-radius no tile. A primeira versão tinha raio de 96px, e
+       a foto de elemento capturou o fundo da página nos quatro cantos: o
+       ícone foi para o ar com cunhas cinza em volta. Quem arredonda é o
+       sistema operacional, não a gente. Por garantia, o fundo desta página é
+       a mesma cor do tile: se sobrar borda, ela é invisível.
+     - A arte tem que caber na zona de segurança do ícone mascarável, que é o
+       círculo central de 80% do lado. Fora dela o Android corta, e cortaria
+       justo o nome da marca. Por isso o lockup do 512 é bem menor do que a
+       caixa. O guia tracejado mostra onde o corte pode chegar: apague a
+       classe "guia" antes de fotografar. -->
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@900&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #0a0a0a; display: flex; flex-wrap: wrap; align-items: flex-start; gap: 48px; padding: 48px; font-family: "Outfit", sans-serif; }
+  .tile { background: #0a0a0a; color: #f4f4f0; display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden; position: relative; }
+  .wm { font-weight: 900; text-transform: uppercase; letter-spacing: -.05em; line-height: .82; text-align: center; }
+  .wm .open { display: block; color: #c6f24e; letter-spacing: .14em; font-size: .42em; line-height: 1; margin-bottom: .12em; }
+
+  /* 512: ícone do manifest e do Android, declarado "any maskable".
+     Em 112px o lockup mede cerca de 270px de largura, dentro do círculo de
+     segurança de 409px de diâmetro. */
+  #i512 { width: 512px; height: 512px; }
+  #i512 .wm { font-size: 112px; }
+
+  /* 180: apple-touch-icon. O iOS arredonda os cantos mas não mascara em
+     círculo, então dá para usar mais da caixa. */
+  #i180 { width: 180px; height: 180px; }
+  #i180 .wm { font-size: 50px; }
+
+  /* O favicon de 32 e 16 sai de docs/assets/img/icons/favicon.svg,
+     rasterizado. Não se redesenha aqui, senão os dois divergem. */
+
+  .guia::after {
+    content: ""; position: absolute; inset: 10%;
+    border: 1px dashed rgba(198, 242, 78, .45); border-radius: 50%;
+  }
+  figure { margin: 0; display: grid; gap: 10px; justify-items: center; }
+  figcaption { color: #7e7e77; font: 12px/1.6 ui-monospace, Consolas, monospace; letter-spacing: .08em; }
+</style>
+</head>
+<body>
+  <figure>
+    <div class="tile guia" id="i512" data-arquivo="icon-512.png"><div class="wm"><span class="open">Open</span>Seed</div></div>
+    <figcaption>icon-512.png · tire a classe guia antes de fotografar</figcaption>
+  </figure>
+  <figure>
+    <div class="tile" id="i180" data-arquivo="apple-touch-icon.png"><div class="wm"><span class="open">Open</span>Seed</div></div>
+    <figcaption>apple-touch-icon.png</figcaption>
+  </figure>
+</body>
+</html>

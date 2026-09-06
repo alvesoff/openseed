@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Mapa do site de openseed.com.br.
+  Criou uma página nova? Acrescente aqui, com as duas línguas em xhtml:link,
+  e atualize o <lastmod> dela. Formato AAAA-MM-DD.
+-->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://openseed.com.br/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://openseed.com.br/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://openseed.com.br/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://openseed.com.br/"/>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://openseed.com.br/en/</loc>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://openseed.com.br/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://openseed.com.br/en/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://openseed.com.br/"/>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://openseed.com.br/manifesto.html</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://openseed.com.br/sobre.html</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://openseed.com.br/privacidade.html</loc>
+    <lastmod>2026-09-06</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+</urlset>

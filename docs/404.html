@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Página não encontrada · OpenSeed</title>
+<!-- noindex, e sem Disallow no robots.txt: robô proibido de buscar a página
+     nunca chega a ler esta linha, e o endereço acaba indexado assim mesmo. -->
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0a0a0a">
+
+<link rel="icon" href="/assets/img/icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/icons/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/img/icons/apple-touch-icon.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css">
+<style>
+  /* A página de erro não tem barra de ação fixa, então não precisa da folga
+     que o body reserva para ela. */
+  body { padding-bottom: 0; }
+  .erro { min-height: 100svh; display: grid; align-content: center; gap: 22px; padding: 40px var(--gut); max-width: 1400px; margin: 0 auto; }
+  .erro h1 { font-family: var(--display); font-weight: 900; text-transform: uppercase; font-size: clamp(34px, 10vw, 84px); line-height: .95; letter-spacing: -.04em; padding-bottom: .06em; max-width: 14ch; }
+  .erro h1 .light { color: var(--faint); }
+  .erro > p { font-size: 17px; line-height: 1.6; color: var(--muted); max-width: 48ch; }
+  .erro-acoes { display: grid; gap: 12px; margin-top: 8px; }
+  @media (min-width: 721px) {
+    .erro-acoes { display: flex; }
+    .erro-acoes .btn { width: auto; }
+  }
+</style>
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+
+<main class="erro">
+  <p class="eyebrow"><span class="dot"></span> Erro 404</p>
+  <h1><span class="light">Essa página</span> não existe.</h1>
+  <p>O endereço que você abriu não existe por aqui. Pode ser link antigo, erro de
+    digitação, ou uma página que ainda não plantamos.</p>
+  <div class="erro-acoes">
+    <a class="btn btn-lime" href="/">Voltar ao início</a>
+    <a class="btn btn-ghost" href="/sobre.html">Conhecer a OpenSeed</a>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <a class="wordmark" href="/" aria-label="OpenSeed, página inicial">
+        <span class="open" aria-hidden="true">Open</span>
+        <span class="seed" aria-hidden="true">Seed</span>
+      </a>
+      <nav class="foot-links" aria-label="Rodapé">
+        <a href="/manifesto.html">Manifesto</a>
+        <a href="/sobre.html">Sobre</a>
+        <a href="/privacidade.html">Privacidade</a>
+        <a href="/en/" hreflang="en" lang="en">English</a>
+      </nav>
+    </div>
+    <p class="foot-fine">© 2026 OPENSEED · RIBEIRÃO PRETO, SP</p>
+  </div>
+</footer>
+
+</body>
+</html>

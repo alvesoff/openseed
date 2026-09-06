@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AI software development in Ribeirão Preto, Brazil · OpenSeed</title>
+<meta name="description" content="Custom software, startup MVPs and internal systems from Ribeirão Preto, Brazil. Fixed scope and price before we start, and a reply the same business day.">
+<meta name="theme-color" content="#0a0a0a">
+<!-- O GitHub Pages não deixa mandar cabeçalho, então a política de referência
+     vai na meta. Terceiro (Google Fonts, cdnjs) recebe só a origem, nunca o
+     caminho completo da página que a pessoa está lendo. -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<link rel="canonical" href="https://openseed.com.br/en/">
+<link rel="alternate" hreflang="pt-BR" href="https://openseed.com.br/">
+<link rel="alternate" hreflang="en" href="https://openseed.com.br/en/">
+<link rel="alternate" hreflang="x-default" href="https://openseed.com.br/">
+<meta name="geo.region" content="BR-SP">
+<meta name="geo.placename" content="Ribeirão Preto">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+
+<link rel="icon" href="/assets/img/icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/img/icons/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="/assets/img/icons/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OpenSeed">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="pt_BR">
+<meta property="og:title" content="AI software development in Ribeirão Preto, Brazil · OpenSeed">
+<meta property="og:description" content="Custom software, startup MVPs and internal systems. Fixed scope and price before we start.">
+<meta property="og:url" content="https://openseed.com.br/en/">
+<meta property="og:image" content="https://openseed.com.br/assets/img/og-image-en.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="OpenSeed: your system live in weeks.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="AI software development in Ribeirão Preto, Brazil · OpenSeed">
+<meta name="twitter:description" content="Custom software, startup MVPs and internal systems from Ribeirão Preto, Brazil.">
+<meta name="twitter:image" content="https://openseed.com.br/assets/img/og-image-en.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css">
+
+<!-- Antes da primeira pintura: marca a página para o CSS já nascer com os
+     elementos da entrada escondidos, e só quando a pessoa não pediu menos
+     movimento. Sem isto o conteúdo aparece, o GSAP zera a opacidade quando
+     termina de baixar, e some e volta. O tempo limite é rede de segurança
+     para CDN fora do ar: em 2,5 s a página aparece de qualquer jeito. -->
+<script>
+(function () {
+  try {
+    if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var h = document.documentElement;
+    h.setAttribute("data-anim", "");
+    setTimeout(function () { h.removeAttribute("data-anim"); }, 2500);
+  } catch (e) { /* navegador sem matchMedia: a página nasce visível, que é o certo */ }
+})();
+</script>
+
+
+<!-- Dados estruturados. Sem aggregateRating nem review: não há avaliação
+     publicada, e nota própria é motivo de penalidade. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://openseed.com.br/#site",
+      "url": "https://openseed.com.br/",
+      "name": "OpenSeed",
+      "inLanguage": "pt-BR",
+      "publisher": {
+        "@id": "https://openseed.com.br/#organizacao"
+      }
+    },
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://openseed.com.br/#organizacao",
+      "name": "OpenSeed",
+      "url": "https://openseed.com.br/",
+      "image": "https://openseed.com.br/assets/img/og-image.png",
+      "description": "Software development studio in Ribeirão Preto, Brazil, building with artificial intelligence. Custom software, startup MVPs and internal systems for small businesses.",
+      "email": "contato@openseed.com.br",
+      "telephone": "+5516997052711",
+      "priceRange": "$$",
+      "currenciesAccepted": "BRL",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Ribeirão Preto",
+        "addressRegion": "SP",
+        "addressCountry": "BR"
+      },
+      "areaServed": [
+        {
+          "@type": "City",
+          "name": "Ribeirão Preto"
+        },
+        {
+          "@type": "City",
+          "name": "Sertãozinho"
+        },
+        {
+          "@type": "City",
+          "name": "Cravinhos"
+        },
+        {
+          "@type": "City",
+          "name": "Jardinópolis"
+        },
+        {
+          "@type": "AdministrativeArea",
+          "name": "State of São Paulo"
+        }
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "telephone": "+5516997052711",
+        "email": "contato@openseed.com.br",
+        "availableLanguage": [
+          "pt-BR",
+          "en"
+        ],
+        "areaServed": "BR"
+      },
+      "sameAs": [
+        "https://instagram.com/openseedbr"
+      ],
+      "knowsAbout": [
+        "Custom software development",
+        "Startup MVP",
+        "Internal business systems",
+        "Artificial intelligence automation",
+        "WhatsApp Business API integration"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Development services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Custom software",
+              "serviceType": "Bespoke web system development",
+              "description": "A complete web system, from screen design to deployment, for when no off the shelf tool fits the company process.",
+              "provider": {
+                "@id": "https://openseed.com.br/#organizacao"
+              },
+              "areaServed": {
+                "@type": "City",
+                "name": "Ribeirão Preto"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Startup MVP",
+              "serviceType": "Minimum viable product development",
+              "description": "First version live in 4 to 8 weeks, with what it takes to validate with real users and metrics from day one.",
+              "provider": {
+                "@id": "https://openseed.com.br/#organizacao"
+              },
+              "areaServed": {
+                "@type": "City",
+                "name": "Ribeirão Preto"
+              }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Internal system",
+              "serviceType": "Internal management system development",
+              "description": "Orders, stock, work orders and approvals with history and per role permissions, including data migration and team training.",
+              "provider": {
+                "@id": "https://openseed.com.br/#organizacao"
+              },
+              "areaServed": {
+                "@type": "City",
+                "name": "Ribeirão Preto"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://openseed.com.br/en/#page",
+      "url": "https://openseed.com.br/en/",
+      "name": "AI software development in Ribeirão Preto, Brazil",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://openseed.com.br/#site"
+      },
+      "about": {
+        "@id": "https://openseed.com.br/#organizacao"
+      },
+      "primaryImageOfPage": "https://openseed.com.br/assets/img/og-image-en.png"
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://openseed.com.br/en/#faq",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://openseed.com.br/en/#page"
+      },
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "How much does it cost?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It depends on the scope, which is why the quote is fixed before we start. You describe the problem and we come back within 3 business days with the scope, the timeline and the price."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How long does it take?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "MVP: 4 to 8 weeks. Internal systems depend on the number of workflows. Delivery happens in one week cycles, with a test environment open to you from the start."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Who owns the code in the end?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "You use the system however you want, for as long as you want, with nothing more to pay for that. The source code stays with OpenSeed, who maintains and evolves it. Your data and your domain are yours. Need the source code in your hands? Say so before closing: it changes the shape and the price of the proposal."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Do you work outside Ribeirão Preto?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. In person in Ribeirão Preto, Sertãozinho, Cravinhos and Jardinópolis. Other cities, remote, with the same follow up meetings."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What is AI at the core?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "It means applying AI where it removes manual work: an agent that queries the system and resolves a request, automatic reading of invoices and contracts, plain language search over company data. When a simple script is the better answer, we say so in the proposal."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+<a class="skip" href="#conteudo">Skip to content</a>
+
+<nav class="nav" id="nav" aria-label="Main">
+  <a class="wordmark" href="/en/" aria-label="OpenSeed, home">
+    <span class="open" aria-hidden="true">Open</span>
+    <span class="seed" aria-hidden="true">Seed</span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="#servicos">Services</a></li>
+    <li><a href="#projetos">Work</a></li>
+    <li><a href="#contato">Contact</a></li>
+  </ul>
+
+  <div class="nav-dir">
+    <a class="lang" href="/" hreflang="pt-BR" lang="pt-BR" aria-label="Ver em português">PT</a>
+    <a class="btn btn-lime" data-wa href="https://wa.me/5516997052711?text=Hi!%20I%20came%20from%20the%20OpenSeed%20website.%20I%20have%20a%20process%20that%20runs%20by%20hand%20today%20and%20I%20want%20to%20know%20if%20it%20can%20become%20a%20system." target="_blank" rel="noopener">
+      Tell us on WhatsApp
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
+        <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+      </svg>
+    </a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menuPainel" aria-label="Open menu">
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
+
+  <div class="menu-painel" id="menuPainel" hidden>
+    <ul>
+      <li><a href="#servicos">Services</a></li>
+      <li><a href="#projetos">Work</a></li>
+      <li><a href="#contato">Contact</a></li>
+      <li><a href="/" hreflang="pt-BR" lang="pt-BR">Português</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main id="conteudo" tabindex="-1">
+
+  <!-- ===================== 1. HERO ===================== -->
+  <header class="hero" id="hero">
+    <p class="eyebrow"><span class="dot"></span> AI software · Ribeirão&nbsp;Preto,&nbsp;Brazil</p>
+
+    <h1 id="heroTitulo" aria-label="Your system live in weeks">
+      <span class="line-mask"><span class="light" aria-hidden="true">Your system</span></span>
+      <span class="line-mask"><span aria-hidden="true">live in</span></span>
+      <span class="line-mask"><span class="accent" id="heroPalavra" aria-hidden="true">weeks</span></span>
+    </h1>
+
+    <div class="hero-sub">
+      <p><strong>Custom software</strong>, <strong>startup MVPs</strong> and <strong>internal systems</strong>, with AI at the core.</p>
+      <div class="hero-actions">
+        <a class="btn btn-lime" data-wa href="https://wa.me/5516997052711?text=Hi!%20I%20came%20from%20the%20OpenSeed%20website.%20I%20have%20a%20process%20that%20runs%20by%20hand%20today%20and%20I%20want%20to%20know%20if%20it%20can%20become%20a%20system." target="_blank" rel="noopener">
+          Tell us on WhatsApp
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
+            <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+          </svg>
+        </a>
+        <a class="btn btn-ghost" href="#servicos">How it works</a>
+      </div>
+    </div>
+
+    <ul class="garantias">
+      <li>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Fixed scope and price before we start
+      </li>
+      <li>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        Data migration and team training included
+      </li>
+      <li>
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+        No lock in, no mandatory monthly fee
+      </li>
+    </ul>
+
+    <p class="leque-dica" aria-hidden="true">Swipe to see</p>
+    <ul class="leque" id="leque" tabindex="0" aria-label="What we build: list that scrolls sideways">
+      <li><div class="kard" data-rot="-3" data-depth="14">
+        <span class="tag">From scratch</span>
+        <p class="kard-titulo">Custom software</p>
+      </div></li>
+      <li><div class="kard" data-rot="1.8" data-depth="10">
+        <span class="tag">4 to 8 weeks</span>
+        <p class="kard-titulo">Startup MVP</p>
+      </div></li>
+      <li><div class="kard" data-rot="-1.4" data-depth="8">
+        <span class="tag">Operations</span>
+        <p class="kard-titulo">Internal system</p>
+      </div></li>
+      <li><div class="kard" data-rot="2.4" data-depth="12">
+        <span class="tag">Applied AI</span>
+        <p class="kard-titulo">AI automation</p>
+      </div></li>
+      <li><div class="kard" data-rot="-2" data-depth="9">
+        <span class="tag">Integration</span>
+        <p class="kard-titulo">WhatsApp, ERP and payments</p>
+      </div></li>
+    </ul>
+  </header>
+
+  <!-- ===================== 2. SERVIÇOS ===================== -->
+  <section id="servicos" aria-labelledby="tituloServicos">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <h2 id="tituloServicos">Three ways <br><span class="light">to start</span></h2>
+        </div>
+      </div>
+
+      <div class="svc">
+        <article>
+          <h3>Built for your process</h3>
+          <p>From screen design to deployment, when no off the shelf tool fits.</p>
+          <p class="prazo">Fixed scope · Licence with no time limit</p>
+        </article>
+        <article>
+          <h3>Your startup's first version</h3>
+          <p>The essentials live, with real users using it.</p>
+          <p class="prazo">4 to 8 weeks · Metrics from day one</p>
+        </article>
+        <article>
+          <h3>Your internal system</h3>
+          <p>Orders, stock and approvals with history and an owner.</p>
+          <p class="prazo">Data migration · Team training</p>
+        </article>
+      </div>
+
+      <div class="fluxo" id="fluxo">
+        <span class="fluxo-linha" aria-hidden="true"><i id="fluxoFill"></i></span>
+        <ol>
+          <li>
+            <span class="pip" aria-hidden="true"></span>
+            <h3>Conversation and scope</h3>
+            <p>You describe the problem. We come back with scope, timeline and price.</p>
+            <span class="quando">Within 3 business days</span>
+          </li>
+          <li>
+            <span class="pip" aria-hidden="true"></span>
+            <h3>Prototype and build</h3>
+            <p>Clickable screens before any code, then weekly releases.</p>
+            <span class="quando">One week cycles</span>
+          </li>
+          <li>
+            <span class="pip" aria-hidden="true"></span>
+            <h3>Live and evolving</h3>
+            <p>Deployment, backup, monitoring and your team trained.</p>
+            <span class="quando">End of the agreed timeline</span>
+          </li>
+        </ol>
+      </div>
+
+      <div class="faixa">
+        <div>
+          <h3>AI at the core</h3>
+          <p>Agents that query the system, reading of invoices and contracts, search over your own data with the source cited.</p>
+        </div>
+        <div>
+          <h3>What we build with</h3>
+          <div class="chips">
+            <span>React</span><span>Next.js</span><span>TypeScript</span><span>Node.js</span>
+            <span>Python</span><span>PostgreSQL</span><span>Supabase</span>
+            <span>Anthropic API</span><span>WhatsApp Business API</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 3. PROJETOS =====================
+       To add a project, copy a whole <article class="proj"> block.
+       A capa procura a imagem em /assets/img/cases/. Enquanto a linha da tag
+       de imagem estiver comentada, o card mostra a capa tipográfica.
+       If the project has a public link, swap <article class="proj"> for
+       <a class="proj" href="..." target="_blank" rel="noopener">.
+  -->
+  <section id="projetos" aria-labelledby="tituloProjetos">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow"><span class="dot"></span> Work</p>
+          <h2 id="tituloProjetos">What we have <br><span class="light">put live</span></h2>
+        </div>
+        <p>Eight systems delivered and running in Ribeirão Preto and the surrounding region.</p>
+      </div>
+
+      <!-- The template for a project card, with the step by step, is in
+           tools/capas-de-projeto.md. Paste the cards in here and delete the
+           .proj-vazio block once the grid is full. -->
+      <div class="proj-grid">
+        <div class="proj-vazio">
+          <span>Cases are being prepared</span>
+          <span>Ask for one from your industry on WhatsApp</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== 4. CONTATO ===================== -->
+  <section id="contato" aria-labelledby="tituloContato">
+    <div class="wrap">
+      <div class="cta">
+        <div>
+          <h2 id="tituloContato">Tell us the problem. <br>We say if we can solve it.</h2>
+          <p>If it is not something we do well, we say so right away.</p>
+        </div>
+        <div class="aside">
+          <a class="btn btn-dark" data-wa href="https://wa.me/5516997052711?text=Hi!%20I%20came%20from%20the%20OpenSeed%20website.%20I%20have%20a%20process%20that%20runs%20by%20hand%20today%20and%20I%20want%20to%20know%20if%20it%20can%20become%20a%20system." target="_blank" rel="noopener">
+            Tell us on WhatsApp
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
+              <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+            </svg>
+          </a>
+          <p class="fine">
+            20 minute call · Reply the same business day<br>
+            <a href="tel:+5516997052711">16 99705-2711</a> · <a href="mailto:contato@openseed.com.br">contato@openseed.com.br</a>
+          </p>
+        </div>
+      </div>
+
+      <!-- As mesmas perguntas estão no JSON-LD do cabeçalho. Mexeu aqui,
+           mexa lá também: marcação de FAQ sem o texto visível é spam. -->
+      <div class="faq">
+        <h3>Questions</h3>
+        <details data-assunto="preco">
+          <summary>How much does it cost?</summary>
+          <p>It depends on the scope, which is why the quote is fixed before we start. You describe the problem and we come back within 3 business days with the scope, the timeline and the price.</p>
+        </details>
+        <details data-assunto="prazo">
+          <summary>How long does it take?</summary>
+          <p>MVP: 4 to 8 weeks. Internal systems depend on the number of workflows. Delivery happens in one week cycles, with a test environment open to you from the start.</p>
+        </details>
+        <details data-assunto="codigo">
+          <summary>Who owns the code in the end?</summary>
+          <p>You use the system however you want, for as long as you want, with nothing more to pay for that. The source code stays with OpenSeed, who maintains and evolves it. Your data and your domain are yours. Need the source code in your hands? Say so before closing: it changes the shape and the price of the proposal.</p>
+        </details>
+        <details data-assunto="atendimento">
+          <summary>Do you work outside Ribeirão Preto?</summary>
+          <p>Yes. In person in Ribeirão Preto, Sertãozinho, Cravinhos and Jardinópolis. Other cities, remote, with the same follow up meetings.</p>
+        </details>
+        <details data-assunto="ia">
+          <summary>What is AI at the core?</summary>
+          <p>It means applying AI where it removes manual work: an agent that queries the system and resolves a request, automatic reading of invoices and contracts, plain language search over company data. When a simple script is the better answer, we say so in the proposal.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <a class="wordmark" href="/en/" aria-label="OpenSeed, home">
+        <span class="open" aria-hidden="true">Open</span>
+        <span class="seed" aria-hidden="true">Seed</span>
+      </a>
+      <nav class="foot-links" aria-label="Footer">
+        <a href="/manifesto.html" hreflang="pt-BR" lang="pt-BR">Manifesto</a>
+        <a href="/sobre.html" hreflang="pt-BR" lang="pt-BR">About</a>
+        <a href="https://instagram.com/openseedbr" target="_blank" rel="noopener">Instagram</a>
+        <a href="/privacidade.html" hreflang="pt-BR" lang="pt-BR">Privacy</a>
+        <a href="/" hreflang="pt-BR" lang="pt-BR">Português</a>
+      </nav>
+    </div>
+    <p class="foot-fine">© <span id="ano">2026</span> OPENSEED · RIBEIRÃO PRETO, BRAZIL</p>
+  </div>
+</footer>
+
+<div class="barra-acao">
+  <a class="btn btn-lime" data-wa href="https://wa.me/5516997052711?text=Hi!%20I%20came%20from%20the%20OpenSeed%20website.%20I%20have%20a%20process%20that%20runs%20by%20hand%20today%20and%20I%20want%20to%20know%20if%20it%20can%20become%20a%20system." target="_blank" rel="noopener">
+    Tell us on WhatsApp
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
+      <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+    </svg>
+  </a>
+</div>
+
+<!-- GSAP vem de um servidor que não é nosso. O integrity é o resumo do
+     arquivo esperado: se o cdnjs entregar qualquer outra coisa, o navegador
+     recusa executar em vez de rodar código de estranho na página de quem nos
+     visita. Trocou a versão? Pegue o resumo novo em
+     https://api.cdnjs.com/libraries/gsap/<versão>?fields=sri
+     crossorigin é obrigatório para o integrity valer em recurso de outra
+     origem. Sem GSAP a página funciona igual, só sem movimento. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+        integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+        integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+<!-- onerror é o que evita a página ficar escondida esperando: se este
+     arquivo não chegar, o liberar() nunca roda e o esconde-esconde do CSS só
+     cairia no tempo limite de 2,5 s do cabeçalho. Aqui cai na hora. -->
+<script src="/assets/js/site.js" defer onerror="document.documentElement.removeAttribute('data-anim')"></script>
+</body>
+</html>

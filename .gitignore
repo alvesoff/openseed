@@ -12,3 +12,13 @@ desktop.ini
 .inner.html
 .shot*.png
 preview-*.png
+
+# Assets de trabalho do pivô (refs de terceiros, logo bruta)
+PIVOT/
+
+# Artefatos do navegador de teste
+.playwright-mcp/
+
+# Capturas soltas de verificação
+*.shot.png
+r1-*.png
