@@ -13,40 +13,57 @@ instalar, sem framework. Editar um arquivo e dar `git push` publica.
 
 ```
 openseed/
-├── docs/                    ← isto, e só isto, vai para o ar
-│   ├── index.html           landing em português (página inicial)
-│   ├── en/index.html        a mesma página em inglês
-│   ├── manifesto.html       manifesto da marca, com o gráfico de conteúdo sintético
-│   ├── sobre.html           quem é a OpenSeed e o modelo de trabalho
-│   ├── privacidade.html     política de privacidade
-│   ├── 404.html             página de erro
+├── docs/                      ← isto, e só isto, vai para o ar
+│   ├── index.html             landing em português (página inicial)
+│   ├── en/index.html          a mesma página em inglês
+│   ├── manifesto.html         manifesto da marca, com o gráfico de conteúdo sintético
+│   ├── sobre.html             quem é a OpenSeed e o modelo de trabalho
+│   ├── privacidade.html       política de privacidade
+│   ├── 404.html               página de erro
 │   ├── assets/
-│   │   ├── css/site.css     estilo das duas landings
-│   │   ├── js/site.js       comportamento das duas landings
-│   │   ├── brand/           arquivos originais da marca
+│   │   ├── css/site.css       estilo das duas landings
+│   │   ├── js/site.js         comportamento das duas landings
 │   │   └── img/
-│   │       ├── og-image.png imagem de compartilhamento (1200x630)
-│   │       ├── cases/       prints dos projetos, ver LEIA-ME.md de lá
-│   │       └── icons/       favicon (SVG e PNG) e ícones de aplicativo
-│   ├── CNAME                domínio do GitHub Pages, não apagar
-│   ├── robots.txt           regras de rastreamento, inclui os robôs de IA
-│   ├── sitemap.xml          mapa do site com as duas línguas
-│   ├── llms.txt             resumo do site em texto, para ferramentas de IA
-│   └── site.webmanifest     nome e ícones ao salvar na tela inicial
+│   │       ├── og-image.png   imagem de compartilhamento (1200x630)
+│   │       ├── cases/         prints dos projetos, ver tools/capas-de-projeto.md
+│   │       └── icons/         favicon (SVG e PNG) e ícones de aplicativo
+│   ├── CNAME                  domínio do GitHub Pages, não apagar
+│   ├── robots.txt             regras de rastreamento, inclui os robôs de IA
+│   ├── sitemap.xml            mapa do site com as duas línguas
+│   ├── llms.txt               resumo do site em texto, para ferramentas de IA
+│   └── site.webmanifest       nome e ícones ao salvar na tela inicial
 │
-├── tools/                   ← ferramentas de trabalho, fora do ar
-│   ├── serve.js             servidor local que imita o GitHub Pages
-│   ├── og-image.html        template da imagem de compartilhamento
-│   └── icons.html           template dos ícones
+├── tools/                     ← ferramentas de trabalho, fora do ar
+│   ├── serve.js               servidor local que imita o GitHub Pages
+│   ├── conferir.js            roda as regras do site antes do PR
+│   ├── sincronizar-faq.js     escreve o FAQ do JSON-LD a partir da tela
+│   ├── og-image.html          template da imagem de compartilhamento
+│   ├── icons.html             template dos ícones
+│   ├── capas-de-projeto.md    como publicar o print de um projeto
+│   └── marca/                 arquivos originais da marca
 │
-├── DOMINIO.md               como o domínio está configurado no Registro.br
-└── README.md                este arquivo
+├── DOMINIO.md                 como o domínio está configurado no Registro.br
+└── README.md                  este arquivo
 ```
 
 **Por que `docs/` existe.** Antes, o repositório inteiro ia para o ar, e isso incluía
 templates que não são páginas do site (`og-image.html`, os arquivos de marca).
 Qualquer pessoa conseguia abrir esses HTML soltos no domínio. Agora só `docs/` é
 publicado, e o que é ferramenta fica em `tools/`, inalcançável pela web.
+
+A regra não se defende sozinha, então `node tools/conferir.js` reclama de qualquer
+arquivo dentro de `docs/` que não pareça arquivo de site.
+
+**O GitHub Pages precisa estar apontado para `/docs`.** É configuração de
+repositório, não de código: *Settings → Pages → Source → Deploy from a branch →
+main → /docs*. Pela linha de comando:
+
+```bash
+gh api -X PUT repos/alvesoff/openseed/pages -f "source[branch]=main" -f "source[path]=/docs"
+```
+
+Se um dia o site sair do ar mostrando o README em vez da página, é a primeira coisa
+a conferir.
 
 ---
 
@@ -67,6 +84,22 @@ Para parar, `Ctrl+C`.
 
 ## Tarefas do dia a dia
 
+### Conferir tudo antes de abrir o PR
+
+```bash
+node tools/conferir.js
+```
+
+Nove regras que ninguém guarda de cabeça: FAQ visível contra JSON-LD, número de
+WhatsApp igual em toda parte, contagem de projetos coerente, arquivo de trabalho
+dentro de `docs/`, sitemap nos dois sentidos, caminho de imagem quebrado, canonical
+apontando para a própria página, `hreflang` recíproco e card de exemplo marcado.
+Sai com erro e diz o arquivo. Cada checagem está lá porque o erro correspondente já
+aconteceu neste repositório.
+
+Ele não substitui abrir a página e olhar. Não mede desempenho, não vê layout e não
+lê texto.
+
 ### Publicar um projeto na seção Projetos
 
 1. Salve o print em `docs/assets/img/cases/`, com o nome `01.png`, `02.png`, na mesma
@@ -74,19 +107,27 @@ Para parar, `Ctrl+C`.
 2. Em `docs/index.html`, ache o card e tire a linha `<img ...>` de dentro do comentário.
 3. Troque o texto do `alt` para descrever a tela: quem usa leitor de tela depende dele.
 4. Preencha `<h3>`, a frase do problema e a linha de meta (segmento, ano, tecnologias).
-5. Repita em `docs/en/index.html`, em inglês.
-6. Quando a grade encher, remova o bloco `.proj-vazio`.
+5. **Apague o atributo `data-exemplo` do `<article>`.** Enquanto ele estiver lá, a
+   ferramenta `openseed_listar_projetos` trata o card como molde e não o mostra a
+   nenhum agente de IA. Trocar só o `<h3>` não basta.
+6. Repita em `docs/en/index.html`, em inglês.
+7. Quando a grade encher, remova o bloco `.proj-vazio`.
 
-Detalhes em `docs/assets/img/cases/LEIA-ME.md`.
+Detalhes em `tools/capas-de-projeto.md`.
 
 ### Mudar o número de WhatsApp
 
-Ele aparece em quatro lugares. Trocar nos quatro:
+Ele aparece em dezenove pontos, espalhados por seis arquivos:
 
-- `docs/assets/js/site.js`, constante `WHATSAPP_NUMERO`
-- `docs/index.html` e `docs/en/index.html`, nos `href` dos links `data-wa` e no `telephone` do JSON-LD
+- `docs/assets/js/site.js`, constante `WHATSAPP_NUMERO` e `CONTATO.whatsapp`
+- `docs/index.html` e `docs/en/index.html`: os `href` dos links `data-wa`, o link
+  `tel:` da seção de contato e o `telephone` do JSON-LD, duas vezes em cada página
 - `docs/llms.txt`
-- `docs/sobre.html`, constante `WHATSAPP`
+- `docs/sobre.html` e `docs/privacidade.html`, constante `WHATSAPP`
+
+Não confie nesta lista: troque, rode `node tools/conferir.js` e ele aponta o que ficou
+para trás. Ele normaliza formato, então `16 99705-2711` e `+5516997052711` contam como
+o mesmo número.
 
 Os links já vêm prontos no HTML de propósito, para funcionarem mesmo se o JavaScript
 falhar. O JavaScript só ajusta a mensagem conforme o idioma.
@@ -94,8 +135,19 @@ falhar. O JavaScript só ajusta a mensagem conforme o idioma.
 ### Mexer nas perguntas frequentes
 
 Cada pergunta existe em dois lugares da mesma página: no HTML visível, dentro de
-`<details>`, e no JSON-LD do cabeçalho, no bloco `FAQPage`. **Mexeu em um, mexa no
-outro.** Marcação de FAQ sem o texto correspondente na tela conta como spam para o Google.
+`<details>`, e no JSON-LD do cabeçalho, no bloco `FAQPage`. Marcação de FAQ sem o
+texto correspondente na tela conta como spam para o Google, e manter as duas cópias
+na mão sempre desanda.
+
+Por isso o texto visível é a fonte da verdade e o JSON-LD sai dele:
+
+```bash
+node tools/sincronizar-faq.js              # escreve o JSON-LD a partir da tela
+node tools/sincronizar-faq.js --conferir   # só compara, e mostra o que difere
+```
+
+Edite o `<details>`, rode o script, pronto. Nunca edite o `FAQPage` na mão: na próxima
+sincronização a edição se perde.
 
 O atributo `data-assunto` de cada `<details>` é o que a ferramenta de IA usa para achar
 a resposta certa. Se criar uma pergunta nova, escolha um `data-assunto` e acrescente ao
@@ -243,10 +295,19 @@ a armadilha da validação travada que já aconteceu uma vez.
 
 ## Antes de abrir um PR
 
+```bash
+node tools/conferir.js
+```
+
+Isso cobre sozinho: FAQ contra JSON-LD, sitemap, `hreflang`, canonical, caminho
+quebrado, número de WhatsApp, contagem de projetos, card de exemplo marcado e arquivo
+de trabalho dentro de `docs/`.
+
+O que a máquina não vê, e continua com você:
+
 - [ ] Abriu em 320, 390 e 1440 pixels de largura sem rolagem lateral
 - [ ] Console do navegador sem erro
-- [ ] Mexeu no FAQ visível? Mexeu no JSON-LD também
+- [ ] Desligou o JavaScript e a página continua legível e contatável
+- [ ] Ligou "reduzir movimento" no sistema e nada sumiu da tela
 - [ ] Mexeu no conteúdo? Fez nos dois idiomas
-- [ ] Página nova? Entrou no `sitemap.xml`
 - [ ] Nenhum número ou depoimento que não seja verdade
-- [ ] Nenhum arquivo de trabalho dentro de `docs/`
