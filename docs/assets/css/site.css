@@ -664,7 +664,11 @@ footer .wordmark { font-size: 30px; }
 .prosa ul { list-style: none; margin-top: 16px; display: grid; gap: 10px; }
 .prosa li { padding-left: 20px; position: relative; }
 .prosa li::before { content: "+"; position: absolute; left: 0; color: var(--lime); }
-.prosa a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+/* Padding vertical num elemento em linha cresce a area de toque sem mexer na
+   altura da linha: 21px viram 25px, acima do minimo de 24 do WCAG 2.5.8.
+   A excecao de link dentro de frase se aplicaria de qualquer jeito, mas o
+   polegar nao le a norma. */
+.prosa a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; padding-block: 2px; }
 
 /* Comparação de dois lados. No celular vira uma coluna, e o lado que
    interessa fica embaixo, que é onde o polegar para. */
