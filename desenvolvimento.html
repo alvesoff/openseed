@@ -127,6 +127,14 @@
         },
         {
           "@type": "Question",
+          "name": "De quem é o código depois que o projeto termina?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "O cliente recebe licença de uso do sistema, sem prazo e sem pagamento recorrente por essa licença. O código-fonte permanece com a OpenSeed, que é responsável por manter e evoluir o sistema. Os dados e o domínio são do cliente. Projetos que exigem a entrega do código-fonte são possíveis, com formato e valor combinados antes do fechamento."
+          }
+        },
+        {
+          "@type": "Question",
           "name": "A OpenSeed atende fora de Ribeirão Preto?",
           "acceptedAnswer": {
             "@type": "Answer",
@@ -806,7 +814,7 @@
           <span class="idx">01 / SOB DEMANDA</span>
           <h3>Feito para o seu processo</h3>
           <p>Do desenho da tela ao deploy, para quando nenhuma ferramenta de prateleira resolve.</p>
-          <p class="prazo">Escopo fechado · Orçamento em até 3 dias úteis</p>
+          <p class="prazo">Escopo fechado · Licença de uso sem prazo</p>
         </article>
         <article>
           <span class="idx">02 / MVP</span>
@@ -967,6 +975,10 @@
         <details data-assunto="prazo">
           <summary>Em quanto tempo o sistema fica pronto?</summary>
           <p>Um MVP leva de 4 a 8 semanas. Sistema interno varia conforme a quantidade de fluxos, e a entrega acontece em ciclos de uma semana, com ambiente de teste liberado para você acompanhar desde o começo.</p>
+        </details>
+        <details data-assunto="codigo">
+          <summary>De quem é o código depois que o projeto termina?</summary>
+          <p>O sistema é seu para usar como quiser, pelo tempo que quiser, sem pagar por isso de novo. O código-fonte continua com a OpenSeed, que é quem mantém e evolui. Na prática você recebe o sistema rodando, com os seus dados e o seu domínio; quem mexe no código somos nós. Se o seu caso exigir o código-fonte na sua mão, fale antes de fechar: isso muda o formato e o valor da proposta.</p>
         </details>
         <details data-assunto="atendimento">
           <summary>Vocês atendem fora de Ribeirão Preto?</summary>
@@ -1142,7 +1154,7 @@ const WHATSAPP_MENSAGEM = "Olá! Vim pelo site da OpenSeed e quero falar sobre u
           assunto: {
             type: "string",
             description: "Assunto da dúvida",
-            enum: ["preco", "prazo", "atendimento", "ia", "todas"]
+            enum: ["preco", "prazo", "codigo", "atendimento", "ia", "todas"]
           }
         }
       },

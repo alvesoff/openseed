@@ -11,6 +11,13 @@ quem programa, sem camada de intermediário.
 - Resposta no mesmo dia útil. Primeira conversa de 20 minutos, gratuita e sem compromisso.
 - Sem fidelidade e sem mensalidade obrigatória.
 
+## Licença e propriedade
+
+O cliente recebe licença de uso do sistema, sem prazo e sem pagamento recorrente
+pela licença. O código-fonte permanece com a OpenSeed, que mantém e evolui o
+sistema. Os dados e o domínio são do cliente. Entrega do código-fonte é possível,
+com formato e valor combinados antes do fechamento.
+
 ## Serviços
 
 - Software sob demanda: sistema web completo, do desenho da tela ao deploy, para quando nenhuma ferramenta de prateleira resolve o processo.
