@@ -116,6 +116,24 @@ for (const [p, s] of semComentario) {
   }
 }
 
+/* 6b. Todo link interno leva a uma página que existe.
+   Renomear arquivo e esquecer um link é o erro mais barato de cometer. */
+const LINK = /href="([^"]+)"/g;
+for (const [p, s] of semComentario) {
+  let m; LINK.lastIndex = 0;
+  while ((m = LINK.exec(s))) {
+    const h = m[1];
+    if (/^(https?:|mailto:|tel:|data:|#)/.test(h)) continue;
+    let destino = h.split("#")[0].split("?")[0];
+    if (!destino) continue;
+    let f = destino[0] === "/"
+      ? path.join(DOCS, destino.slice(1).split("/").join(path.sep))
+      : path.join(path.dirname(p), destino.split("/").join(path.sep));
+    if (destino.endsWith("/")) f = path.join(f, "index.html");
+    if (!fs.existsSync(f)) erro("link", rel(p) + " aponta para " + h + ", que não existe.");
+  }
+}
+
 /* 7. Canonical aponta para a própria página. */
 for (const [p, s] of conteudo) {
   if (path.basename(p) === "404.html") continue;

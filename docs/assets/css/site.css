@@ -6,6 +6,15 @@
    Regra geral: o celular é o padrão; a tela larga é a exceção em @media.
    ===================================================================== */
 
+/* Progresso do fio do processo, de 0 a 1. Registrada como número para o
+   navegador interpolar sozinho e para nascer em 1: sem JavaScript, sem GSAP
+   ou com movimento reduzido, o fio aparece cheio em vez de sumir. */
+@property --fluxo-p {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+
 :root {
   --bg: #0a0a0a;
   --bg-2: #101010;
@@ -220,7 +229,10 @@ section[id], main[id], [id^="titulo"] { scroll-margin-top: calc(var(--nav-h) + 1
   scrollbar-width: none; -ms-overflow-style: none;
 }
 .leque::-webkit-scrollbar { display: none; }
-.leque > li { flex: none; scroll-snap-align: start; }
+/* O li vira caixa flexível para o card esticar até a altura do maior da fila.
+   Sem isto, "WhatsApp, ERP e pagamento" quebra em duas linhas e aquele card
+   fica mais alto que os outros quatro, e a fila sai desalinhada. */
+.leque > li { flex: none; scroll-snap-align: start; display: flex; }
 
 .kard {
   width: min(66vw, 230px); min-height: 108px;
@@ -286,7 +298,7 @@ section { position: relative; z-index: 5; }
 .fluxo-linha i {
   display: block; width: 100%; height: 100%;
   background: var(--lime); border-radius: 2px;
-  transform-origin: top;
+  transform: scaleY(var(--fluxo-p, 1)); transform-origin: top;
 }
 .fluxo ol { list-style: none; position: relative; display: grid; gap: 22px; }
 .fluxo li { position: relative; display: flex; flex-direction: column; gap: 6px; padding-left: 30px; }
@@ -501,7 +513,7 @@ footer .wordmark { font-size: 30px; }
     left: 7px; right: calc(33.3333% - (var(--fluxo-gap) * 2 / 3) - 7px);
     top: 21px; bottom: auto; width: auto; height: 2px;
   }
-  .fluxo-linha i { transform-origin: left; }
+  .fluxo-linha i { transform: scaleX(var(--fluxo-p, 1)); transform-origin: left; }
   .fluxo ol { grid-template-columns: repeat(3, 1fr); gap: var(--fluxo-gap); }
   .fluxo li { padding-left: 0; gap: 10px; }
   .fluxo .pip { position: static; margin: 15px 0 6px; }
@@ -565,8 +577,89 @@ footer .wordmark { font-size: 30px; }
 }
 .proj:focus-visible { border-color: var(--line-2); }
 
+/* =====================================================================
+   PÁGINAS INTERNAS
+
+   Sobre, manifesto e privacidade. Mesmos tokens da landing, muito menos
+   peça: aqui a pessoa veio ler, não veio ser convencida. Sem hero de tela
+   cheia, sem leque de cards, sem animação de entrada.
+   ===================================================================== */
+.pagina { padding-top: calc(var(--nav-h) + 34px); }
+
+.pagina-topo { padding-bottom: 40px; }
+.pagina-topo h1 {
+  font-family: var(--display); font-weight: 900; text-transform: uppercase;
+  font-size: clamp(30px, 8.5vw, 62px); line-height: .96; letter-spacing: -.04em;
+  margin-top: 14px; padding-bottom: .06em; max-width: 18ch;
+}
+.pagina-topo h1 .light { color: var(--faint); }
+.pagina-topo > p {
+  margin-top: 18px; font-size: 17px; line-height: 1.6;
+  color: var(--muted); max-width: 52ch;
+}
+
+/* Cada bloco começa com um fio, que é a única divisória de que a página
+   precisa. Título pequeno, para não competir com o h1. */
+.bloco { padding: 40px 0; border-top: 1px solid var(--line); }
+.bloco > h2 {
+  font-family: var(--display); font-weight: 900; text-transform: uppercase;
+  font-size: clamp(24px, 5.5vw, 38px); line-height: 1; letter-spacing: -.035em;
+  padding-bottom: .06em; max-width: 20ch;
+}
+.bloco > h2 + p { margin-top: 14px; }
+.bloco p { font-size: 16px; line-height: 1.65; color: var(--muted); max-width: 62ch; }
+.bloco p + p { margin-top: 14px; }
+.bloco p strong { color: var(--ink); font-weight: 600; }
+.bloco .chips { margin-top: 22px; }
+
+/* Coluna de leitura corrida, para a privacidade e o que mais vier. */
+.prosa { max-width: 68ch; }
+.prosa h2 {
+  font-family: var(--display); font-weight: 900; text-transform: uppercase;
+  font-size: clamp(21px, 4.5vw, 28px); line-height: 1.05; letter-spacing: -.03em;
+  margin-top: 40px; padding-bottom: .06em;
+}
+.prosa h2:first-child { margin-top: 0; }
+.prosa p, .prosa li { font-size: 16px; line-height: 1.7; color: var(--muted); }
+.prosa p { margin-top: 14px; }
+.prosa strong { color: var(--ink); font-weight: 600; }
+.prosa ul { list-style: none; margin-top: 16px; display: grid; gap: 10px; }
+.prosa li { padding-left: 20px; position: relative; }
+.prosa li::before { content: "+"; position: absolute; left: 0; color: var(--lime); }
+.prosa a { color: var(--ink); text-decoration: underline; text-underline-offset: 3px; }
+
+/* Comparação de dois lados. No celular vira uma coluna, e o lado que
+   interessa fica embaixo, que é onde o polegar para. */
+.duelo { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; margin-top: 26px; }
+.duelo > div { background: var(--bg-2); padding: 24px; }
+.duelo .nosso { background: var(--panel); }
+.duelo .selo {
+  font-family: var(--mono); font-size: 12px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--faint);
+}
+.duelo .nosso .selo { color: var(--lime); }
+.duelo h3 {
+  font-family: var(--display); font-weight: 900; text-transform: uppercase;
+  font-size: 20px; line-height: 1.05; letter-spacing: -.03em;
+  margin-top: 10px; padding-bottom: .05em;
+}
+.duelo ul { list-style: none; margin-top: 16px; display: grid; gap: 9px; }
+.duelo li { font-size: 15.5px; line-height: 1.5; color: var(--muted); padding-left: 20px; position: relative; }
+.duelo li::before { content: "–"; position: absolute; left: 0; color: var(--faint); }
+.duelo .nosso li::before { content: "+"; color: var(--lime); }
+
+@media (min-width: 721px) {
+  .pagina { padding-top: calc(var(--nav-h) + 56px); }
+  .pagina-topo { padding-bottom: 56px; }
+  .pagina-topo > p { font-size: 18px; }
+  .bloco { padding: 56px 0; }
+  .duelo { grid-template-columns: 1fr 1fr; }
+  .duelo > div { padding: 32px; }
+}
+
 /* Sem movimento: nada da página depende de animação para aparecer. */
 @media (prefers-reduced-motion: reduce) {
+  .fluxo-linha i { --fluxo-p: 1; }
   *, *::before, *::after {
     animation-duration: .01ms !important; animation-iteration-count: 1 !important;
     transition-duration: .01ms !important; scroll-behavior: auto !important;

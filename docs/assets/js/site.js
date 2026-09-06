@@ -292,12 +292,42 @@
       duration: .85, ease: "back.out(1.3)", stagger: { each: .06, from: telaLarga ? "center" : "start" }
     }, .85);
 
-  /* Daqui para baixo, só tela larga com mouse. No celular a página inteira
-     já está visível e a rolagem não dispara nada. */
-  if (!telaLarga) return;
-
   gsap.registerPlugin(ScrollTrigger);
+  /* Sem isto, a barra de endereço do Safari e do Chrome no celular, que
+     aparece e some ao rolar, dispara um recálculo a cada gesto. */
   ScrollTrigger.config({ ignoreMobileResize: true });
+
+  /* ---------- Entrada por rolagem ----------
+     Vale no celular também. O painel .svc pinta o próprio fundo e usa gap de
+     1px como fio: animar os artigos deixaria uma laje cinza sólida até a
+     rolagem chegar, então anima o bloco inteiro.
+     No celular o deslocamento e a duração são menores: tela pequena com
+     muito movimento cansa, e cada quadro custa mais caro. */
+  var reveals = $$(".sec-head, .svc, .fluxo li, .faixa > div, .proj, .proj-vazio, .cta, .faq");
+  gsap.set(reveals, { opacity: 0, y: telaLarga ? 34 : 18 });
+  reveals.forEach(function (el) {
+    gsap.to(el, {
+      opacity: 1, y: 0, duration: telaLarga ? .75 : .5, ease: "power3.out",
+      scrollTrigger: { trigger: el, start: "top 90%", once: true }
+    });
+  });
+
+  /* O fio do processo enche conforme a rolagem. O CSS decide o eixo, vertical
+     no celular e horizontal na tela larga, e aqui só anda de 0 a 1. Assim
+     girar o aparelho não deixa o fio preso no eixo errado. O valor nasce em 1
+     no CSS: sem JavaScript o fio aparece cheio, nunca vazio. */
+  var fio = $("#fluxoFill");
+  if (fio) {
+    gsap.fromTo(fio, { "--fluxo-p": 0 }, {
+      "--fluxo-p": 1, ease: "none",
+      scrollTrigger: { trigger: "#fluxo", start: "top 82%", end: "bottom 72%", scrub: .6 }
+    });
+  }
+
+  /* Daqui para baixo, só tela larga com mouse: leque que abre na rolagem,
+     inclinação 3D no card e parallax do ponteiro. Nada disso tem equivalente
+     no toque, e no celular seria peso sem ganho. */
+  if (!telaLarga) return;
 
   var meio = (cards.length - 1) / 2;
   var aberturaLeque = 0;
@@ -357,22 +387,4 @@
     });
   });
 
-  /* O painel .svc pinta o próprio fundo e usa gap de 1px como fio: animar os
-     artigos deixaria uma laje cinza sólida até a rolagem chegar. Anima o
-     bloco inteiro. */
-  var reveals = $$(".sec-head, .svc, .fluxo li, .faixa > div, .proj, .proj-vazio, .cta, .faq");
-  gsap.set(reveals, { opacity: 0, y: 34 });
-  reveals.forEach(function (el) {
-    gsap.to(el, { opacity: 1, y: 0, duration: .75, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 88%", once: true } });
-  });
-
-  /* O fio nasce cheio no CSS: quem não tem GSAP, não tem tela larga ou pediu
-     menos movimento vê o fio inteiro, em vez de nada. Só aqui ele é zerado,
-     um instante antes de a rolagem passar a controlá-lo. Neste ponto a tela
-     tem no mínimo 1000px, então o fio é sempre horizontal. */
-  var fio = $("#fluxoFill");
-  if (fio) {
-    gsap.set(fio, { scaleX: 0 });
-    gsap.to(fio, { scaleX: 1, ease: "none", scrollTrigger: { trigger: "#fluxo", start: "top 82%", end: "bottom 72%", scrub: .6 } });
-  }
 })();
