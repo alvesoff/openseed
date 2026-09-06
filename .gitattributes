@@ -1,0 +1,5 @@
+# Os arquivos da marca saem exatamente como entraram. O zip é conferido byte a
+# byte contra eles, e a conversão de fim de linha que o Git faz no checkout em
+# Windows mudaria os bytes do SVG sem mudar os do zip: o conferidor acusaria
+# divergência num arquivo que ninguém tocou. Já aconteceu antes, com o llms.txt.
+docs/assets/marca/*.svg -text
