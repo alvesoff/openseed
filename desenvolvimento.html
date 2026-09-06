@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#0a0a0a">
 <link rel="canonical" href="https://openseed.com.br/desenvolvimento.html">
 
-<!-- Marca nova: lockup tipográfico OPEN / SE / ED, tinta sobre preto, acento lima. -->
+<!-- Marca nova: lockup tipográfico OPEN / SEED, tinta sobre preto, acento lima. -->
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230a0a0a'/><rect x='4' y='5' width='24' height='4' rx='2' fill='%23c6f24e'/><rect x='4' y='13' width='24' height='4' rx='2' fill='%23f4f4f0'/><rect x='4' y='21' width='16' height='4' rx='2' fill='%23f4f4f0'/></svg>">
 
 <meta property="og:type" content="website">
@@ -44,13 +44,12 @@
     --panel: #141414;
     --ink: #f4f4f0;
     /* Contraste medido contra --bg: --muted 9,1:1 e --faint 4,9:1, ambos acima
-       do mínimo 4,5:1 para texto pequeno. Não clarear o fundo sem refazer a conta. */
+       do mínimo 4,5:1 de texto pequeno. Não clarear o fundo sem refazer a conta. */
     --muted: #a8a8a0;
     --faint: #7e7e77;
     --line: #232323;
     --line-2: #2f2f2f;
     --lime: #c6f24e;
-    --lime-dim: #9dc23a;
 
     --display: "Outfit", system-ui, sans-serif;
     --sans: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -60,7 +59,6 @@
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
 
   body {
     background: var(--bg);
@@ -72,13 +70,12 @@
   }
 
   a { color: inherit; }
-
   ::selection { background: var(--lime); color: #0a0a0a; }
 
   :focus-visible {
-    outline: 2px solid var(--lime);
+    outline: 3px solid var(--lime);
     outline-offset: 3px;
-    border-radius: 4px;
+    border-radius: 6px;
   }
 
   .grain {
@@ -90,27 +87,21 @@
   .skip {
     position: absolute; left: -9999px; top: 0; z-index: 200;
     background: var(--lime); color: #0a0a0a;
-    padding: 12px 18px; font-weight: 700; border-radius: 0 0 8px 0;
+    padding: 14px 20px; font-weight: 700; border-radius: 0 0 10px 0;
   }
   .skip:focus { left: 0; }
 
+  .wrap { max-width: 1400px; margin: 0 auto; padding: 0 var(--gut); }
+
   /* ---------- MARCA ---------- */
   .wordmark {
-    font-family: var(--display);
-    font-weight: 900;
-    letter-spacing: -.05em;
-    line-height: .82;
-    text-transform: uppercase;
-    display: inline-block;
-    text-decoration: none;
+    font-family: var(--display); font-weight: 900;
+    letter-spacing: -.05em; line-height: .82;
+    text-transform: uppercase; display: inline-block; text-decoration: none;
   }
   .wordmark .open {
-    display: block;
-    font-size: .42em;
-    letter-spacing: .14em;
-    line-height: 1;
-    color: var(--lime);
-    margin-bottom: .12em;
+    display: block; font-size: .42em; letter-spacing: .14em;
+    line-height: 1; color: var(--lime); margin-bottom: .12em;
   }
   .wordmark .seed { display: block; }
 
@@ -118,295 +109,240 @@
   .nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 60;
     display: flex; align-items: center; justify-content: space-between;
-    gap: 20px;
-    padding: 18px var(--gut);
-    transition: background .3s ease, border-color .3s ease, backdrop-filter .3s ease;
+    gap: 16px; padding: 14px var(--gut);
     border-bottom: 1px solid transparent;
+    transition: background .3s ease, border-color .3s ease, backdrop-filter .3s ease;
   }
   .nav.solid {
-    background: rgba(10, 10, 10, .82);
+    background: rgba(10, 10, 10, .85);
     backdrop-filter: blur(14px);
     border-bottom-color: var(--line);
   }
-  .nav .wordmark { font-size: 22px; }
+  .nav .wordmark { font-size: 22px; padding: 4px 0; }
 
-  .nav-links { display: flex; gap: 26px; list-style: none; }
+  .nav-links { display: flex; gap: 4px; list-style: none; }
+  /* Alvo de 44px de altura, acima do mínimo de 24px da WCAG 2.2. */
   .nav-links a {
-    font-size: 13.5px; font-weight: 500; color: var(--muted);
-    text-decoration: none; position: relative; transition: color .25s;
+    display: inline-flex; align-items: center; min-height: 44px;
+    padding: 0 12px; font-size: 14px; font-weight: 500;
+    color: var(--muted); text-decoration: none;
+    position: relative; transition: color .25s;
   }
   .nav-links a:hover { color: var(--ink); }
   .nav-links a::after {
-    content: ""; position: absolute; left: 0; bottom: -5px;
-    height: 2px; width: 0; background: var(--lime); border-radius: 2px;
-    transition: width .35s cubic-bezier(.7, 0, .2, 1);
+    content: ""; position: absolute; left: 12px; right: 12px; bottom: 9px;
+    height: 2px; background: var(--lime); border-radius: 2px;
+    transform: scaleX(0); transform-origin: left;
+    transition: transform .35s cubic-bezier(.7, 0, .2, 1);
   }
-  .nav-links a:hover::after { width: 100%; }
+  .nav-links a:hover::after { transform: scaleX(1); }
 
   .btn {
-    display: inline-flex; align-items: center; gap: 9px;
-    font-family: var(--sans); font-size: 14px; font-weight: 700;
-    padding: 13px 22px; border-radius: 999px; border: none;
-    text-decoration: none; cursor: pointer; white-space: nowrap;
-    transition: transform .3s cubic-bezier(.6, 0, .2, 1), background .25s, color .25s;
+    display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+    min-height: 46px; padding: 12px 22px;
+    font-family: var(--sans); font-size: 15px; font-weight: 700;
+    border-radius: 999px; border: none; text-decoration: none;
+    cursor: pointer; white-space: nowrap;
+    transition: transform .3s cubic-bezier(.6, 0, .2, 1), background .25s, border-color .25s;
   }
   .btn:hover { transform: translateY(-2px); }
   .btn-lime { background: var(--lime); color: #0a0a0a; }
   .btn-lime:hover { background: #d5ff63; }
-  .btn-ghost {
-    background: transparent; color: var(--ink);
-    border: 1px solid var(--line-2);
-  }
+  .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--line-2); }
   .btn-ghost:hover { border-color: var(--ink); }
   .btn svg { flex: none; }
+  .nav .btn { min-height: 42px; padding: 10px 18px; font-size: 14px; }
 
-  .nav .btn { padding: 11px 18px; font-size: 13px; }
-
-  /* ---------- HERO ---------- */
-  .hero {
-    position: relative; z-index: 5;
-    padding: clamp(120px, 18vh, 190px) var(--gut) 70px;
-    max-width: 1400px; margin: 0 auto;
-  }
   .eyebrow {
     font-family: var(--mono); font-size: 11.5px; letter-spacing: .18em;
     text-transform: uppercase; color: var(--faint);
     display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
   }
-  .eyebrow .dot {
-    width: 7px; height: 7px; border-radius: 50%;
-    background: var(--lime); flex: none;
-  }
+  .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); flex: none; }
 
+  /* ---------- 1. HERO ---------- */
+  .hero {
+    position: relative; z-index: 5;
+    padding: clamp(94px, 13vh, 126px) var(--gut) clamp(32px, 5vw, 54px);
+    max-width: 1400px; margin: 0 auto;
+  }
   .hero h1 {
     font-family: var(--display); font-weight: 900;
-    letter-spacing: -.045em; line-height: .88;
-    text-transform: uppercase;
-    margin: 26px 0 0;
-    font-size: clamp(44px, 11.5vw, 168px);
+    letter-spacing: -.045em; line-height: .88; text-transform: uppercase;
+    margin: 18px 0 0; font-size: clamp(44px, 12.4vw, 126px);
   }
   .hero h1 .light { color: var(--faint); }
   .hero h1 .accent { color: var(--lime); }
-
-  .line-mask { display: block; overflow: hidden; padding-bottom: .04em; }
+  .line-mask { display: block; overflow: hidden; padding-bottom: .05em; }
   .line-mask > span { display: block; }
+  .letra { display: inline-block; will-change: transform; }
 
   .hero-sub {
-    display: grid; grid-template-columns: 1.1fr .9fr;
-    gap: clamp(24px, 5vw, 70px); align-items: end;
-    margin-top: clamp(30px, 5vw, 52px);
+    position: relative; z-index: 2;
+    display: grid; grid-template-columns: 1.05fr .95fr;
+    gap: clamp(20px, 5vw, 60px); align-items: end;
+    margin-top: clamp(24px, 4vw, 42px);
   }
-  .hero-sub p {
-    font-size: clamp(16px, 1.5vw, 19px); line-height: 1.6; color: var(--muted);
-    max-width: 46ch;
-  }
+  .hero-sub p { font-size: clamp(16px, 1.5vw, 19px); line-height: 1.6; color: var(--muted); max-width: 46ch; }
   .hero-sub p strong { color: var(--ink); font-weight: 700; }
   .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  @media (max-width: 860px) { .hero-sub { grid-template-columns: 1fr; align-items: start; } }
 
-  @media (max-width: 860px) {
-    .hero-sub { grid-template-columns: 1fr; align-items: start; }
-  }
-
-  /* ---------- CARROSSEL DE ENTREGAS ---------- */
-  .rail-wrap {
-    margin-top: clamp(48px, 8vw, 90px);
-    position: relative;
-  }
-  .rail {
-    display: flex; gap: 16px; padding: 20px 0 6px;
+  /* Leque de cards. No toque é um carrossel com encaixe; na tela larga
+     vira leque sobreposto com relevo e parallax. */
+  .leque {
+    display: flex; gap: 14px; list-style: none;
+    margin-top: clamp(30px, 5vw, 54px); padding: 20px 0 8px;
     overflow-x: auto; scroll-snap-type: x mandatory;
     scrollbar-width: none; -ms-overflow-style: none;
   }
-  .rail::-webkit-scrollbar { display: none; }
+  .leque::-webkit-scrollbar { display: none; }
+  .leque > li { flex: none; scroll-snap-align: center; }
 
   .kard {
-    flex: none; width: clamp(210px, 24vw, 252px);
-    scroll-snap-align: center;
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 18px 18px 16px;
-    display: flex; flex-direction: column; gap: 14px;
-    min-height: 226px;
-    transition: transform .45s cubic-bezier(.4, 0, .2, 1), border-color .3s, background .3s;
+    width: clamp(206px, 23vw, 244px); min-height: 214px;
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 16px; padding: 18px;
+    display: flex; flex-direction: column; gap: 12px;
+    transition: border-color .3s, background .3s;
     will-change: transform;
   }
-  .kard:hover { border-color: var(--line-2); background: #171717; }
-  .kard .num {
-    font-family: var(--mono); font-size: 11px; color: var(--faint);
-    letter-spacing: .1em;
-  }
-  .kard h3 {
-    font-family: var(--display); font-weight: 700; font-size: 24px;
-    line-height: 1.05; letter-spacing: -.02em; margin-top: auto;
-  }
-  .kard p { font-size: 13.5px; line-height: 1.5; color: var(--muted); }
+  .kard:hover { border-color: var(--line-2); background: #181818; }
   .kard .tag {
     align-self: flex-start;
     font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em;
-    text-transform: uppercase;
-    color: var(--lime); border: 1px solid rgba(198, 242, 78, .3);
-    padding: 4px 9px; border-radius: 999px;
+    text-transform: uppercase; color: var(--lime);
+    border: 1px solid rgba(198, 242, 78, .3);
+    padding: 5px 9px; border-radius: 999px;
+  }
+  .kard p { font-size: 13.5px; line-height: 1.55; color: var(--muted); }
+  .kard h2 {
+    font-family: var(--display); font-weight: 700; font-size: 23px;
+    line-height: 1.05; letter-spacing: -.02em; margin-top: auto;
+  }
+  @media (min-width: 1000px) and (hover: hover) {
+    .leque { overflow: visible; gap: 0; perspective: 1200px; }
+    .leque > li { margin-right: -30px; }
+    .leque > li:last-child { margin-right: 0; }
   }
 
-  .rail-foot {
-    display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
-    margin-top: 26px;
+  .hero-nota {
+    margin-top: 20px; font-size: 15px; color: var(--muted);
+    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
   }
-  .rail-foot .note {
-    font-size: 14px; color: var(--muted);
+  .hero-nota b {
+    font-family: var(--display); font-weight: 900; font-size: 24px;
+    color: var(--lime); letter-spacing: -.03em;
   }
 
   /* ---------- SEÇÕES ---------- */
   section { position: relative; z-index: 5; }
-  .wrap { max-width: 1400px; margin: 0 auto; padding: 0 var(--gut); }
-
   .sec-head {
     display: grid; grid-template-columns: 1.15fr .85fr;
-    gap: clamp(22px, 4vw, 60px); align-items: end;
-    padding-top: clamp(80px, 12vw, 150px);
+    gap: clamp(18px, 4vw, 52px); align-items: end;
+    padding-top: clamp(66px, 9vw, 116px);
   }
   .sec-head h2 {
     font-family: var(--display); font-weight: 900;
-    font-size: clamp(32px, 5.4vw, 72px);
-    line-height: .95; letter-spacing: -.04em; text-transform: uppercase;
-    margin-top: 16px; padding-bottom: .06em;
+    font-size: clamp(32px, 5.2vw, 66px); line-height: .95;
+    letter-spacing: -.04em; text-transform: uppercase;
+    margin-top: 14px; padding-bottom: .06em;
   }
   .sec-head h2 .light { color: var(--faint); }
-  .sec-head > p {
-    font-size: clamp(15px, 1.4vw, 17.5px); line-height: 1.65; color: var(--muted);
-    max-width: 44ch;
-  }
+  .sec-head > p { font-size: clamp(15px, 1.4vw, 17.5px); line-height: 1.65; color: var(--muted); max-width: 44ch; }
   @media (max-width: 860px) { .sec-head { grid-template-columns: 1fr; align-items: start; } }
 
-  /* Serviços */
+  /* ---------- 2. SERVIÇOS ---------- */
   .svc {
     display: grid; grid-template-columns: repeat(3, 1fr);
     gap: 1px; background: var(--line);
     border: 1px solid var(--line); border-radius: 20px;
-    overflow: hidden; margin-top: clamp(36px, 5vw, 60px);
+    overflow: hidden; margin-top: clamp(28px, 4vw, 48px);
   }
   .svc article {
-    background: var(--bg-2); padding: clamp(24px, 3vw, 38px);
-    display: flex; flex-direction: column; gap: 14px;
+    background: var(--bg-2); padding: clamp(22px, 2.8vw, 34px);
+    display: flex; flex-direction: column; gap: 12px;
     transition: background .3s;
   }
   .svc article:hover { background: #161616; }
-  .svc .idx {
-    font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: .12em;
-  }
+  .svc .idx { font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: .12em; }
   .svc h3 {
     font-family: var(--display); font-weight: 900; text-transform: uppercase;
-    font-size: clamp(22px, 2.4vw, 30px); line-height: 1; letter-spacing: -.03em;
+    font-size: clamp(21px, 2.2vw, 28px); line-height: 1;
+    letter-spacing: -.03em; padding-bottom: .05em;
   }
   .svc p { font-size: 14.5px; line-height: 1.65; color: var(--muted); }
-  .svc ul { list-style: none; display: grid; gap: 7px; margin-top: 4px; }
-  .svc li {
-    font-family: var(--mono); font-size: 12px; color: var(--faint);
-    padding-left: 16px; position: relative; line-height: 1.5;
-  }
-  .svc li::before {
-    content: "+"; position: absolute; left: 0; color: var(--lime-dim);
+  .svc .prazo {
+    font-family: var(--mono); font-size: 11px; color: var(--faint);
+    letter-spacing: .08em; margin-top: auto; padding-top: 14px;
+    border-top: 1px solid var(--line);
   }
   @media (max-width: 900px) { .svc { grid-template-columns: 1fr; } }
 
-  /* ---------- PROCESSO (trilho horizontal) ---------- */
-  /* ---------- PROCESSO (linha do tempo) ---------- */
-  .flow-section { padding-top: clamp(80px, 12vw, 150px); }
-
-  .flow { position: relative; margin-top: clamp(38px, 6vw, 68px); }
-
-  /* trilho base e trilho que se preenche na rolagem */
-  .flow .rail-line,
-  .flow .rail-fill {
-    position: absolute; top: 0; bottom: 0; width: 2px;
-    left: 21px; border-radius: 2px;
+  /* Processo em três nós, no lugar de uma seção inteira */
+  .fluxo { position: relative; margin-top: clamp(34px, 5vw, 58px); }
+  .fluxo-linha {
+    position: absolute; left: 0; right: 0; top: 21px; height: 2px;
+    background: var(--line-2); border-radius: 2px;
   }
-  .flow .rail-line { background: var(--line-2); }
-  .flow .rail-fill {
-    background: var(--lime);
-    transform: scaleY(0); transform-origin: top;
-    box-shadow: 0 0 18px rgba(198, 242, 78, .35);
+  .fluxo-linha i {
+    display: block; width: 100%; height: 100%;
+    background: var(--lime); border-radius: 2px;
+    transform: scaleX(0); transform-origin: left;
   }
-
-  /* Sem GSAP o trilho lima nunca cresceria, entao ja nasce cheio. */
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    .flow .rail-fill { transform: scaleY(1); }
+  .fluxo ol {
+    list-style: none; position: relative;
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: clamp(18px, 3vw, 40px);
   }
-
-  .flow ol { list-style: none; display: grid; gap: clamp(16px, 2.6vw, 30px); }
-  .flow li { position: relative; padding-left: 62px; }
-
-  .flow .pip {
-    position: absolute; left: 22px; top: 30px;
-    transform: translate(-50%, -50%);
-    width: 15px; height: 15px; border-radius: 50%;
+  .fluxo li { display: flex; flex-direction: column; gap: 10px; }
+  .fluxo .pip {
+    width: 14px; height: 14px; border-radius: 50%;
     background: var(--bg); border: 2px solid var(--lime);
+    margin: 15px 0 6px;
   }
-
-  .node {
-    background: var(--panel); border: 1px solid var(--line);
-    border-radius: 18px; padding: 22px 24px 20px;
-    display: flex; flex-direction: column; gap: 11px;
-    transition: border-color .3s, background .3s;
-  }
-  .node:hover { border-color: var(--line-2); background: #171717; }
-  .node .step {
-    font-family: var(--mono); font-size: 11px; letter-spacing: .16em;
-    color: #0a0a0a; background: var(--lime);
-    align-self: flex-start; padding: 4px 9px; border-radius: 999px;
-    font-weight: 500;
-  }
-  .node h3 {
+  .fluxo h3 {
     font-family: var(--display); font-weight: 900; text-transform: uppercase;
-    font-size: clamp(22px, 2.4vw, 28px); line-height: 1;
-    letter-spacing: -.03em; padding-bottom: .06em;
+    font-size: clamp(18px, 1.9vw, 23px); line-height: 1;
+    letter-spacing: -.03em; padding-bottom: .05em;
   }
-  .node p { font-size: 14.5px; line-height: 1.6; color: var(--muted); max-width: 62ch; }
-  .node .when {
-    font-family: var(--mono); font-size: 11px; color: var(--faint);
-    border-top: 1px solid var(--line); padding-top: 11px; margin-top: 2px;
-  }
-
-  /* Alternado em zigue-zague nas telas largas */
-  @media (min-width: 940px) {
-    .flow .rail-line, .flow .rail-fill { left: 50%; margin-left: -1px; }
-    .flow li {
-      padding-left: 0;
-      display: grid; grid-template-columns: 1fr 1fr;
-      column-gap: clamp(40px, 6vw, 90px);
-    }
-    .flow li > .node { grid-column: 1; }
-    .flow li:nth-child(even) > .node { grid-column: 2; }
-    .flow .pip { left: 50%; top: 40px; }
+  .fluxo p { font-size: 14px; line-height: 1.6; color: var(--muted); max-width: 40ch; }
+  .fluxo .quando { font-family: var(--mono); font-size: 11px; color: var(--faint); letter-spacing: .08em; margin-top: auto; padding-top: 4px; }
+  @media (max-width: 760px) {
+    .fluxo-linha { left: 6px; right: auto; top: 10px; bottom: 10px; width: 2px; height: auto; }
+    .fluxo-linha i { transform: scaleY(0); transform-origin: top; }
+    .fluxo ol { grid-template-columns: 1fr; gap: 24px; }
+    .fluxo li { padding-left: 32px; position: relative; }
+    .fluxo .pip { position: absolute; left: 0; top: 3px; margin: 0; }
   }
 
-  /* ---------- IA ---------- */
-  .ia-grid {
-    display: grid; grid-template-columns: repeat(2, 1fr);
-    gap: clamp(16px, 2vw, 22px); margin-top: clamp(36px, 5vw, 60px);
+  /* IA e stack fecham a seção, sem virar seções novas */
+  .faixa {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: clamp(22px, 4vw, 52px);
+    margin-top: clamp(36px, 5vw, 60px);
+    padding-top: clamp(26px, 4vw, 42px);
+    border-top: 1px solid var(--line);
   }
-  .ia-grid article {
-    border: 1px solid var(--line); border-radius: 18px;
-    padding: clamp(22px, 3vw, 32px);
-    display: flex; flex-direction: column; gap: 12px;
-    background: linear-gradient(180deg, #121212 0%, #0d0d0d 100%);
+  .faixa h3 {
+    font-family: var(--display); font-weight: 900; text-transform: uppercase;
+    font-size: clamp(19px, 2vw, 24px); letter-spacing: -.03em;
+    line-height: 1; padding-bottom: .05em; margin-bottom: 14px;
   }
-  .ia-grid h3 {
-    font-family: var(--display); font-weight: 700; font-size: clamp(19px, 2vw, 23px);
-    letter-spacing: -.02em; line-height: 1.1;
+  .faixa ul { list-style: none; display: grid; gap: 9px; }
+  .faixa li { font-size: 14.5px; line-height: 1.55; color: var(--muted); padding-left: 18px; position: relative; }
+  .faixa li::before { content: "+"; position: absolute; left: 0; color: var(--lime); }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips span {
+    font-family: var(--mono); font-size: 12.5px; color: var(--muted);
+    border: 1px solid var(--line); border-radius: 999px; padding: 8px 13px;
   }
-  .ia-grid p { font-size: 14.5px; line-height: 1.65; color: var(--muted); }
-  .ia-grid .mark {
-    font-family: var(--mono); font-size: 11px; color: var(--lime); letter-spacing: .12em;
-  }
-  @media (max-width: 760px) { .ia-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 760px) { .faixa { grid-template-columns: 1fr; } }
 
-  /* ---------- PROJETOS ---------- */
+  /* ---------- 3. PROJETOS ---------- */
   .proj-grid {
     display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: clamp(14px, 1.8vw, 20px); margin-top: clamp(36px, 5vw, 58px);
+    gap: clamp(14px, 1.8vw, 20px); margin-top: clamp(28px, 4vw, 48px);
   }
   .proj {
     display: flex; flex-direction: column;
@@ -414,31 +350,28 @@
     background: var(--bg-2); text-decoration: none;
     transition: border-color .3s, transform .35s cubic-bezier(.4, 0, .2, 1);
   }
-  .proj:hover { border-color: var(--line-2); transform: translateY(-4px); }
-
-  /* Capa: troque o style do .proj-capa por background-image quando tiver a foto,
-     ou coloque um <img> dentro dela. A proporção fica travada em 16 por 10. */
+  .proj:hover, .proj:focus-visible { border-color: var(--line-2); transform: translateY(-4px); }
   .proj-capa {
     aspect-ratio: 16 / 10; position: relative;
     background: linear-gradient(135deg, #191919 0%, #0f0f0f 100%);
     border-bottom: 1px solid var(--line);
     display: grid; place-items: center; overflow: hidden;
   }
-  .proj-capa img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .proj-capa img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
   .proj-capa .inicial {
-    font-family: var(--display); font-weight: 900; font-size: 60px;
-    color: #2a2a2a; letter-spacing: -.05em; user-select: none;
+    font-family: var(--display); font-weight: 900; font-size: 58px;
+    color: #2b2b2b; letter-spacing: -.05em; user-select: none;
   }
   .proj-capa .selo {
-    position: absolute; top: 12px; left: 12px;
+    position: absolute; top: 12px; left: 12px; z-index: 2;
     font-family: var(--mono); font-size: 10px; letter-spacing: .12em;
     text-transform: uppercase; color: var(--lime);
-    background: rgba(10, 10, 10, .82); border: 1px solid rgba(198, 242, 78, .28);
+    background: rgba(10, 10, 10, .85); border: 1px solid rgba(198, 242, 78, .28);
     padding: 5px 9px; border-radius: 999px;
   }
-  .proj-corpo { padding: 20px 20px 22px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .proj-corpo { padding: 18px 18px 20px; display: flex; flex-direction: column; gap: 9px; flex: 1; }
   .proj-corpo h3 {
-    font-family: var(--display); font-weight: 700; font-size: 21px;
+    font-family: var(--display); font-weight: 700; font-size: 20px;
     line-height: 1.1; letter-spacing: -.02em;
   }
   .proj-corpo p { font-size: 14px; line-height: 1.6; color: var(--muted); }
@@ -450,100 +383,46 @@
   .proj-vazio {
     display: grid; place-items: center; text-align: center; gap: 8px;
     border: 1px dashed var(--line-2); border-radius: 18px;
-    padding: 34px 22px; color: var(--faint);
+    padding: 32px 20px; color: var(--faint);
     font-family: var(--mono); font-size: 12px; letter-spacing: .1em;
     text-transform: uppercase; line-height: 1.7;
   }
   @media (max-width: 980px) { .proj-grid { grid-template-columns: repeat(2, 1fr); } }
   @media (max-width: 620px) { .proj-grid { grid-template-columns: 1fr; } }
 
-  /* ---------- STACK ---------- */
-  .stack-list {
-    display: flex; flex-wrap: wrap; gap: 10px;
-    margin-top: clamp(30px, 4vw, 46px);
-  }
-  .stack-list span {
-    font-family: var(--mono); font-size: 13px; color: var(--muted);
-    border: 1px solid var(--line); border-radius: 999px;
-    padding: 9px 15px; transition: border-color .25s, color .25s;
-  }
-  .stack-list span:hover { border-color: var(--lime); color: var(--ink); }
-
-  /* ---------- NÚMEROS ---------- */
-  .stats {
-    display: grid; grid-template-columns: repeat(3, 1fr);
-    gap: clamp(20px, 4vw, 48px);
-    margin-top: clamp(70px, 10vw, 120px);
-    border-top: 1px solid var(--line);
-    padding-top: clamp(34px, 5vw, 54px);
-  }
-  .stats .num {
-    font-family: var(--display); font-weight: 900;
-    font-size: clamp(44px, 7vw, 92px); line-height: .9; letter-spacing: -.05em;
-  }
-  .stats .num small {
-    font-size: .38em; letter-spacing: -.02em; color: var(--lime);
-  }
-  .stats .lbl {
-    font-family: var(--mono); font-size: 11.5px; letter-spacing: .13em;
-    text-transform: uppercase; color: var(--faint); margin-top: 12px;
-    line-height: 1.6;
-  }
-  @media (max-width: 760px) { .stats { grid-template-columns: 1fr; gap: 30px; } }
-
-  /* ---------- CTA FINAL ---------- */
+  /* ---------- 4. CONTATO ---------- */
   .cta {
-    margin-top: clamp(80px, 12vw, 150px);
-    padding: clamp(44px, 7vw, 92px) clamp(24px, 5vw, 72px);
-    border-radius: 26px;
-    background: var(--lime); color: #0a0a0a;
+    margin-top: clamp(66px, 9vw, 120px);
+    padding: clamp(38px, 6vw, 80px) clamp(24px, 5vw, 66px);
+    border-radius: 26px; background: var(--lime); color: #0a0a0a;
     display: grid; grid-template-columns: 1.2fr .8fr;
-    gap: clamp(24px, 4vw, 50px); align-items: center;
+    gap: clamp(22px, 4vw, 46px); align-items: center;
   }
   .cta h2 {
     font-family: var(--display); font-weight: 900; text-transform: uppercase;
-    font-size: clamp(32px, 5.6vw, 76px); line-height: .92; letter-spacing: -.045em;
-    padding-bottom: .04em;
+    font-size: clamp(30px, 5.2vw, 68px); line-height: .92;
+    letter-spacing: -.045em; padding-bottom: .04em;
   }
-  .cta p { font-size: clamp(15px, 1.4vw, 17px); line-height: 1.6; margin-top: 16px; max-width: 42ch; }
-  .cta .btn-dark {
-    background: #0a0a0a; color: var(--lime);
-    font-size: 16px; padding: 18px 28px;
-  }
+  .cta p { font-size: clamp(15px, 1.4vw, 17px); line-height: 1.6; margin-top: 14px; max-width: 42ch; }
+  .cta .aside { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; }
+  .cta .btn-dark { background: #0a0a0a; color: var(--lime); font-size: 16px; padding: 17px 26px; }
   .cta .btn-dark:hover { background: #1a1a1a; }
-  .cta .aside {
-    display: flex; flex-direction: column; gap: 14px; align-items: flex-start;
-  }
-  .cta .aside .fine {
-    font-family: var(--mono); font-size: 11.5px; letter-spacing: .1em;
-    text-transform: uppercase; opacity: .72;
-  }
+  .cta .fine { font-family: var(--mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; opacity: .78; }
   @media (max-width: 860px) { .cta { grid-template-columns: 1fr; } }
 
-  /* ---------- RODAPÉ ---------- */
-  footer {
-    margin-top: clamp(70px, 10vw, 120px);
-    border-top: 1px solid var(--line);
-    padding: 44px 0 56px;
-  }
-  .foot-grid {
-    display: flex; justify-content: space-between; align-items: flex-end;
-    gap: 30px; flex-wrap: wrap;
-  }
-  footer .wordmark { font-size: 34px; }
-  .foot-links { display: flex; gap: 22px; flex-wrap: wrap; }
+  footer { margin-top: clamp(52px, 8vw, 92px); border-top: 1px solid var(--line); padding: 36px 0 48px; }
+  .foot-grid { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
+  footer .wordmark { font-size: 32px; }
+  .foot-links { display: flex; gap: 4px; flex-wrap: wrap; }
   .foot-links a {
-    font-size: 14px; color: var(--muted); text-decoration: none; transition: color .25s;
+    display: inline-flex; align-items: center; min-height: 44px; padding: 0 10px;
+    font-size: 14.5px; color: var(--muted); text-decoration: none; transition: color .25s;
   }
   .foot-links a:hover { color: var(--ink); }
-  .foot-fine {
-    font-family: var(--mono); font-size: 11px; color: var(--faint);
-    letter-spacing: .08em; margin-top: 26px;
-  }
+  .foot-fine { font-family: var(--mono); font-size: 11px; color: var(--faint); letter-spacing: .08em; margin-top: 18px; }
 
-  /* Botão flutuante de WhatsApp */
   .wa-float {
-    position: fixed; right: 20px; bottom: 20px; z-index: 70;
+    position: fixed; right: 18px; bottom: 18px; z-index: 70;
     width: 56px; height: 56px; border-radius: 50%;
     background: var(--lime); color: #0a0a0a;
     display: grid; place-items: center;
@@ -552,8 +431,16 @@
   }
   .wa-float:hover { transform: scale(1.07); }
 
-  @media (max-width: 700px) {
-    .nav-links { display: none; }
+  @media (max-width: 720px) { .nav-links { display: none; } }
+
+  /* Sem movimento: nada da página depende de animação para aparecer. */
+  @media (prefers-reduced-motion: reduce) {
+    .fluxo-linha i { transform: none; }
+    .btn:hover, .proj:hover, .wa-float:hover { transform: none; }
+    *, *::before, *::after {
+      animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+      transition-duration: .01ms !important; scroll-behavior: auto !important;
+    }
   }
 </style>
 </head>
@@ -562,17 +449,15 @@
 <div class="grain" aria-hidden="true"></div>
 <a class="skip" href="#conteudo">Pular para o conteúdo</a>
 
-<nav class="nav" id="nav">
+<nav class="nav" id="nav" aria-label="Principal">
   <a class="wordmark" href="/" aria-label="OpenSeed, página inicial">
     <span class="open" aria-hidden="true">Open</span>
     <span class="seed" aria-hidden="true">Seed</span>
   </a>
   <ul class="nav-links">
     <li><a href="#servicos">Serviços</a></li>
-    <li><a href="#processo">Processo</a></li>
-    <li><a href="#ia">IA</a></li>
     <li><a href="#projetos">Projetos</a></li>
-    <li><a href="#stack">Stack</a></li>
+    <li><a href="#contato">Contato</a></li>
   </ul>
   <a class="btn btn-lime" data-wa href="#contato">
     Falar no WhatsApp
@@ -584,14 +469,14 @@
 
 <main id="conteudo">
 
-  <!-- ================= HERO ================= -->
-  <header class="hero">
+  <!-- ===================== 1. HERO ===================== -->
+  <header class="hero" id="hero">
     <p class="eyebrow"><span class="dot"></span> Estúdio de software com IA · Brasil</p>
 
-    <h1 id="heroTitle" aria-label="Seu sistema no ar em semanas">
+    <h1 id="heroTitulo" aria-label="Seu sistema no ar em semanas">
       <span class="line-mask"><span class="light" aria-hidden="true">Seu sistema</span></span>
       <span class="line-mask"><span aria-hidden="true">no ar em</span></span>
-      <span class="line-mask"><span class="accent" aria-hidden="true">semanas</span></span>
+      <span class="line-mask"><span class="accent" id="heroPalavra" aria-hidden="true">semanas</span></span>
     </h1>
 
     <div class="hero-sub">
@@ -607,60 +492,45 @@
             <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
           </svg>
         </a>
-        <a class="btn btn-ghost" href="#processo">Ver como trabalhamos</a>
+        <a class="btn btn-ghost" href="#projetos">Ver projetos</a>
       </div>
     </div>
 
-    <!-- Trilho de entregas -->
-    <div class="rail-wrap">
-      <div class="rail" id="rail" role="list" aria-label="O que construímos">
-        <article class="kard" role="listitem" data-rot="-2.5">
-          <span class="num">01</span>
-          <span class="tag">Do zero</span>
-          <p>Sistema web completo, desenhado para o seu fluxo e não para um template.</p>
-          <h3>Software sob demanda</h3>
-        </article>
-        <article class="kard" role="listitem" data-rot="1.6">
-          <span class="num">02</span>
-          <span class="tag">4 a 8 semanas</span>
-          <p>Primeira versão no ar rápido, para validar com usuário real antes de gastar mais.</p>
-          <h3>MVP de startup</h3>
-        </article>
-        <article class="kard" role="listitem" data-rot="-1.2">
-          <span class="num">03</span>
-          <span class="tag">Operação</span>
-          <p>Tira o processo da planilha solta e do grupo de WhatsApp, com histórico e permissão.</p>
-          <h3>Sistema interno</h3>
-        </article>
-        <article class="kard" role="listitem" data-rot="2.2">
-          <span class="num">04</span>
-          <span class="tag">IA aplicada</span>
-          <p>Agentes que leem documento, respondem cliente e executam tarefa repetitiva.</p>
-          <h3>Automação com IA</h3>
-        </article>
-        <article class="kard" role="listitem" data-rot="-2">
-          <span class="num">05</span>
-          <span class="tag">Integração</span>
-          <p>Conecta o que você já usa: WhatsApp, ERP, planilha, gateway de pagamento.</p>
-          <h3>Integrações</h3>
-        </article>
-        <article class="kard" role="listitem" data-rot="1.1">
-          <span class="num">06</span>
-          <span class="tag">Decisão</span>
-          <p>Painel que mostra o número certo na hora certa, sem exportar nada na mão.</p>
-          <h3>Painel de dados</h3>
-        </article>
-      </div>
+    <ul class="leque" id="leque" aria-label="O que construímos">
+      <li><article class="kard" data-rot="-3" data-depth="14">
+        <span class="tag">Do zero</span>
+        <p>Sistema web completo, desenhado para o seu fluxo e não para um template.</p>
+        <h2>Software sob demanda</h2>
+      </article></li>
+      <li><article class="kard" data-rot="1.8" data-depth="10">
+        <span class="tag">4 a 8 semanas</span>
+        <p>Primeira versão no ar rápido, para validar com usuário real antes de gastar mais.</p>
+        <h2>MVP de startup</h2>
+      </article></li>
+      <li><article class="kard" data-rot="-1.4" data-depth="8">
+        <span class="tag">Operação</span>
+        <p>Tira o processo da planilha solta e do grupo de WhatsApp, com histórico e permissão.</p>
+        <h2>Sistema interno</h2>
+      </article></li>
+      <li><article class="kard" data-rot="2.4" data-depth="12">
+        <span class="tag">IA aplicada</span>
+        <p>Agentes que leem documento, respondem cliente e executam tarefa repetitiva.</p>
+        <h2>Automação com IA</h2>
+      </article></li>
+      <li><article class="kard" data-rot="-2" data-depth="9">
+        <span class="tag">Integração</span>
+        <p>Conecta o que você já usa: WhatsApp, ERP, planilha, gateway de pagamento.</p>
+        <h2>Integrações</h2>
+      </article></li>
+    </ul>
 
-      <div class="rail-foot">
-        <p class="note">
-          8 projetos entregues. Time enxuto, sem camada de intermediário: você fala direto com quem constrói.
-        </p>
-      </div>
-    </div>
+    <p class="hero-nota">
+      <b id="contador">8</b>
+      <span>projetos entregues e rodando. Time enxuto, sem intermediário: você fala direto com quem constrói.</span>
+    </p>
   </header>
 
-  <!-- ================= SERVIÇOS ================= -->
+  <!-- ===================== 2. SERVIÇOS ===================== -->
   <section id="servicos">
     <div class="wrap">
       <div class="sec-head">
@@ -682,12 +552,7 @@
             Do desenho da tela ao deploy em produção. Construímos o sistema que a sua operação
             precisa quando nenhuma ferramenta de prateleira resolve.
           </p>
-          <ul>
-            <li>Descoberta e escopo fechado</li>
-            <li>Protótipo navegável antes do código</li>
-            <li>Entrega em ciclos, com você testando</li>
-            <li>Deploy, monitoramento e suporte</li>
-          </ul>
+          <p class="prazo">Escopo fechado · Código no seu repositório</p>
         </article>
         <article>
           <span class="idx">02 / MVP</span>
@@ -696,12 +561,7 @@
             O suficiente para colocar na mão do usuário e aprender de verdade. Recorte enxuto,
             base bem feita, pronta para crescer se a validação vier.
           </p>
-          <ul>
-            <li>Recorte do essencial junto com você</li>
-            <li>Conta, pagamento e painel básicos</li>
-            <li>Métricas desde o primeiro dia</li>
-            <li>Código seu, no seu repositório</li>
-          </ul>
+          <p class="prazo">4 a 8 semanas · Métricas desde o dia um</p>
         </article>
         <article>
           <span class="idx">03 / INTERNO</span>
@@ -710,152 +570,61 @@
             Estoque, pedido, ordem de serviço, aprovação, relatório. O que hoje vive em planilha
             compartilhada vira sistema com histórico, permissão e responsável.
           </p>
-          <ul>
-            <li>Mapeamento do fluxo atual</li>
-            <li>Migração dos dados que já existem</li>
-            <li>Permissão por perfil de usuário</li>
-            <li>Treinamento do time que vai usar</li>
-          </ul>
+          <p class="prazo">Migração dos dados · Treinamento do time</p>
         </article>
       </div>
-    </div>
-  </section>
 
-  <!-- ================= PROCESSO ================= -->
-  <section id="processo" class="flow-section">
-    <div class="wrap">
-      <div class="sec-head" style="padding-top:0">
-        <div>
-          <p class="eyebrow"><span class="dot"></span> Como trabalhamos</p>
-          <h2>Da conversa<br><span class="light">ao sistema no ar</span></h2>
-        </div>
-        <p>
-          Seis etapas, sem surpresa no meio do caminho. Você acompanha cada uma e aprova
-          antes da próxima começar.
-        </p>
-      </div>
-    </div>
-
-    <div class="wrap">
-      <div class="flow">
-        <span class="rail-line" aria-hidden="true"></span>
-        <span class="rail-fill" id="railFill" aria-hidden="true"></span>
+      <div class="fluxo" id="fluxo">
+        <span class="fluxo-linha" aria-hidden="true"><i id="fluxoFill"></i></span>
         <ol>
-        <li>
-          <span class="pip" aria-hidden="true"></span>
-          <article class="node">
-            <span class="step">ETAPA 01</span>
-            <h3>Conversa</h3>
-            <p>Você conta o problema no WhatsApp ou numa call de 30 minutos. Sem formulário longo e sem apresentação comercial.</p>
-            <span class="when">Mesmo dia</span>
-          </article>
-        </li>
-        <li>
-          <span class="pip" aria-hidden="true"></span>
-          <article class="node">
-            <span class="step">ETAPA 02</span>
-            <h3>Escopo</h3>
-            <p>Devolvemos o que dá para fazer, em quanto tempo e por quanto. Preço e prazo fechados antes de qualquer código.</p>
-            <span class="when">Até 3 dias úteis</span>
-          </article>
-        </li>
-        <li>
-          <span class="pip" aria-hidden="true"></span>
-          <article class="node">
-            <span class="step">ETAPA 03</span>
-            <h3>Protótipo</h3>
-            <p>Telas navegáveis antes de escrever código. Mudar de ideia aqui custa minutos, depois custaria semanas.</p>
-            <span class="when">Semana 1</span>
-          </article>
-        </li>
-        <li>
-          <span class="pip" aria-hidden="true"></span>
-          <article class="node">
-            <span class="step">ETAPA 04</span>
-            <h3>Construção</h3>
-            <p>Entregas em ciclos curtos, com ambiente de teste liberado para você mexer a qualquer hora do projeto.</p>
-            <span class="when">Ciclos de 1 semana</span>
-          </article>
-        </li>
-        <li>
-          <span class="pip" aria-hidden="true"></span>
-          <article class="node">
-            <span class="step">ETAPA 05</span>
-            <h3>No ar</h3>
-            <p>Publicação, domínio, backup e monitoramento. O seu time sai treinado para usar sem depender da gente.</p>
-            <span class="when">Fim do prazo combinado</span>
-          </article>
-        </li>
-        <li>
-          <span class="pip" aria-hidden="true"></span>
-          <article class="node">
-            <span class="step">ETAPA 06</span>
-            <h3>Evolução</h3>
-            <p>Sistema rodando gera ideia nova. Seguimos por demanda ou em contrato mensal, você escolhe o formato.</p>
-            <span class="when">Contínuo, se fizer sentido</span>
-          </article>
-        </li>
+          <li>
+            <span class="pip" aria-hidden="true"></span>
+            <h3>Conversa e escopo</h3>
+            <p>Você conta o problema no WhatsApp ou numa call curta. Devolvemos o que dá para fazer, em quanto tempo e por quanto.</p>
+            <span class="quando">Até 3 dias úteis</span>
+          </li>
+          <li>
+            <span class="pip" aria-hidden="true"></span>
+            <h3>Protótipo e construção</h3>
+            <p>Telas navegáveis antes do código, depois entregas em ciclos de uma semana com ambiente de teste sempre liberado.</p>
+            <span class="quando">Ciclos de 1 semana</span>
+          </li>
+          <li>
+            <span class="pip" aria-hidden="true"></span>
+            <h3>No ar e evolução</h3>
+            <p>Publicação, domínio, backup e monitoramento. Seu time sai treinado e a gente segue por demanda se fizer sentido.</p>
+            <span class="quando">Fim do prazo combinado</span>
+          </li>
         </ol>
       </div>
-    </div>
-  </section>
 
-  <!-- ================= IA ================= -->
-  <section id="ia">
-    <div class="wrap">
-      <div class="sec-head">
+      <div class="faixa">
         <div>
-          <p class="eyebrow"><span class="dot"></span> Inteligência artificial</p>
-          <h2>IA no núcleo,<br><span class="light">não como enfeite</span></h2>
+          <h3>IA no núcleo</h3>
+          <ul>
+            <li>Agentes que consultam o sistema e resolvem, não apenas respondem</li>
+            <li>Leitura de nota, contrato e planilha antiga, sem digitar campo por campo</li>
+            <li>Busca em linguagem normal sobre os dados da empresa, com a fonte citada</li>
+          </ul>
         </div>
-        <p>
-          Usamos IA onde ela derruba trabalho manual de verdade. Se um script simples resolve melhor,
-          falamos isso na proposta em vez de vender complexidade.
-        </p>
-      </div>
-
-      <div class="ia-grid">
-        <article>
-          <span class="mark">/ AGENTES</span>
-          <h3>Agentes que executam tarefa, não só respondem</h3>
-          <p>
-            Atendimento que consulta o sistema e resolve, triagem de pedido, follow-up de orçamento.
-            O agente age dentro das regras que você define e registra tudo o que fez.
-          </p>
-        </article>
-        <article>
-          <span class="mark">/ DOCUMENTOS</span>
-          <h3>Leitura e extração de documento</h3>
-          <p>
-            Nota, contrato, laudo, planilha antiga. O sistema lê, tira o dado estruturado e joga
-            no lugar certo, sem alguém digitando campo por campo.
-          </p>
-        </article>
-        <article>
-          <span class="mark">/ PROCESSO</span>
-          <h3>Automação de fluxo repetitivo</h3>
-          <p>
-            Aquilo que hoje é copiar de um lugar e colar em outro vira rotina automática, com
-            alerta quando algo foge do padrão.
-          </p>
-        </article>
-        <article>
-          <span class="mark">/ CONTEXTO</span>
-          <h3>Busca sobre a base da sua empresa</h3>
-          <p>
-            Pergunta em linguagem normal e resposta apoiada nos seus próprios dados e documentos,
-            com a fonte citada para conferência.
-          </p>
-        </article>
+        <div>
+          <h3>Com o que construímos</h3>
+          <div class="chips">
+            <span>React</span><span>Next.js</span><span>TypeScript</span><span>Node.js</span>
+            <span>Python</span><span>PostgreSQL</span><span>Supabase</span>
+            <span>API da Anthropic</span><span>API da OpenAI</span><span>n8n</span>
+            <span>WhatsApp Business API</span><span>Vercel</span><span>AWS</span>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-
-  <!-- ================= PROJETOS =================
-       Cada projeto é um <article class="proj">. Para incluir mais, copie um bloco
-       inteiro e ajuste o conteúdo. A grade se reorganiza sozinha. Se um projeto
-       tiver página ou link público, troque <article class="proj"> por
+  <!-- ===================== 3. PROJETOS =====================
+       Para incluir um projeto, copie um bloco <article class="proj"> inteiro.
+       A capa procura a imagem em img/cases/. Enquanto o arquivo não existir,
+       o card cai na capa tipográfica e nada quebra. Se o projeto tiver link
+       público, troque <article class="proj"> por
        <a class="proj" href="..." target="_blank" rel="noopener">.
   -->
   <section id="projetos">
@@ -872,12 +641,12 @@
       </div>
 
       <div class="proj-grid">
-        <!-- PROJETO 01: troque titulo, descricao, selo e meta. Para a capa,
-             substitua o <span class="inicial"> por <img src="..." alt="..."> -->
         <article class="proj">
           <div class="proj-capa">
             <span class="selo">Sistema interno</span>
             <span class="inicial" aria-hidden="true">S</span>
+            <!-- Capa: salve o print em img/cases/01.png e tire este comentario da linha abaixo.
+            <img src="img/cases/01.png" alt="Descreva a tela do sistema aqui"> -->
           </div>
           <div class="proj-corpo">
             <h3>Nome do projeto</h3>
@@ -885,12 +654,13 @@
             <p class="proj-meta">Segmento do cliente · 2026<br>React, Node, PostgreSQL</p>
           </div>
         </article>
-        <!-- PROJETO 02: troque titulo, descricao, selo e meta. Para a capa,
-             substitua o <span class="inicial"> por <img src="..." alt="..."> -->
+
         <article class="proj">
           <div class="proj-capa">
             <span class="selo">MVP de startup</span>
             <span class="inicial" aria-hidden="true">M</span>
+            <!-- Capa: salve o print em img/cases/02.png e tire este comentario da linha abaixo.
+            <img src="img/cases/02.png" alt="Descreva a tela do sistema aqui"> -->
           </div>
           <div class="proj-corpo">
             <h3>Nome do projeto</h3>
@@ -898,12 +668,13 @@
             <p class="proj-meta">Segmento do cliente · 2026<br>Next.js, Supabase</p>
           </div>
         </article>
-        <!-- PROJETO 03: troque titulo, descricao, selo e meta. Para a capa,
-             substitua o <span class="inicial"> por <img src="..." alt="..."> -->
+
         <article class="proj">
           <div class="proj-capa">
             <span class="selo">Automação com IA</span>
             <span class="inicial" aria-hidden="true">A</span>
+            <!-- Capa: salve o print em img/cases/03.png e tire este comentario da linha abaixo.
+            <img src="img/cases/03.png" alt="Descreva a tela do sistema aqui"> -->
           </div>
           <div class="proj-corpo">
             <h3>Nome do projeto</h3>
@@ -921,46 +692,7 @@
     </div>
   </section>
 
-  <!-- ================= STACK ================= -->
-  <section id="stack">
-    <div class="wrap">
-      <div class="sec-head">
-        <div>
-          <p class="eyebrow"><span class="dot"></span> Tecnologia</p>
-          <h2>Ferramenta atual,<br><span class="light">escolha justificada</span></h2>
-        </div>
-        <p>
-          Trabalhamos com o que é maduro e bem documentado hoje. A escolha de cada peça é explicada
-          na proposta, e o código fica no seu repositório desde o primeiro commit.
-        </p>
-      </div>
-
-      <div class="stack-list">
-        <span>React</span><span>Next.js</span><span>TypeScript</span><span>Node.js</span>
-        <span>Python</span><span>FastAPI</span><span>PostgreSQL</span><span>Supabase</span>
-        <span>API da Anthropic</span><span>API da OpenAI</span><span>n8n</span>
-        <span>WhatsApp Business API</span><span>Vercel</span><span>AWS</span>
-        <span>Docker</span><span>GitHub Actions</span>
-      </div>
-
-      <div class="stats">
-        <div>
-          <p class="num" data-count="8">0</p>
-          <p class="lbl">Projetos entregues<br>e rodando</p>
-        </div>
-        <div>
-          <p class="num">4<small>&thinsp;a&thinsp;</small>8</p>
-          <p class="lbl">Semanas, prazo típico<br>de um MVP</p>
-        </div>
-        <div>
-          <p class="num">0</p>
-          <p class="lbl">Camadas entre você<br>e quem escreve o código</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= CTA ================= -->
+  <!-- ===================== 4. CONTATO ===================== -->
   <section id="contato">
     <div class="wrap">
       <div class="cta">
@@ -1019,8 +751,7 @@ const WHATSAPP_NUMERO = "5516997052711";
 const WHATSAPP_MENSAGEM = "Olá! Vim pelo site da OpenSeed e quero falar sobre um projeto de software.";
 
 (function aplicarWhatsapp() {
-  const href = "https://wa.me/" + WHATSAPP_NUMERO +
-               "?text=" + encodeURIComponent(WHATSAPP_MENSAGEM);
+  const href = "https://wa.me/" + WHATSAPP_NUMERO + "?text=" + encodeURIComponent(WHATSAPP_MENSAGEM);
   document.querySelectorAll("[data-wa]").forEach(function (el) {
     el.href = href;
     el.target = "_blank";
@@ -1030,78 +761,147 @@ const WHATSAPP_MENSAGEM = "Olá! Vim pelo site da OpenSeed e quero falar sobre u
 
 document.getElementById("ano").textContent = new Date().getFullYear();
 
-/* Nav ganha fundo depois que sai do topo */
 const nav = document.getElementById("nav");
 addEventListener("scroll", function () {
   nav.classList.toggle("solid", scrollY > 24);
 }, { passive: true });
 
 const semMovimento = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const telaLarga = matchMedia("(min-width: 1000px)").matches && matchMedia("(hover: hover)").matches;
 
 if (!semMovimento && window.gsap) {
   gsap.registerPlugin(ScrollTrigger);
 
-  /* ---- Hero: linhas sobem por baixo da máscara ---- */
-  gsap.from("#heroTitle .line-mask > span", {
-    yPercent: 110,
-    duration: 1.05,
-    ease: "power4.out",
-    stagger: 0.09
+  /* A última palavra do título entra letra por letra. O h1 tem aria-label,
+     e as letras ficam escondidas do leitor de tela para não serem soletradas. */
+  const palavra = document.getElementById("heroPalavra");
+  const texto = palavra.textContent;
+  palavra.textContent = "";
+  texto.split("").forEach(function (c) {
+    const s = document.createElement("span");
+    s.className = "letra";
+    s.textContent = c;
+    palavra.appendChild(s);
   });
 
-  gsap.from(".hero .eyebrow, .hero-sub > *", {
-    y: 22, opacity: 0, duration: .8, ease: "power3.out", stagger: .08, delay: .25
+  const cards = gsap.utils.toArray(".kard");
+  cards.forEach(function (c) { c.dataset.giro = c.dataset.rot || 0; });
+
+  /* Os estados iniciais só são aplicados quando a animação vai rodar de fato,
+     senão a página ficaria em branco para quem pediu menos movimento. */
+  gsap.set("#nav", { opacity: 0, y: -18 });
+  gsap.set("#heroTitulo .line-mask > span", { yPercent: 108 });
+  gsap.set(".letra", { yPercent: 108, opacity: 0 });
+  gsap.set(".hero .eyebrow, .hero-sub > *, .hero-nota", { opacity: 0, y: 20 });
+  gsap.set(cards, {
+    y: telaLarga ? -110 : 36,
+    opacity: 0,
+    scale: telaLarga ? .88 : .96,
+    rotation: function (i, el) { return parseFloat(el.dataset.giro) + (telaLarga ? 8 : 0); }
   });
 
-  /* ---- Trilho de entregas: cada card com rotação e parallax leve ---- */
-  gsap.utils.toArray(".kard").forEach(function (card, i) {
-    gsap.set(card, { rotation: parseFloat(card.dataset.rot || 0) });
-    gsap.from(card, {
-      y: 60, opacity: 0, duration: .9, ease: "power3.out", delay: .4 + i * 0.06
+  gsap.timeline({ defaults: { ease: "power3.out" } })
+    .to("#nav", { opacity: 1, y: 0, duration: .7 }, .05)
+    .to(".hero .eyebrow", { opacity: 1, y: 0, duration: .6 }, .15)
+    .to("#heroTitulo .line-mask > span", { yPercent: 0, duration: .9, stagger: .08 }, .25)
+    .to(".letra", { yPercent: 0, opacity: 1, duration: .8, stagger: .045, ease: "back.out(1.6)" }, .5)
+    .to(".hero-sub > *", { opacity: 1, y: 0, duration: .7, stagger: .08 }, .75)
+    .to(cards, {
+      y: 0, opacity: 1, scale: 1,
+      rotation: function (i, el) { return parseFloat(el.dataset.giro); },
+      duration: .85, ease: "back.out(1.3)",
+      stagger: { each: .06, from: "center" }
+    }, .85)
+    .to(".hero-nota", { opacity: 1, y: 0, duration: .7 }, 1.35);
+
+  const contador = document.getElementById("contador");
+  const conta = { v: 0 };
+  gsap.to(conta, {
+    v: 8, duration: 1.3, ease: "power2.out", delay: 1.45,
+    onUpdate: function () { contador.textContent = Math.round(conta.v); }
+  });
+
+  if (telaLarga) {
+    /* Parallax de mouse. Escreve em translate, propriedade separada do
+       transform que o GSAP controla, para os dois não brigarem. */
+    const hero = document.getElementById("hero");
+    let mx = 0, my = 0, tx = 0, ty = 0;
+    hero.addEventListener("mousemove", function (e) {
+      const r = hero.getBoundingClientRect();
+      mx = ((e.clientX - r.left) / r.width - .5) * 2;
+      my = ((e.clientY - r.top) / r.height - .5) * 2;
     });
-  });
+    hero.addEventListener("mouseleave", function () { mx = 0; my = 0; });
 
-  /* ---- Seções: entrada simples na rolagem ---- */
-  gsap.utils.toArray(".sec-head, .svc article, .ia-grid article, .proj, .proj-vazio, .stack-list, .cta").forEach(function (el) {
-    gsap.from(el, {
-      y: 40, opacity: 0, duration: .8, ease: "power3.out",
-      scrollTrigger: { trigger: el, start: "top 85%" }
+    (function parallax() {
+      tx += (mx - tx) * .05;
+      ty += (my - ty) * .05;
+      cards.forEach(function (card) {
+        const d = parseFloat(card.dataset.depth) || 8;
+        card.style.translate = (tx * d).toFixed(2) + "px " + (ty * d * .5).toFixed(2) + "px";
+      });
+      requestAnimationFrame(parallax);
+    })();
+
+    /* Relevo ao passar o mouse. O mesmo efeito responde ao teclado, senão
+       quem navega com Tab não recebe retorno nenhum. */
+    cards.forEach(function (card) {
+      const giro = parseFloat(card.dataset.giro) || 0;
+      function levantar(rx, ry) {
+        gsap.to(card, {
+          rotateX: rx, rotateY: ry, scale: 1.09, zIndex: 20,
+          duration: .4, ease: "power2.out",
+          transformPerspective: 700, overwrite: "auto"
+        });
+      }
+      function baixar() {
+        gsap.to(card, {
+          rotateX: 0, rotateY: 0, scale: 1, zIndex: "auto", rotation: giro,
+          duration: .7, ease: "elastic.out(1, .6)", overwrite: "auto"
+        });
+      }
+      card.addEventListener("mousemove", function (e) {
+        const r = card.getBoundingClientRect();
+        levantar(-((e.clientY - r.top) / r.height - .5) * 14, ((e.clientX - r.left) / r.width - .5) * 14);
+      });
+      card.addEventListener("mouseleave", baixar);
+      card.setAttribute("tabindex", "0");
+      card.addEventListener("focus", function () { levantar(0, 0); });
+      card.addEventListener("blur", baixar);
     });
-  });
 
-  /* ---- Contadores ---- */
-  gsap.utils.toArray(".stats .num[data-count]").forEach(function (el) {
-    const alvo = parseInt(el.dataset.count, 10);
-    const marcador = el.firstChild;
-    const obj = { v: 0 };
-    gsap.to(obj, {
-      v: alvo, duration: 1.4, ease: "power2.out",
-      scrollTrigger: { trigger: el, start: "top 88%" },
-      onUpdate: function () { marcador.textContent = Math.round(obj.v); }
-    });
-  });
-
-  /* ---- Processo: trilho que se preenche e etapas entrando ---- */
-  const railFill = document.getElementById("railFill");
-  if (railFill) {
-    gsap.to(railFill, {
-      scaleY: 1, ease: "none",
-      scrollTrigger: {
-        trigger: ".flow", start: "top 72%", end: "bottom 78%", scrub: .6
+    /* Leque abrindo conforme a página rola. O deslocamento sai da posição do
+       card na fila, não de uma lista de pixels presa a uma largura de tela. */
+    const meio = (cards.length - 1) / 2;
+    ScrollTrigger.create({
+      trigger: ".hero", start: "top top", end: "bottom top", scrub: .8,
+      onUpdate: function (self) {
+        const p = self.progress;
+        cards.forEach(function (card, i) {
+          const dist = i - meio;
+          gsap.set(card, {
+            x: dist * 64 * p,
+            y: (26 - Math.abs(dist) * 11) * p,
+            rotation: parseFloat(card.dataset.giro) + dist * 5 * p
+          });
+        });
       }
     });
-
-    gsap.utils.toArray(".flow li").forEach(function (li) {
-      gsap.from(li.querySelector(".node"), {
-        y: 34, opacity: 0, duration: .7, ease: "power3.out",
-        scrollTrigger: { trigger: li, start: "top 88%" }
-      });
-      gsap.from(li.querySelector(".pip"), {
-        scale: 0, duration: .5, ease: "back.out(2)",
-        scrollTrigger: { trigger: li, start: "top 88%" }
-      });
-    });
   }
+
+  gsap.utils.toArray(".sec-head, .svc article, .fluxo li, .faixa > div, .proj, .proj-vazio, .cta").forEach(function (el) {
+    gsap.from(el, {
+      y: 34, opacity: 0, duration: .75, ease: "power3.out",
+      scrollTrigger: { trigger: el, start: "top 88%" }
+    });
+  });
+
+  /* A linha do processo é horizontal na tela larga e vertical no celular.
+     Animar os dois eixos cobre os dois casos: o eixo que já vale 1 não muda. */
+  gsap.to("#fluxoFill", {
+    scaleX: 1, scaleY: 1, ease: "none",
+    scrollTrigger: { trigger: "#fluxo", start: "top 82%", end: "bottom 72%", scrub: .6 }
+  });
 }
 </script>
 </body>
