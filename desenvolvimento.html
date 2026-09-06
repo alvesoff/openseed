@@ -3,8 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OpenSeed · Desenvolvimento de software com IA para startups e pequenos negócios</title>
-<meta name="description" content="Software sob demanda, MVP para startup e sistemas internos para empresas. Time enxuto, IA no núcleo do produto e conversa direta com quem constrói.">
+<title>Desenvolvimento de software com IA em Ribeirão Preto · OpenSeed</title>
+<meta name="description" content="Software sob demanda, MVP para startup e sistema interno em Ribeirão Preto e região. Escopo e prazo fechados antes de começar, código no seu repositório e resposta no mesmo dia útil.">
+<meta name="geo.region" content="BR-SP">
+<meta name="geo.placename" content="Ribeirão Preto">
 <meta name="theme-color" content="#0a0a0a">
 <link rel="canonical" href="https://openseed.com.br/desenvolvimento.html">
 
@@ -12,28 +14,144 @@
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%230a0a0a'/><rect x='4' y='5' width='24' height='4' rx='2' fill='%23c6f24e'/><rect x='4' y='13' width='24' height='4' rx='2' fill='%23f4f4f0'/><rect x='4' y='21' width='16' height='4' rx='2' fill='%23f4f4f0'/></svg>">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="OpenSeed · Desenvolvimento de software com IA">
-<meta property="og:description" content="Software sob demanda, MVP para startup e sistemas internos. Time enxuto, IA no núcleo, conversa direta com quem constrói.">
+<meta property="og:title" content="Desenvolvimento de software com IA em Ribeirão Preto · OpenSeed">
+<meta property="og:description" content="Software sob demanda, MVP para startup e sistema interno em Ribeirão Preto e região. Escopo e prazo fechados, código seu, resposta no mesmo dia útil.">
+<meta property="og:locale" content="pt_BR">
 <meta property="og:url" content="https://openseed.com.br/desenvolvimento.html">
 <meta property="og:image" content="https://openseed.com.br/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="OpenSeed · Desenvolvimento de software com IA">
-<meta name="twitter:description" content="Software sob demanda, MVP para startup e sistemas internos para empresas.">
+<meta name="twitter:title" content="Desenvolvimento de software com IA em Ribeirão Preto · OpenSeed">
+<meta name="twitter:description" content="Software sob demanda, MVP para startup e sistema interno em Ribeirão Preto e região.">
 <meta name="twitter:image" content="https://openseed.com.br/og-image.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@500;700;900&display=swap" rel="stylesheet">
 
+<!-- Dados estruturados. Sem aggregateRating nem review: a OpenSeed ainda não
+     tem avaliação publicada e marcar nota própria é motivo de penalidade. -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "ProfessionalService",
-  "name": "OpenSeed",
-  "url": "https://openseed.com.br/desenvolvimento.html",
-  "description": "Desenvolvimento de software sob demanda, MVP para startups e sistemas internos para empresas, com uso de inteligência artificial.",
-  "areaServed": "BR",
-  "serviceType": ["Desenvolvimento de software sob demanda", "MVP para startup", "Sistemas internos", "Automação com inteligência artificial"]
+  "@graph": [
+    {
+      "@type": "ProfessionalService",
+      "@id": "https://openseed.com.br/#organizacao",
+      "name": "OpenSeed",
+      "url": "https://openseed.com.br/desenvolvimento.html",
+      "image": "https://openseed.com.br/og-image.png",
+      "description": "Estúdio de desenvolvimento de software com inteligência artificial em Ribeirão Preto. Software sob demanda, MVP para startup e sistema interno para pequenos negócios.",
+      "email": "contato@openseed.com.br",
+      "telephone": "+5516997052711",
+      "priceRange": "$",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Ribeirão Preto",
+        "addressRegion": "SP",
+        "addressCountry": "BR"
+      },
+      "areaServed": [
+        { "@type": "City", "name": "Ribeirão Preto" },
+        { "@type": "City", "name": "Sertãozinho" },
+        { "@type": "City", "name": "Cravinhos" },
+        { "@type": "City", "name": "Jardinópolis" },
+        { "@type": "AdministrativeArea", "name": "Estado de São Paulo" }
+      ],
+      "sameAs": ["https://instagram.com/openseedbr"],
+      "knowsAbout": [
+        "Desenvolvimento de software sob demanda",
+        "MVP para startup",
+        "Sistema interno para empresa",
+        "Automação com inteligência artificial",
+        "Integração com WhatsApp Business API"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Serviços de desenvolvimento",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Software sob demanda",
+              "description": "Sistema web completo, do desenho da tela ao deploy, para quando nenhuma ferramenta de prateleira resolve o processo da empresa."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "MVP para startup",
+              "description": "Primeira versão no ar em 4 a 8 semanas, com o essencial para validar com usuário real e métricas desde o primeiro dia."
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Sistema interno",
+              "description": "Estoque, pedido, ordem de serviço e aprovação com histórico, permissão por perfil e migração dos dados que já existem."
+            }
+          }
+        ]
+      }
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://openseed.com.br/desenvolvimento.html#pagina",
+      "url": "https://openseed.com.br/desenvolvimento.html",
+      "name": "Desenvolvimento de software com IA em Ribeirão Preto",
+      "inLanguage": "pt-BR",
+      "isPartOf": { "@id": "https://openseed.com.br/#organizacao" },
+      "about": { "@id": "https://openseed.com.br/#organizacao" }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://openseed.com.br/desenvolvimento.html#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Quanto custa desenvolver um sistema sob demanda?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Depende do escopo, e por isso o orçamento sai fechado antes de começar. Você conta o problema, a OpenSeed devolve em até 3 dias úteis o que dá para fazer, em quanto tempo e por quanto. Um MVP de startup costuma ficar entre 4 e 8 semanas de trabalho."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Em quanto tempo o sistema fica pronto?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Um MVP leva de 4 a 8 semanas. Sistemas internos variam conforme a quantidade de fluxos, e a entrega acontece em ciclos de uma semana, com ambiente de teste liberado para o cliente acompanhar desde o começo."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "De quem é o código depois que o projeto termina?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Do cliente. O código fica no repositório do cliente desde o primeiro commit, junto com o acesso à infraestrutura. Não existe dependência da OpenSeed para continuar o projeto com outro time."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "A OpenSeed atende fora de Ribeirão Preto?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Sim. A base é Ribeirão Preto e a região atendida presencialmente inclui Sertãozinho, Cravinhos e Jardinópolis. Projetos em outras cidades são atendidos de forma remota, com as mesmas reuniões de acompanhamento."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "O que significa usar IA no núcleo do projeto?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Significa aplicar inteligência artificial onde ela derruba trabalho manual: agentes que consultam o sistema e resolvem o pedido, leitura automática de nota e contrato, e busca em linguagem normal sobre os dados da empresa. Quando um script simples resolve melhor, a OpenSeed diz isso na proposta."
+          }
+        }
+      ]
+    }
+  ]
 }
 </script>
 
@@ -451,6 +569,36 @@
   .cta .fine { font-family: var(--mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; opacity: .78; }
   @media (max-width: 860px) { .cta { grid-template-columns: 1fr; } }
 
+  /* ---------- PERGUNTAS ---------- */
+  .faq { margin-top: clamp(40px, 6vw, 72px); }
+  .faq h3 {
+    font-family: var(--display); font-weight: 900; text-transform: uppercase;
+    font-size: clamp(19px, 2vw, 24px); letter-spacing: -.03em;
+    line-height: 1; padding-bottom: .05em; margin-bottom: 18px;
+  }
+  .faq details {
+    border-top: 1px solid var(--line);
+  }
+  .faq details:last-of-type { border-bottom: 1px solid var(--line); }
+  .faq summary {
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    min-height: 60px; padding: 14px 0;
+    font-size: clamp(15.5px, 1.5vw, 17px); font-weight: 700;
+    color: var(--ink); cursor: pointer; list-style: none;
+  }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after {
+    content: ""; flex: none; width: 12px; height: 12px;
+    border-right: 2px solid var(--lime); border-bottom: 2px solid var(--lime);
+    transform: rotate(45deg) translate(-3px, -3px);
+    transition: transform .25s ease;
+  }
+  .faq details[open] summary::after { transform: rotate(-135deg) translate(-3px, -3px); }
+  .faq details > p {
+    font-size: 15px; line-height: 1.7; color: var(--muted);
+    max-width: 72ch; padding: 0 0 20px;
+  }
+
   footer { margin-top: clamp(52px, 8vw, 92px); border-top: 1px solid var(--line); padding: 36px 0 48px; }
   .foot-grid { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap; }
   footer .wordmark { font-size: 32px; }
@@ -531,7 +679,7 @@
 
   <!-- ===================== 1. HERO ===================== -->
   <header class="hero" id="hero">
-    <p class="eyebrow"><span class="dot"></span> Estúdio de software com IA · Brasil</p>
+    <p class="eyebrow"><span class="dot"></span> Estúdio de software com IA · Ribeirão Preto, SP</p>
 
     <h1 id="heroTitulo" aria-label="Seu sistema no ar em semanas">
       <span class="line-mask"><span class="light" aria-hidden="true">Seu sistema</span></span>
@@ -585,7 +733,7 @@
 
     <p class="hero-nota">
       <b id="contador">8</b>
-      <span>projetos entregues. Você fala direto com quem constrói.</span>
+      <span>projetos entregues em Ribeirão Preto e região. Você fala direto com quem constrói.</span>
     </p>
   </header>
 
@@ -754,6 +902,32 @@
           <p class="fine">Resposta no mesmo dia útil</p>
         </div>
       </div>
+
+      <!-- As mesmas perguntas estão no JSON-LD do cabeçalho. Mexeu aqui,
+           mexa lá também: marcação de FAQ sem o texto visível é spam. -->
+      <div class="faq">
+        <h3>Perguntas que sempre aparecem</h3>
+        <details>
+          <summary>Quanto custa desenvolver um sistema sob demanda?</summary>
+          <p>Depende do escopo, e por isso o orçamento sai fechado antes de começar. Você conta o problema, a gente devolve em até 3 dias úteis o que dá para fazer, em quanto tempo e por quanto. Um MVP de startup costuma ficar entre 4 e 8 semanas de trabalho.</p>
+        </details>
+        <details>
+          <summary>Em quanto tempo o sistema fica pronto?</summary>
+          <p>Um MVP leva de 4 a 8 semanas. Sistema interno varia conforme a quantidade de fluxos, e a entrega acontece em ciclos de uma semana, com ambiente de teste liberado para você acompanhar desde o começo.</p>
+        </details>
+        <details>
+          <summary>De quem é o código depois que o projeto termina?</summary>
+          <p>Seu. O código fica no seu repositório desde o primeiro commit, junto com o acesso à infraestrutura. Você não fica dependente da OpenSeed para seguir com outro time.</p>
+        </details>
+        <details>
+          <summary>Vocês atendem fora de Ribeirão Preto?</summary>
+          <p>Sim. A base é Ribeirão Preto e a região atendida presencialmente inclui Sertãozinho, Cravinhos e Jardinópolis. Projeto em outra cidade a gente atende remoto, com as mesmas reuniões de acompanhamento.</p>
+        </details>
+        <details>
+          <summary>O que significa usar IA no núcleo do projeto?</summary>
+          <p>Significa aplicar IA onde ela derruba trabalho manual: agente que consulta o sistema e resolve o pedido, leitura automática de nota e contrato, busca em linguagem normal sobre os dados da empresa. Quando um script simples resolve melhor, a gente fala isso na proposta.</p>
+        </details>
+      </div>
     </div>
   </section>
 
@@ -784,14 +958,185 @@
   </svg>
 </a>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
 /* Numero de WhatsApp da OpenSeed, o mesmo usado em sobre.html.
    Trocou o numero? Trocar nos dois arquivos juntos. */
 const WHATSAPP_NUMERO = "5516997052711";
 const WHATSAPP_MENSAGEM = "Olá! Vim pelo site da OpenSeed e quero falar sobre um projeto de software.";
+</script>
 
+<!-- ==================================================================
+     WebMCP: a página se apresenta como conjunto de ferramentas para
+     agentes de IA que rodam no navegador (rascunho do W3C Web Machine
+     Learning CG, Chrome 146 em diante, só em contexto seguro).
+
+     Regras que valem aqui:
+     - Toda ferramenta é de leitura. O site não tem servidor, então nada
+       aqui grava, envia ou agenda coisa alguma.
+     - A ferramenta de contato devolve o link do WhatsApp para o agente
+       entregar à pessoa. Ela não manda mensagem, e diz isso na resposta.
+     - Os dados saem do próprio HTML, então a resposta do agente nunca
+       diverge do que está escrito na tela.
+     - Navegador sem suporte simplesmente ignora este bloco.
+     ================================================================== -->
+<script>
+(function webmcp() {
+  if (!("modelContext" in navigator)) return;
+
+  const texto = function (el, sel) {
+    const alvo = el.querySelector(sel);
+    return alvo ? alvo.textContent.trim().replace(/\s+/g, " ") : null;
+  };
+
+  const CONTATO = {
+    empresa: "OpenSeed",
+    o_que_faz: "Desenvolvimento de software sob demanda, MVP para startup e sistema interno, com inteligência artificial aplicada.",
+    cidade: "Ribeirão Preto, SP",
+    regiao_atendida: ["Ribeirão Preto", "Sertãozinho", "Cravinhos", "Jardinópolis", "Remoto para outras cidades"],
+    whatsapp: "+55 16 99705-2711",
+    email: "contato@openseed.com.br",
+    instagram: "https://instagram.com/openseedbr",
+    tempo_de_resposta: "Mesmo dia útil"
+  };
+
+  const ferramentas = [
+    {
+      name: "openseed_listar_servicos",
+      description: "Lista os serviços de desenvolvimento da OpenSeed, com a descrição e as condições de cada um.",
+      annotations: { readOnlyHint: true },
+      execute: async function () {
+        return {
+          servicos: Array.from(document.querySelectorAll("#servicos .svc article")).map(function (a) {
+            return {
+              categoria: texto(a, ".idx"),
+              titulo: texto(a, "h3"),
+              descricao: texto(a, "p:not(.prazo):not(.idx)"),
+              condicoes: texto(a, ".prazo")
+            };
+          })
+        };
+      }
+    },
+    {
+      name: "openseed_explicar_processo",
+      description: "Explica as etapas de um projeto na OpenSeed, da primeira conversa até o sistema no ar, com o prazo de cada etapa.",
+      annotations: { readOnlyHint: true },
+      execute: async function () {
+        return {
+          etapas: Array.from(document.querySelectorAll("#fluxo ol li")).map(function (li, i) {
+            return {
+              ordem: i + 1,
+              etapa: texto(li, "h3"),
+              descricao: texto(li, "p"),
+              prazo: texto(li, ".quando")
+            };
+          })
+        };
+      }
+    },
+    {
+      name: "openseed_listar_tecnologias",
+      description: "Lista as tecnologias que a OpenSeed usa nos projetos.",
+      annotations: { readOnlyHint: true },
+      execute: async function () {
+        return {
+          tecnologias: Array.from(document.querySelectorAll(".chips span")).map(function (c) {
+            return c.textContent.trim();
+          })
+        };
+      }
+    },
+    {
+      name: "openseed_listar_projetos",
+      description: "Lista os projetos que a OpenSeed já entregou, com o tipo, o que resolveram e a tecnologia usada.",
+      annotations: { readOnlyHint: true },
+      execute: async function () {
+        /* Cartão ainda não preenchido não entra: melhor devolver lista curta
+           do que devolver exemplo como se fosse caso real. */
+        const projetos = Array.from(document.querySelectorAll("#projetos .proj"))
+          .map(function (p) {
+            return {
+              nome: texto(p, "h3"),
+              tipo: texto(p, ".selo"),
+              resumo: texto(p, ".proj-corpo p:not(.proj-meta)"),
+              detalhes: texto(p, ".proj-meta")
+            };
+          })
+          .filter(function (p) { return p.nome && p.nome !== "Nome do projeto"; });
+
+        return {
+          total_entregue: 8,
+          projetos_publicados: projetos,
+          observacao: projetos.length
+            ? null
+            : "A OpenSeed entregou 8 projetos, mas os detalhes ainda não estão publicados nesta página. Para conhecer casos parecidos com a necessidade da pessoa, use openseed_montar_contato."
+        };
+      }
+    },
+    {
+      name: "openseed_responder_duvida_comum",
+      description: "Responde as dúvidas frequentes sobre preço, prazo, propriedade do código, área de atendimento e uso de IA. Use antes de dizer que não sabe.",
+      annotations: { readOnlyHint: true },
+      inputSchema: {
+        type: "object",
+        properties: {
+          assunto: {
+            type: "string",
+            description: "Assunto da dúvida",
+            enum: ["preco", "prazo", "codigo", "atendimento", "ia", "todas"]
+          }
+        }
+      },
+      execute: async function (entrada) {
+        const chaves = ["preco", "prazo", "codigo", "atendimento", "ia"];
+        const todas = Array.from(document.querySelectorAll(".faq details")).map(function (d, i) {
+          return { assunto: chaves[i] || String(i), pergunta: texto(d, "summary"), resposta: texto(d, "p") };
+        });
+        const pedido = entrada && entrada.assunto;
+        if (!pedido || pedido === "todas") return { duvidas: todas };
+        return { duvidas: todas.filter(function (d) { return d.assunto === pedido; }) };
+      }
+    },
+    {
+      name: "openseed_montar_contato",
+      description: "Devolve os canais de contato da OpenSeed e monta um link de WhatsApp já com a mensagem escrita. Não envia nada: entregue o link para a pessoa abrir.",
+      annotations: { readOnlyHint: true },
+      inputSchema: {
+        type: "object",
+        properties: {
+          resumo_do_projeto: {
+            type: "string",
+            description: "Uma ou duas frases sobre o que a pessoa precisa, para já ir escrito na mensagem."
+          }
+        }
+      },
+      execute: async function (entrada) {
+        const resumo = entrada && entrada.resumo_do_projeto ? String(entrada.resumo_do_projeto).slice(0, 400) : "";
+        const mensagem = resumo
+          ? "Olá! Vim pelo site da OpenSeed. " + resumo
+          : WHATSAPP_MENSAGEM;
+        return Object.assign({}, CONTATO, {
+          link_whatsapp: "https://wa.me/" + WHATSAPP_NUMERO + "?text=" + encodeURIComponent(mensagem),
+          mensagem_sugerida: mensagem,
+          aviso: "Este link apenas abre a conversa. Nenhuma mensagem foi enviada por esta ferramenta."
+        });
+      }
+    }
+  ];
+
+  ferramentas.forEach(function (t) {
+    try {
+      navigator.modelContext.registerTool(t);
+    } catch (e) {
+      /* Nome repetido ou schema recusado: a página segue funcionando igual. */
+    }
+  });
+})();
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
 (function aplicarWhatsapp() {
   const href = "https://wa.me/" + WHATSAPP_NUMERO + "?text=" + encodeURIComponent(WHATSAPP_MENSAGEM);
   document.querySelectorAll("[data-wa]").forEach(function (el) {

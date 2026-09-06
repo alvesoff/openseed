@@ -13,4 +13,8 @@ Disallow: /og-image.html
 # Ativos da marca: arquivos de apoio, não conteúdo.
 Disallow: /brand/
 
+# Resumo do site em texto, para ferramentas de IA que queiram ler.
+# Nenhum buscador grande se comprometeu a usar, mas o arquivo é barato.
+# Resumo: https://openseed.com.br/llms.txt
+
 Sitemap: https://openseed.com.br/sitemap.xml
