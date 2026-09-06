@@ -40,6 +40,7 @@ openseed/
 │   ├── sincronizar-faq.js     escreve o FAQ do JSON-LD a partir da tela
 │   ├── grafico-manifesto.js   dados e traçado do gráfico do manifesto
 │   ├── empacotar-marca.js     monta o zip da marca a partir da pasta
+│   ├── instagram.html         template da foto de perfil, com prova em círculo
 │   ├── og-image.html          template da imagem de compartilhamento
 │   ├── icons.html             template dos ícones
 │   ├── capas-de-projeto.md    como publicar o print de um projeto
@@ -173,6 +174,7 @@ Os arquivos ficam em `docs/assets/marca/` e estão no ar:
 | `openseed-marca-preta.svg` | fundo claro |
 | `openseed-marca-branca.svg` | fundo colorido ou foto |
 | `openseed-marca-*-1024.png`, `-2048.png` | quando o destino não aceita SVG |
+| `openseed-instagram-perfil.png` | foto de perfil do Instagram, 1080 x 1080 |
 | `openseed-marca.zip` | o pacote completo, com um LEIA-ME dentro |
 
 **Por que existe um zip.** O GitHub Pages não deixa mandar
@@ -185,6 +187,13 @@ de extensões permitidas dentro de `docs/`.
 vetoriais extraídos da Outfit Black, então os arquivos não dependem de a fonte
 estar instalada em lugar nenhum. A geometria foi conferida contra o que o
 navegador pinta no site, e bate dentro de um pixel.
+
+**A foto de perfil sai de `tools/instagram.html`**, que já traz o círculo do
+recorte como guia e mostra a prova nos três tamanhos em que o Instagram exibe a
+foto: 110 px no perfil, 56 nos stories e 32 no comentário. A marca ocupa 76% da
+largura, e não mais: o Instagram recorta em círculo, os cantos somem, e com
+story ativo ele desenha um anel em volta e encolhe a imagem. Apague a classe
+`guia` antes de fotografar.
 
 Acrescentou ou trocou uma variante? Refaça o pacote, senão quem baixar leva um zip
 incompleto:

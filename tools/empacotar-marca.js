@@ -29,6 +29,7 @@ openseed-marca-1024.png         cores da marca, 1024 px de largura, fundo transp
 openseed-marca-2048.png         a mesma, 2048 px, para impressão e tela grande
 openseed-marca-preta-1024.png   preta, 1024 px, fundo transparente
 openseed-marca-branca-1024.png  branca, 1024 px, fundo transparente
+openseed-instagram-perfil.png   foto de perfil do Instagram, 1080 x 1080
 
 Prefira o SVG sempre que der. Ele não perde qualidade em nenhum tamanho e o
 texto já está em contorno, então não depende de a fonte estar instalada.
@@ -42,6 +43,17 @@ Preto-carvão  #0a0a0a   o fundo da marca
 
 O verde-limão sobre branco dá 1,4 de contraste e não se lê. Em fundo claro use
 a versão preta, nunca a colorida.
+
+A foto de perfil do Instagram
+-----------------------------
+
+openseed-instagram-perfil.png já está pronta para subir: 1080 por 1080, que é
+o que o Instagram reamostra sem borrar em tela densa.
+
+A marca ocupa 76% da largura de propósito. O Instagram recorta a foto em
+círculo e os cantos do quadrado somem; e quando há story ativo ele ainda
+desenha um anel em volta e encolhe a imagem um pouco. Os 76% deixam folga para
+os dois. Não aumente a marca para "aproveitar o espaço": o espaço não é seu.
 
 Como usar
 ---------
