@@ -15,3 +15,6 @@ preview-*.png
 
 # Assets de trabalho do pivô (refs de terceiros, logo bruta)
 PIVOT/
+
+# Artefatos do navegador de teste
+.playwright-mcp/
