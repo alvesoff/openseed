@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Desenvolvimento de software com IA em Ribeirão Preto · OpenSeed</title>
-<meta name="description" content="Software sob demanda, MVP para startup e sistema interno em Ribeirão Preto e região. Escopo e prazo fechados antes de começar, código no seu repositório e resposta no mesmo dia útil.">
+<meta name="description" content="Software sob demanda, MVP para startup e sistema interno em Ribeirão Preto e região. Escopo e prazo fechados antes de começar, orçamento em até 3 dias úteis e resposta no mesmo dia útil.">
 <meta name="geo.region" content="BR-SP">
 <meta name="geo.placename" content="Ribeirão Preto">
 <meta name="theme-color" content="#0a0a0a">
@@ -123,14 +123,6 @@
           "acceptedAnswer": {
             "@type": "Answer",
             "text": "Um MVP leva de 4 a 8 semanas. Sistemas internos variam conforme a quantidade de fluxos, e a entrega acontece em ciclos de uma semana, com ambiente de teste liberado para o cliente acompanhar desde o começo."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "De quem é o código depois que o projeto termina?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Do cliente. O código fica no repositório do cliente desde o primeiro commit, junto com o acesso à infraestrutura. Não existe dependência da OpenSeed para continuar o projeto com outro time."
           }
         },
         {
@@ -759,7 +751,7 @@
 
     <ul class="garantias">
       <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Escopo e preço fechados antes de começar</li>
-      <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Código no seu repositório desde o primeiro commit</li>
+      <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Migração dos dados e treinamento do time inclusos</li>
       <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Sem fidelidade e sem mensalidade obrigatória</li>
     </ul>
 
@@ -814,7 +806,7 @@
           <span class="idx">01 / SOB DEMANDA</span>
           <h3>Feito para o seu processo</h3>
           <p>Do desenho da tela ao deploy, para quando nenhuma ferramenta de prateleira resolve.</p>
-          <p class="prazo">Escopo fechado · Código no seu repositório</p>
+          <p class="prazo">Escopo fechado · Orçamento em até 3 dias úteis</p>
         </article>
         <article>
           <span class="idx">02 / MVP</span>
@@ -960,7 +952,7 @@
               <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
             </svg>
           </a>
-          <p class="fine">Conversa de 20 minutos · Resposta no mesmo dia útil</p>
+          <p class="fine">Conversa gratuita de 20 minutos · Resposta no mesmo dia útil</p>
         </div>
       </div>
 
@@ -975,10 +967,6 @@
         <details data-assunto="prazo">
           <summary>Em quanto tempo o sistema fica pronto?</summary>
           <p>Um MVP leva de 4 a 8 semanas. Sistema interno varia conforme a quantidade de fluxos, e a entrega acontece em ciclos de uma semana, com ambiente de teste liberado para você acompanhar desde o começo.</p>
-        </details>
-        <details data-assunto="codigo">
-          <summary>De quem é o código depois que o projeto termina?</summary>
-          <p>Seu. O código fica no seu repositório desde o primeiro commit, junto com o acesso à infraestrutura. Você não fica dependente da OpenSeed para seguir com outro time.</p>
         </details>
         <details data-assunto="atendimento">
           <summary>Vocês atendem fora de Ribeirão Preto?</summary>
@@ -1020,7 +1008,7 @@
       <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
     </svg>
   </a>
-  <span class="fine">Conversa de 20 minutos, sem compromisso</span>
+  <span class="fine">Conversa gratuita de 20 minutos, sem compromisso</span>
 </div>
 
 <a class="wa-float" data-wa href="#contato" aria-label="Falar no WhatsApp">
@@ -1154,7 +1142,7 @@ const WHATSAPP_MENSAGEM = "Olá! Vim pelo site da OpenSeed e quero falar sobre u
           assunto: {
             type: "string",
             description: "Assunto da dúvida",
-            enum: ["preco", "prazo", "codigo", "atendimento", "ia", "todas"]
+            enum: ["preco", "prazo", "atendimento", "ia", "todas"]
           }
         }
       },

@@ -3,12 +3,13 @@
 > Estúdio de desenvolvimento de software com inteligência artificial em Ribeirão Preto, SP. Software sob demanda, MVP para startup e sistema interno para pequenos negócios.
 
 A OpenSeed constrói sistemas web sob medida. O escopo, o prazo e o preço são
-fechados antes da primeira linha de código, o código fica no repositório do
-cliente desde o primeiro commit e o cliente conversa direto com quem programa.
+fechados antes da primeira linha de código, e o cliente conversa direto com
+quem programa, sem camada de intermediário.
 
 - Base: Ribeirão Preto, SP. Atende presencialmente Sertãozinho, Cravinhos e Jardinópolis, e remoto nas demais cidades.
 - Contato: WhatsApp +55 16 99705-2711, contato@openseed.com.br
-- Resposta no mesmo dia útil.
+- Resposta no mesmo dia útil. Primeira conversa de 20 minutos, gratuita e sem compromisso.
+- Sem fidelidade e sem mensalidade obrigatória.
 
 ## Serviços
 
