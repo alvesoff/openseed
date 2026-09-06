@@ -130,6 +130,10 @@
     else consultaLarga.addListener(aoMudar);
   }
 
+  /* Lido uma vez e usado por todo mundo que anima: o gráfico do manifesto
+     aqui embaixo e o bloco de movimento lá no fim. */
+  var semMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
   /* ---------- Barra de ação do celular ---------- */
   var barra = $(".barra-acao");
   var botaoContato = $("#contato .btn");
@@ -137,6 +141,49 @@
     new IntersectionObserver(function (entradas) {
       barra.classList.toggle("oculta", entradas[0].isIntersecting);
     }, { threshold: .4 }).observe(botaoContato);
+  }
+
+  /* ---------- Gráfico do manifesto ----------
+     O traçado já está escrito no HTML, então a página sem JavaScript, numa
+     impressão ou numa captura mostra o gráfico pronto. Aqui só se faz a linha
+     entrar desenhando.
+
+     O esconder acontece DENTRO do callback, nunca na leitura do arquivo:
+     esconder de saída e revelar por evento deixaria o gráfico vazio em todo
+     lugar que nunca rola até ele, que é justamente o caso de imprimir, salvar
+     em PDF e fotografar a página inteira. */
+  var graficos = $$("svg.chart");
+  if (graficos.length && !semMovimento && "IntersectionObserver" in window) {
+    var desenharGrafico = function (svg) {
+      var linhas = $$(".line", svg).filter(function (el) { return typeof el.getTotalLength === "function"; });
+      if (!linhas.length) return;
+      linhas.forEach(function (el) {
+        var comprimento = el.getTotalLength();
+        el.style.strokeDasharray = comprimento;
+        el.style.strokeDashoffset = comprimento;
+      });
+      /* Dois quadros: o primeiro comita o estado escondido, o segundo dispara
+         a transição. Num quadro só o navegador junta as duas escritas e a
+         linha aparece pronta, sem animar. */
+      requestAnimationFrame(function () {
+        requestAnimationFrame(function () {
+          linhas.forEach(function (el) {
+            el.style.transition = "stroke-dashoffset 1.4s cubic-bezier(.3, .7, .2, 1)";
+            el.style.strokeDashoffset = 0;
+          });
+        });
+      });
+    };
+    /* Um observador para todos os gráficos da página. Cada um desenha quando
+       chega na tela e sai da observação em seguida. */
+    var olho = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        olho.unobserve(e.target);
+        desenharGrafico(e.target);
+      });
+    }, { threshold: .25 });
+    graficos.forEach(function (g) { olho.observe(g); });
   }
 
   /* ---------- WebMCP ----------
@@ -291,8 +338,8 @@
   /* ---------- Movimento ----------
      Nada aqui é necessário para ler a página: sem GSAP, ou com movimento
      reduzido, tudo já está visível. Os estados iniciais só são aplicados no
-     instante em que a animação correspondente é criada. */
-  var semMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+     instante em que a animação correspondente é criada.
+     semMovimento vem lá de cima, onde é lido uma vez só. */
   /* Este texto tem que ser igual ao da @media do leque em site.css.
      tools/conferir.js compara os dois. */
   var CONSULTA_LARGA = "(min-width: 1000px) and (hover: hover)";

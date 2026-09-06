@@ -3,395 +3,408 @@
 <head>
 <meta charset="UTF-8">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>OpenSeed · Soluções com IA que facilitam a vida das pessoas</title>
-<meta name="description" content="Soluções com IA que facilitam a vida das pessoas. Metade de tudo que você lê online já nasce de uma máquina; a questão é a serviço de quem.">
-<meta name="theme-color" content="#0a0b09">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Manifesto · OpenSeed</title>
+<meta name="description" content="Metade de tudo que se lê online já nasce de uma máquina. A questão não é mais se a IA faz parte da vida, mas a serviço de quem.">
+<meta name="theme-color" content="#0a0a0a">
 <link rel="canonical" href="https://openseed.com.br/manifesto.html">
-<!-- selo da marca -->
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+
 <link rel="icon" href="/assets/img/icons/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/img/icons/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/assets/img/icons/apple-touch-icon.png">
-<!-- Open Graph / preview ao compartilhar o link -->
-<meta property="og:type" content="website">
-<meta property="og:title" content="OpenSeed">
-<meta property="og:description" content="Soluções com IA que facilitam a vida das pessoas. Toda revolução começou com uma Seed.">
-<!-- Domínio próprio, servido pelo GitHub Pages via o arquivo CNAME na raiz.
-     Mexeu no domínio? Trocar aqui, no twitter:image e no CNAME, os três juntos. -->
+<link rel="manifest" href="/site.webmanifest">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="OpenSeed">
+<meta property="og:locale" content="pt_BR">
+<meta property="article:published_time" content="2026-08-02">
+<meta property="article:modified_time" content="2026-09-06">
+<meta property="og:title" content="Manifesto · OpenSeed">
+<meta property="og:description" content="Metade de tudo que se lê online já nasce de uma máquina. A questão é a serviço de quem.">
 <meta property="og:url" content="https://openseed.com.br/manifesto.html">
 <meta property="og:image" content="https://openseed.com.br/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="OpenSeed: seu sistema no ar em semanas.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="OpenSeed">
-<meta name="twitter:description" content="Soluções com IA que facilitam a vida das pessoas. Toda revolução começou com uma Seed.">
+<meta name="twitter:title" content="Manifesto · OpenSeed">
+<meta name="twitter:description" content="Metade de tudo que se lê online já nasce de uma máquina. A questão é a serviço de quem.">
 <meta name="twitter:image" content="https://openseed.com.br/assets/img/og-image.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&family=JetBrains+Mono:wght@400;700&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css">
+
 <style>
-  :root {
-    --bg: #0a0b09;
-    --panel: #121410;
-    --ink: #f2f0e9;
-    --muted: #9a9b92;
-    /* --faint precisa render no mínimo 4,5:1 contra --bg para texto pequeno.
-       #62635c dava 3,05:1 e deixava as legendas do eixo ilegíveis. */
-    --faint: #797a73;
-    --line: #21231d;
-    --seed: #56c884;
-    --amber: #e6b53d;
-    --mono: "JetBrains Mono", ui-monospace, "SF Mono", Consolas, monospace;
-    --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-    --display: "Unbounded", "Inter", system-ui, sans-serif;
-    --wordmark: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: var(--sans);
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-  }
+  /* Estilo só desta página. Os tokens são os de site.css; aqui ficam as
+     figuras de linguagem que só o manifesto usa: o dístico, o grifo, a lista
+     de pontos e o gráfico. */
 
-  /* ---------- TOPO ---------- */
-  .topbar {
-    position: sticky; top: 0; z-index: 30;
-    text-align: center; padding: 18px 0;
-    background: transparent;
-    transition: background .25s ease, backdrop-filter .25s ease;
+  /* Coluna de leitura mais estreita que a do resto do site: é texto corrido
+     longo, e linha comprida cansa. */
+  .manifesto { max-width: 46rem; }
+  .manifesto > p { font-size: 18px; line-height: 1.72; color: var(--muted); margin-bottom: 24px; }
+  .manifesto em { font-style: italic; color: var(--ink); }
+  .manifesto .lead { font-size: 21px; line-height: 1.5; color: var(--ink); margin-bottom: 28px; }
+
+  .manifesto h2 {
+    font-family: var(--display); font-weight: 900; text-transform: uppercase;
+    font-size: clamp(26px, 6vw, 44px); line-height: 1; letter-spacing: -.035em;
+    margin: 56px 0 26px; padding-bottom: .06em; max-width: 16ch;
   }
-  .topbar.scrolled {
-    background: rgba(10, 11, 9, 0.72);
-    backdrop-filter: blur(12px);
-  }
-  /* Lockup da marca: broto sem ladrilho + nome em Bricolage Grotesque 600,
-     que é a tipografia oficial do wordmark. Em fundo escuro a marca vai numa
-     cor só (areia), porque o ladrilho tinta sumiria contra o --bg. */
-  .brand {
-    display: inline-flex; align-items: center; gap: 11px;
-    font-family: var(--wordmark);
-    font-weight: 600; font-size: 24px; letter-spacing: -0.025em;
-    text-decoration: none; color: var(--ink);
-  }
-  .brand svg { width: auto; height: 30px; }
+  .manifesto h2 .light { color: var(--faint); }
 
-  /* ---------- RELATÓRIO (coluna única) ---------- */
-  .report { width: 100%; max-width: 800px; margin: 0 auto; padding: 64px clamp(24px, 6vw, 64px) 96px; }
-
-  h1 {
-    font-family: var(--display);
-    font-size: clamp(28px, 4.6vw, 40px);
-    line-height: 1.28; font-weight: 600; letter-spacing: -0.01em;
-    margin-bottom: 38px;
-  }
-  h1 em { font-style: normal; color: var(--seed); }
-
-  .lead { font-size: 22px; line-height: 1.5; color: var(--ink); margin-bottom: 30px; }
-
-  p { font-size: 19px; line-height: 1.72; color: #d6d5cd; margin-bottom: 26px; }
-  .report p em { font-style: italic; color: var(--ink); }
-
-  h2 {
-    font-family: var(--display);
-    font-size: clamp(24px, 4vw, 34px);
-    line-height: 1.3; font-weight: 600; letter-spacing: -0.01em;
-    margin: 62px 0 30px;
-  }
-  h2 .syn { color: var(--seed); }
-
+  /* Grifo: sublinhado lima em vez de fundo colorido, para não brigar com o
+     contraste do texto. */
   .hl {
     color: var(--ink);
-    text-decoration: underline;
-    text-decoration-color: var(--seed);
-    text-decoration-thickness: 2px;
-    text-underline-offset: 5px;
+    text-decoration: underline; text-decoration-color: var(--lime);
+    text-decoration-thickness: 2px; text-underline-offset: 5px;
   }
 
-  .couplet {
-    font-family: var(--display);
-    margin: 44px 0;
-    font-size: clamp(20px, 2.7vw, 26px); line-height: 1.4;
-    font-weight: 600; letter-spacing: -0.01em;
+  /* Dístico: duas linhas, a primeira apagada e a segunda acesa. É a batida do
+     texto, não é decoração. */
+  /* .manifesto > p.distico, e não .distico: a regra de parágrafo logo acima
+     tem especificidade (0,1,1) e a de site.css .bloco p + p tem (0,1,2). Um
+     .distico solto, (0,1,0), perdia das duas e o dístico saía do tamanho e do
+     espaçamento do texto corrido, que é o oposto do que ele é. */
+  .manifesto > p.distico {
+    font-family: var(--display); font-weight: 900; text-transform: uppercase;
+    /* O mínimo era 19px, um pixel acima do texto corrido: no celular o
+       dístico virava parágrafo em caixa alta. Sobe para 22, e o fator por
+       viewport garante 25px já em 390. */
+    font-size: clamp(22px, 6.4vw, 30px); line-height: 1.08; letter-spacing: -.03em;
+    margin: 40px 0; max-width: 20ch; color: var(--ink);
   }
-  .couplet .a { color: var(--muted); display: block; }
-  .couplet .b { color: var(--ink); display: block; }
+  .distico span { display: block; padding-bottom: .06em; }
+  .distico .a { color: var(--faint); }
+  .distico .b { color: var(--ink); }
 
-  .turn {
-    font-family: var(--display);
-    font-size: clamp(20px, 2.7vw, 26px); font-weight: 600; letter-spacing: -0.01em;
-    line-height: 1.4; margin: 48px 0 22px;
+  .lista-pontos { list-style: none; margin: 22px 0 28px; display: grid; gap: 15px; }
+  .lista-pontos li { position: relative; padding-left: 24px; font-size: 17px; line-height: 1.6; color: var(--muted); }
+  .lista-pontos li::before {
+    content: ""; position: absolute; left: 2px; top: 10px;
+    width: 8px; height: 8px; border-radius: 50%; background: var(--lime);
   }
-  .turn em { font-style: normal; color: var(--seed); }
+  .lista-pontos b { color: var(--ink); font-weight: 600; }
 
-  .blist { list-style: none; margin: 20px 0 30px; }
-  .blist li { position: relative; padding-left: 26px; margin-bottom: 16px; font-size: 18px; line-height: 1.6; color: #d6d5cd; }
-  .blist li::before { content: ""; position: absolute; left: 2px; top: 11px; width: 8px; height: 8px; border-radius: 50%; background: var(--seed); }
-  .blist b { color: var(--ink); font-weight: 700; }
+  /* ---------- GRÁFICO ----------
+     As duas linhas se distinguem por cor e por rótulo colado nelas. O rótulo
+     é o que importa: quem não separa as duas cores continua lendo o gráfico. */
+  .grafico {
+    background: var(--bg-2); border: 1px solid var(--line);
+    border-radius: 18px; padding: 26px 20px 22px; margin: 40px 0;
+  }
+  .grafico-titulo { font-family: var(--mono); font-size: 13px; font-weight: 700; letter-spacing: .02em; margin-bottom: 16px; }
 
-  /* ---------- GRÁFICO ---------- */
-  .chart-card { background: var(--panel); border: 1px solid var(--line); border-radius: 18px; padding: 30px 26px 24px; margin: 44px 0; }
-  .chart-title { font-family: var(--mono); font-size: 14px; font-weight: 700; letter-spacing: -0.01em; margin-bottom: 22px; }
+  /* Legenda fora do SVG. Dentro dele o texto encolhe junto com o desenho e
+     no celular chegava a 5,9 pixels; aqui ela rende no tamanho que está
+     escrito, em qualquer tela. O tracinho repete a espessura da linha que
+     representa, então a legenda também não depende só de cor. */
+  .grafico-legenda { list-style: none; display: flex; flex-wrap: wrap; gap: 8px 20px; margin-bottom: 20px; }
+  .grafico-legenda li { display: flex; align-items: center; gap: 9px; font-family: var(--mono); font-size: 12.5px; color: var(--muted); }
+  .grafico-legenda .marca { display: inline-block; width: 22px; border-radius: 2px; flex: none; }
+  .grafico-legenda .marca-humano { height: 2.5px; background: var(--faint); }
+  .grafico-legenda .marca-ia { height: 3.2px; background: var(--lime); }
   svg.chart { width: 100%; height: auto; display: block; font-family: var(--mono); }
-  svg.chart .grid { stroke: #23251f; stroke-width: 1; }
-  svg.chart .grid.zero { stroke: #3a3c36; }
+  /* Tudo daqui para baixo lê os tokens de site.css. Recopiar o valor faria a
+     folha e o gráfico andarem separados, e a folha avisa que --faint já foi
+     recalibrado uma vez por contraste. */
+  svg.chart .grid { stroke: var(--line); stroke-width: 1; }
+  svg.chart .grid.zero { stroke: var(--line-2); }
   svg.chart .axis { fill: var(--faint); font-size: 12px; }
-  svg.chart .line { fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+  /* Espessura diferente além da cor. Lima e branco têm quase a mesma
+     luminosidade, 1,17:1 entre si, então quem não distingue matiz ficaria sem
+     saber qual linha é qual no meio do gráfico. A linha humana passou para
+     --faint: 4,66:1 contra o fundo do cartão, acima do mínimo de 3:1 de
+     objeto gráfico, e 3,16:1 contra a linha da IA. Somado ao rótulo colado em
+     cada linha, são três canais e nenhum deles é só cor. */
+  svg.chart .line { fill: none; stroke-linecap: round; stroke-linejoin: round; }
+  svg.chart .linha-humano { stroke: var(--faint); stroke-width: 2.5; }
+  svg.chart .linha-ia { stroke: var(--lime); stroke-width: 3.2; }
   svg.chart .anno { fill: var(--muted); font-size: 11px; }
-  svg.chart .turn-anno { fill: var(--amber); font-weight: 700; }
-  svg.chart .leader { stroke: rgba(230, 181, 61, .45); stroke-width: 1; }
-  svg.chart .tag { font-size: 12px; font-weight: 700; }
-  .chart-foot { margin-top: 22px; padding-top: 20px; border-top: 1px solid var(--line); }
-  .chart-foot .cap { font-size: 15px; color: var(--muted); line-height: 1.5; margin-bottom: 12px; }
-  .chart-foot .src { font-family: var(--mono); font-size: 11px; color: var(--faint); }
-  .chart-foot .src a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; }
-  .chart-foot .src a:hover { color: var(--seed); }
+  svg.chart .virada { fill: var(--lime); font-weight: 700; }
+  svg.chart .guia { stroke: var(--lime); stroke-opacity: .45; stroke-width: 1; }
+  svg.chart .pontos-medidos circle { fill: var(--bg-2); stroke: var(--lime); stroke-width: 2; }
+  /* As etiquetas coladas na linha continuam na tela larga, onde rendem a
+     13,6 pixels e valem a pena. No celular a legenda de cima faz o papel. */
+  svg.chart .tag { font-size: 12px; font-weight: 700; fill: var(--bg); }
+  svg.chart .chip-humano { fill: var(--faint); }
+  svg.chart .chip-ia { fill: var(--lime); }
+  .grafico-pe { margin-top: 20px; padding-top: 18px; border-top: 1px solid var(--line); }
+  .grafico-pe .legenda { font-size: 15px; color: var(--muted); line-height: 1.55; margin-bottom: 12px; }
+  .grafico-pe .fonte { font-family: var(--mono); font-size: 11px; line-height: 1.6; color: var(--faint); }
+  /* Padding vertical num elemento em linha cresce a área de toque sem mexer
+     na altura da linha. */
+  .grafico-pe .fonte a { color: var(--muted); text-decoration: underline; text-underline-offset: 2px; padding-block: 5px; }
 
-  /* ---------- CHAMADA PARA A PÁGINA INSTITUCIONAL ---------- */
-  .cta-wrap { margin: 50px 0 4px; }
-  .cta {
-    display: inline-flex; align-items: center; gap: 12px;
-    background: var(--seed); color: #07130c;
-    font-weight: 700; font-size: 17px; letter-spacing: -0.01em;
-    padding: 16px 26px; border-radius: 999px; text-decoration: none;
-    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
-  }
-  .cta:hover, .cta:focus-visible { background: #6bd897; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(86, 200, 132, .2); }
-  .cta svg { width: 18px; height: 18px; flex: none; }
-  .cta-note { margin-top: 16px; font-size: 15px; color: var(--faint); }
-  .cta-alt {
-    display: inline-block; margin-top: 14px; font-size: 16px; font-weight: 600;
-    color: var(--ink); text-decoration: none;
-    border-bottom: 2px solid var(--seed); padding-bottom: 2px;
-    transition: color .16s ease;
-  }
-  .cta-alt:hover, .cta-alt:focus-visible { color: var(--seed); }
+  .manifesto-fim { display: grid; gap: 12px; margin-top: 48px; justify-items: start; }
+  .manifesto-fim .nota { font-size: 15px; color: var(--faint); }
 
-  /* ---------- RODAPÉ ---------- */
-  .foot { margin-top: 80px; }
-  .foot-tag { font-style: italic; color: var(--muted); font-size: 16px; margin-bottom: 14px; }
-  .foot-links { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-bottom: 14px; }
-  .foot-links a { font-size: 15px; color: var(--muted); text-decoration: none; transition: color .16s ease; }
-  .foot-links a:hover, .foot-links a:focus-visible { color: var(--seed); }
-  .foot-cop { font-family: var(--mono); font-size: 12px; color: var(--faint); }
-
-  @media (max-width: 540px) {
-    .report { padding: 56px 22px 72px; }
-    .lead { font-size: 20px; }
-    p { font-size: 18px; }
+  /* No celular o SVG renderiza a cerca de metade da escala, então 12 unidades
+     viravam 5,9 pixels de verdade e nada ali se lia. A saída é menos rótulo e
+     fonte maior: some a grade intermediária, somem os anos ímpares e some a
+     anotação secundária, e o que fica sobe para 20 unidades, cerca de 10
+     pixels. Não chega ao tamanho de texto corrido, e não deveria: é rótulo de
+     eixo. Todo fato do gráfico está escrito em prosa logo abaixo dele. */
+  @media (max-width: 720px) {
+    .grafico { padding: 26px 12px 22px; }
+    svg.chart .axis { font-size: 20px; }
+    svg.chart .anno { font-size: 19px; }
+    svg.chart .tag { font-size: 20px; }
+    svg.chart .so-tela-larga { display: none; }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: 0.001ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.001ms !important;
-      scroll-behavior: auto !important;
-    }
+  @media (min-width: 721px) {
+    .manifesto > p { font-size: 19px; }
+    .manifesto .lead { font-size: 23px; }
+    .grafico { padding: 30px 26px 24px; }
   }
 </style>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://openseed.com.br/#site",
+      "url": "https://openseed.com.br/",
+      "name": "OpenSeed",
+      "inLanguage": "pt-BR",
+      "publisher": { "@id": "https://openseed.com.br/#organizacao" }
+    },
+    {
+      "@type": "Article",
+      "@id": "https://openseed.com.br/manifesto.html#artigo",
+      "url": "https://openseed.com.br/manifesto.html",
+      "headline": "Toda revolução começou com uma Seed",
+      "description": "Metade de tudo que se lê online já nasce de uma máquina. A questão não é mais se a IA faz parte da vida, mas a serviço de quem.",
+      "inLanguage": "pt-BR",
+      "isPartOf": { "@id": "https://openseed.com.br/#site" },
+      "datePublished": "2026-08-02",
+      "dateModified": "2026-09-06",
+      "author": { "@type": "Organization", "name": "OpenSeed", "url": "https://openseed.com.br/" },
+      "publisher": { "@type": "Organization", "name": "OpenSeed", "url": "https://openseed.com.br/" },
+      "image": "https://openseed.com.br/assets/img/og-image.png"
+    }
+  ]
+}
+</script>
 </head>
 <body>
 
-  <div class="topbar">
-    <a class="brand" href="/">
-      <!-- viewBox recortado na caixa real do broto, para casar de altura com o nome -->
-      <svg viewBox="9.4 10 14.6 18.8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <path d="M16 24.4C16 20.4 15.6 16.6 16 12.6" stroke="#f2f0e9" stroke-width="1.9" stroke-linecap="round"/>
-        <path d="M16 18.2C20.1 17.6 23.4 14.6 24 10C19.5 10.6 16.5 13.7 16 18.2Z" fill="#f2f0e9"/>
-        <path d="M15.6 21C12.4 20.5 9.9 18.1 9.4 14.5C12.9 15 15.2 17.5 15.6 21Z" fill="#f2f0e9"/>
-        <ellipse cx="16" cy="26.2" rx="4.6" ry="2.6" fill="#f2f0e9"/>
+<div class="grain" aria-hidden="true"></div>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+<nav class="nav" id="nav" aria-label="Principal">
+  <a class="wordmark" href="/" aria-label="OpenSeed, página inicial">
+    <span class="open" aria-hidden="true">Open</span>
+    <span class="seed" aria-hidden="true">Seed</span>
+  </a>
+
+  <ul class="nav-links">
+    <li><a href="/#servicos">Serviços</a></li>
+    <li><a href="/sobre.html">Sobre</a></li>
+    <li><a href="/#contato">Contato</a></li>
+  </ul>
+
+  <div class="nav-dir">
+    <a class="lang" href="/en/" hreflang="en" lang="en" aria-label="Switch to English">EN</a>
+    <a class="btn btn-lime" data-wa href="https://wa.me/5516997052711?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20OpenSeed.%20Tenho%20um%20processo%20que%20hoje%20roda%20no%20bra%C3%A7o%20e%20quero%20saber%20se%20d%C3%A1%20para%20virar%20sistema." target="_blank" rel="noopener">
+      Contar no WhatsApp
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
+        <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
       </svg>
-      OpenSeed
     </a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menuPainel" aria-label="Abrir menu">
+      <span aria-hidden="true"></span>
+    </button>
   </div>
 
-  <main class="report" id="top">
-
-    <h1>Toda revolução começou com uma <em>Seed</em>.</h1>
-
-    <p class="lead">As ferramentas que mudaram a humanidade sempre fizeram a mesma coisa: transformaram esforço em tempo livre.</p>
-
-    <p>Mas, por décadas, foi a pessoa que se curvou diante da máquina, quando deveria ser o contrário. Construímos um mundo inteiro de repositórios escritos por humanos apenas para serem interpretados por computadores. E uma pergunta sempre incomodou: <span class="hl">por que ainda somos nós que precisamos falar a língua delas?</span></p>
-
-    <p>Setenta anos de programação, do assembly às frameworks. E o esforço continuou do lado errado.</p>
-
-    <p class="couplet">
-      <span class="a">A pessoa se curvava diante da máquina.</span>
-      <span class="b">Chegou a hora de inverter.</span>
-    </p>
-
-    <h2>Metade de tudo que você lê já é<span class="syn"> sintético.</span></h2>
-
-    <p>A internet chegou a um ponto curioso: metade de tudo que você lê hoje foi escrito, ao menos em parte, por uma máquina.</p>
-
-    <p>A virada foi rápida. Antes do ChatGPT, texto gerado por máquina era resíduo estatístico. Doze meses depois do lançamento, já respondia por 39% dos artigos publicados. Em <span class="hl">novembro de 2024</span> ultrapassou o que era escrito por gente, e desde então os dois seguem lado a lado.</p>
-
-    <div class="chart-card">
-      <div class="chart-title">O conteúdo gerado por IA já alcançou o humano</div>
-      <svg class="chart" viewBox="0 0 600 360" role="img" aria-label="Participação de conteúdo gerado por IA versus humano de 2020 a 2025">
-        <g>
-          <line class="grid zero" x1="60" y1="320" x2="600" y2="320"/>
-          <line class="grid" x1="60" y1="247.5" x2="600" y2="247.5"/>
-          <line class="grid" x1="60" y1="175" x2="600" y2="175"/>
-          <line class="grid" x1="60" y1="102.5" x2="600" y2="102.5"/>
-          <line class="grid" x1="60" y1="30" x2="600" y2="30"/>
-          <text class="axis" x="48" y="34" text-anchor="end">100%</text>
-          <text class="axis" x="48" y="106.5" text-anchor="end">75%</text>
-          <text class="axis" x="48" y="179" text-anchor="end">50%</text>
-          <text class="axis" x="48" y="251.5" text-anchor="end">25%</text>
-          <text class="axis" x="48" y="324" text-anchor="end">0%</text>
-        </g>
-        <g>
-          <text class="axis" x="60" y="344" text-anchor="middle">2020</text>
-          <text class="axis" x="150" y="344" text-anchor="middle">2021</text>
-          <text class="axis" x="240" y="344" text-anchor="middle">2022</text>
-          <text class="axis" x="330" y="344" text-anchor="middle">2023</text>
-          <text class="axis" x="420" y="344" text-anchor="middle">2024</text>
-          <text class="axis" x="510" y="344" text-anchor="middle">2025</text>
-        </g>
-        <path id="lineHuman" class="line" stroke="#56c884"/>
-        <path id="lineAI" class="line" stroke="#e6b53d"/>
-        <!-- pontos do estudo: preenchidos pelo JS a partir do mesmo array da linha,
-             para nunca dessincronizar do traçado -->
-        <g id="anchors"></g>
-        <text class="anno" x="308" y="272" text-anchor="end">Nov 2022</text>
-        <text class="anno" x="308" y="286" text-anchor="end">ChatGPT lança</text>
-        <!-- Anotação no vazio do canto superior direito, com linha-guia descendo
-             até o cruzamento das duas linhas. O x≈497 é o ponto de nov/2024. -->
-        <line class="leader" x1="497" y1="110" x2="497" y2="167"/>
-        <text class="anno turn-anno" x="584" y="100" text-anchor="end">Nov 2024: a virada</text>
-        <g>
-          <rect x="66" y="22" width="72" height="22" rx="5" fill="#56c884"/>
-          <text class="tag" x="102" y="37" text-anchor="middle" fill="#0a0b09">Humano</text>
-          <rect x="66" y="302" width="44" height="22" rx="5" fill="#e6b53d"/>
-          <text class="tag" x="88" y="317" text-anchor="middle" fill="#0a0b09">IA</text>
-        </g>
-      </svg>
-      <div class="chart-foot">
-        <div class="cap">Em 2020, quase tudo era escrito por gente. Hoje, metade do que se lê online já nasce de uma máquina. A questão não é mais <em>se</em> a IA faz parte da vida, mas <strong>a serviço de quem</strong>.</div>
-        <div class="src">Fonte: <a href="https://graphite.io/five-percent/more-articles-are-now-created-by-ai-than-humans" target="_blank" rel="noopener">Graphite</a> &amp; Common Crawl, 43 mil URLs em inglês, jan/2020 a mai/2025. Os pontos marcados são os do estudo; o traçado entre eles é interpolação.</div>
-      </div>
-    </div>
-
-    <p class="turn">E isso não é motivo de medo. É o <span class="hl">maior salto de alavanca</span> da nossa geração.</p>
-
-    <p>Usada com intenção, a inteligência artificial faz o que toda grande ferramenta fez antes dela: devolve tempo às pessoas.</p>
-
-    <ul class="blist">
-      <li><b>Faz em segundos</b> o que antes levava dias, liberando a pessoa para o que só ela sabe fazer.</li>
-      <li><b>Cuida do repetitivo</b> para que a criatividade, o cuidado e o julgamento humano voltem ao centro.</li>
-      <li><b>Democratiza o poder de construir:</b> qualquer um com uma boa ideia pode tirá-la do papel, sem precisar falar a língua da máquina.</li>
-      <li><b>Aprende com você</b> e some quando o trabalho está feito. Uma ferramenta que serve, não que prende.</li>
+  <div class="menu-painel" id="menuPainel" hidden>
+    <ul>
+      <li><a href="/#servicos">Serviços</a></li>
+      <li><a href="/sobre.html">Sobre</a></li>
+      <li><a href="/#contato">Contato</a></li>
+      <li><a href="/en/" hreflang="en" lang="en">English</a></li>
     </ul>
+  </div>
+</nav>
 
-    <p class="couplet">
-      <span class="a">Ideias não faltam. Falta o incentivo para levá-las adiante.</span>
-      <span class="b">Esse incentivo é a OpenSeed.</span>
-    </p>
+<main id="conteudo" tabindex="-1">
+  <div class="wrap pagina">
 
-    <div class="cta-wrap">
-      <a class="cta" href="/sobre.html">
-        Conheça a OpenSeed
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M5 12h13M12 5.5 18.5 12 12 18.5" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <header class="pagina-topo manifesto">
+      <p class="eyebrow"><span class="dot"></span> Manifesto</p>
+      <h1>Toda revolução começou com uma <span class="light">Seed</span>.</h1>
+      <p class="lead">As ferramentas que mudaram a humanidade sempre fizeram a mesma
+        coisa: transformaram esforço em tempo livre.</p>
+    </header>
+
+    <!-- Sem aria-labelledby: o h2 daqui só aparece depois de quatro parágrafos,
+         e nomear a região inteira com ele faria o leitor de tela anunciar a
+         abertura do texto como se fosse sobre conteúdo sintético. Sem nome
+         acessível, uma section não vira região, que é o certo aqui. -->
+    <div class="bloco manifesto">
+
+      <p>Mas, por décadas, foi a pessoa que se curvou diante da máquina, quando deveria
+        ser o contrário. Construímos um mundo inteiro de repositórios escritos por
+        humanos apenas para serem interpretados por computadores. E uma pergunta sempre
+        incomodou: <span class="hl">por que ainda somos nós que precisamos falar a
+        língua delas?</span></p>
+
+      <p>Setenta anos de programação, do assembly às frameworks. E o esforço continuou
+        do lado errado.</p>
+
+      <p class="distico">
+        <span class="a">A pessoa se curvava diante da máquina.</span>
+        <span class="b">Chegou a hora de inverter.</span>
+      </p>
+
+      <h2 id="tituloSintetico">Metade do que você lê <span class="light">já é sintético</span>.</h2>
+
+      <p>A internet chegou a um ponto curioso: metade de tudo que você lê hoje foi
+        escrito, ao menos em parte, por uma máquina.</p>
+
+      <p>A virada foi rápida. Antes do ChatGPT, texto gerado por máquina era resíduo
+        estatístico. Doze meses depois do lançamento, já respondia por 39% dos artigos
+        publicados. Em <span class="hl">novembro de 2024</span> ultrapassou o que era
+        escrito por gente, e desde então os dois seguem lado a lado.</p>
+
+      <!-- O traçado está escrito no atributo d para o gráfico existir sem
+           JavaScript. Os números do estudo, a escala e o algoritmo que gera
+           esse traçado moram em tools/grafico-manifesto.js, que é a fonte da
+           verdade. Não edite o d à mão: mexa nos dados de lá e rode
+           node tools/grafico-manifesto.js. -->
+      <figure class="grafico">
+        <figcaption class="grafico-titulo">O conteúdo gerado por IA já alcançou o humano</figcaption>
+        <ul class="grafico-legenda">
+          <li><span class="marca marca-humano" aria-hidden="true"></span>Escrito por gente</li>
+          <li><span class="marca marca-ia" aria-hidden="true"></span>Gerado por IA</li>
+        </ul>
+        <svg class="chart" viewBox="0 0 600 360" role="img" aria-label="Gráfico de linhas de 2020 a 2025. A linha cinza, do conteúdo escrito por gente, cai de 96% para cerca de 49%. A linha verde-limão, do gerado por IA, sobe de 4% para cerca de 51%. As duas se cruzam em novembro de 2024.">
+          <g>
+            <line class="grid zero" x1="60" y1="320" x2="600" y2="320"/>
+            <line class="grid so-tela-larga" x1="60" y1="247.5" x2="600" y2="247.5"/>
+            <line class="grid" x1="60" y1="175" x2="600" y2="175"/>
+            <line class="grid so-tela-larga" x1="60" y1="102.5" x2="600" y2="102.5"/>
+            <line class="grid" x1="60" y1="30" x2="600" y2="30"/>
+            <text class="axis" x="48" y="34" text-anchor="end">100%</text>
+            <text class="axis so-tela-larga" x="48" y="106.5" text-anchor="end">75%</text>
+            <text class="axis" x="48" y="179" text-anchor="end">50%</text>
+            <text class="axis so-tela-larga" x="48" y="251.5" text-anchor="end">25%</text>
+            <text class="axis" x="48" y="324" text-anchor="end">0%</text>
+          </g>
+          <g>
+            <text class="axis" x="60" y="344" text-anchor="middle">2020</text>
+            <text class="axis so-tela-larga" x="150" y="344" text-anchor="middle">2021</text>
+            <text class="axis" x="240" y="344" text-anchor="middle">2022</text>
+            <text class="axis so-tela-larga" x="330" y="344" text-anchor="middle">2023</text>
+            <text class="axis" x="420" y="344" text-anchor="middle">2024</text>
+            <text class="axis" x="510" y="344" text-anchor="middle">2025</text>
+          </g>
+          <path id="tracoHumano" class="line linha-humano"
+                d="M 60 42.18 C 75 42.18 120 42.18 150 42.18 C 180 42.18 212.25 42.18 240 42.18 C 267.75 42.18 297 34.54 316.5 42.18 C 336 49.82 342 71.18 357 88 C 372 104.82 390.75 131.02 406.5 143.1 C 422.25 155.18 436.5 155.18 451.5 160.5 C 466.5 165.82 480.75 172.1 496.5 175 C 512.25 177.9 537.75 177.42 546 177.9"/>
+          <path id="tracoIA" class="line linha-ia"
+                d="M 60 307.82 C 75 307.82 120 307.82 150 307.82 C 180 307.82 212.25 307.82 240 307.82 C 267.75 307.82 297 315.46 316.5 307.82 C 336 300.18 342 278.82 357 262 C 372 245.18 390.75 218.98 406.5 206.9 C 422.25 194.82 436.5 194.82 451.5 189.5 C 466.5 184.18 480.75 177.9 496.5 175 C 512.25 172.1 537.75 172.58 546 172.1"/>
+          <!-- Pontos que vêm do estudo, separados da interpolação.
+               Escritos por tools/grafico-manifesto.js, junto com o traçado. -->
+          <g class="pontos-medidos">
+            <circle cx="316.5" cy="307.82" r="4.5"/>
+            <circle cx="406.5" cy="206.9" r="4.5"/>
+            <circle cx="496.5" cy="175" r="4.5"/>
+            <circle cx="546" cy="172.1" r="4.5"/>
+          </g>
+          <text class="anno so-tela-larga" x="308" y="272" text-anchor="end">Nov 2022</text>
+          <text class="anno so-tela-larga" x="308" y="286" text-anchor="end">ChatGPT lança</text>
+          <line class="guia" x1="497" y1="110" x2="497" y2="167"/>
+          <text class="anno virada" x="584" y="100" text-anchor="end">Nov 2024: a virada</text>
+          <g class="so-tela-larga">
+            <rect class="chip-humano" x="66" y="22" width="72" height="22" rx="5"/>
+            <text class="tag" x="102" y="37" text-anchor="middle">Humano</text>
+            <rect class="chip-ia" x="66" y="302" width="44" height="22" rx="5"/>
+            <text class="tag" x="88" y="317" text-anchor="middle">IA</text>
+          </g>
         </svg>
-      </a>
-      <div class="cta-note">Como trabalhamos, o que atendemos e o modelo por trás disso.</div>
-      <a class="cta-alt" href="/">Precisa de um sistema? Veja o que desenvolvemos</a>
+        <div class="grafico-pe">
+          <p class="legenda">Em 2020, quase tudo era escrito por gente. Hoje, metade do
+            que se lê online já nasce de uma máquina. A questão não é mais <em>se</em> a
+            IA faz parte da vida, mas <strong>a serviço de quem</strong>.</p>
+          <p class="fonte">Fonte: <a href="https://graphite.io/five-percent/more-articles-are-now-created-by-ai-than-humans" target="_blank" rel="noopener">Graphite</a> e Common Crawl, 43 mil URLs em inglês, de janeiro de 2020 a maio de 2025. Os quatro pontos marcados são os do estudo; o traçado entre eles é interpolação.</p>
+        </div>
+      </figure>
+
+      <p class="distico">
+        <span class="a">E isso não é motivo de medo.</span>
+        <span class="b">É o maior salto de alavanca da nossa geração.</span>
+      </p>
+
+      <p>Usada com intenção, a inteligência artificial faz o que toda grande ferramenta
+        fez antes dela: devolve tempo às pessoas.</p>
+
+      <ul class="lista-pontos">
+        <li><b>Faz em segundos</b> o que antes levava dias, liberando a pessoa para o que só ela sabe fazer.</li>
+        <li><b>Cuida do repetitivo</b> para que a criatividade, o cuidado e o julgamento humano voltem ao centro.</li>
+        <li><b>Democratiza o poder de construir:</b> qualquer um com uma boa ideia pode tirá-la do papel, sem precisar falar a língua da máquina.</li>
+        <li><b>Aprende com você</b> e some quando o trabalho está feito. Uma ferramenta que serve, não que prende.</li>
+      </ul>
+
+      <p class="distico">
+        <span class="a">Ideias não faltam. Falta o incentivo para levá-las adiante.</span>
+        <span class="b">Esse incentivo é a OpenSeed.</span>
+      </p>
+
+      <div class="manifesto-fim">
+        <a class="btn btn-lime" href="/sobre.html">
+          Conhecer a OpenSeed
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
+            <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+          </svg>
+        </a>
+        <p class="nota">No que a gente acredita e o modelo por trás disso. Se você já
+          precisa de um sistema, <a href="/">veja o que desenvolvemos</a>.</p>
+      </div>
+
     </div>
 
-    <div class="foot">
-      <div class="foot-tag">OpenSeed · Todos os Direitos Reservados.</div>
-      <div class="foot-links">
-        <a href="/sobre.html">Conheça a OpenSeed</a>
-        <a href="/">Desenvolvimento de software</a>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <a class="wordmark" href="/" aria-label="OpenSeed, página inicial">
+        <span class="open" aria-hidden="true">Open</span>
+        <span class="seed" aria-hidden="true">Seed</span>
+      </a>
+      <nav class="foot-links" aria-label="Rodapé">
+        <a href="/manifesto.html">Manifesto</a>
+        <a href="/sobre.html">Sobre</a>
         <a href="https://instagram.com/openseedbr" target="_blank" rel="noopener">Instagram</a>
         <a href="/privacidade.html">Privacidade</a>
-      </div>
-      <div class="foot-cop">© 2026 OpenSeed</div>
+        <a href="/en/" hreflang="en" lang="en">English</a>
+      </nav>
     </div>
+    <p class="foot-fine">© <span id="ano">2026</span> OPENSEED · RIBEIRÃO PRETO, SP</p>
+  </div>
+</footer>
 
-  </main>
+<div class="barra-acao">
+  <a class="btn btn-lime" data-wa href="https://wa.me/5516997052711?text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20OpenSeed.%20Tenho%20um%20processo%20que%20hoje%20roda%20no%20bra%C3%A7o%20e%20quero%20saber%20se%20d%C3%A1%20para%20virar%20sistema." target="_blank" rel="noopener">
+    Contar no WhatsApp
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
+      <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+    </svg>
+  </a>
+</div>
 
-<script>
-  (function () {
-    var sx = function (year) { return 60 + (year - 2020) * 90; };
-    var sy = function (val) { return 320 - val * 2.9; };
-
-    // Participação da IA. Só quatro valores vêm do estudo da Graphite:
-    //   até nov/2022  4,2%   piso de base (é também a taxa de falso positivo do detector)
-    //   nov/2023       39%   doze meses depois do lançamento do ChatGPT
-    //   nov/2024       50%   a virada, quando ultrapassa o texto humano
-    //   mai/2025       51%   estável desde então, fim da janela do estudo
-    // Os demais pontos existem só para dar forma à curva e estão marcados como
-    // interpolação na legenda. Mexeu aqui? Atualize também a nota de fonte.
-    var anchors = [2022.85, 2023.85, 2024.85, 2025.4];
-    var ai = [
-      [2020, 4.2], [2021, 4.2], [2022, 4.2], [2022.85, 4.2],
-      [2023.3, 20], [2023.85, 39],
-      [2024.35, 45], [2024.85, 50], [2025.4, 51]
-    ];
-    var human = ai.map(function (p) { return [p[0], 100 - p[1]]; });
-
-    var toXY = function (data) {
-      return data.map(function (p) { return [sx(p[0]), sy(p[1])]; });
-    };
-
-    var smooth = function (pts) {
-      var d = 'M ' + pts[0][0] + ' ' + pts[0][1];
-      for (var i = 0; i < pts.length - 1; i++) {
-        var p0 = pts[i - 1] || pts[i];
-        var p1 = pts[i];
-        var p2 = pts[i + 1];
-        var p3 = pts[i + 2] || p2;
-        var c1x = p1[0] + (p2[0] - p0[0]) / 6;
-        var c1y = p1[1] + (p2[1] - p0[1]) / 6;
-        var c2x = p2[0] - (p3[0] - p1[0]) / 6;
-        var c2y = p2[1] - (p3[1] - p1[1]) / 6;
-        d += ' C ' + c1x + ' ' + c1y + ' ' + c2x + ' ' + c2y + ' ' + p2[0] + ' ' + p2[1];
-      }
-      return d;
-    };
-
-    var draw = function (id, data) {
-      var el = document.getElementById(id);
-      el.setAttribute('d', smooth(toXY(data)));
-      var len = el.getTotalLength();
-      el.style.strokeDasharray = len;
-      el.style.strokeDashoffset = len;
-      requestAnimationFrame(function () {
-        el.style.transition = 'stroke-dashoffset 1.4s cubic-bezier(.3,.7,.2,1)';
-        el.style.strokeDashoffset = 0;
-      });
-    };
-
-    draw('lineHuman', human);
-    draw('lineAI', ai);
-
-    // marca os pontos que vêm do estudo, para separá-los da interpolação
-    var g = document.getElementById('anchors');
-    var NS = 'http://www.w3.org/2000/svg';
-    ai.filter(function (p) { return anchors.indexOf(p[0]) !== -1; })
-      .forEach(function (p) {
-        var c = document.createElementNS(NS, 'circle');
-        c.setAttribute('cx', sx(p[0]));
-        c.setAttribute('cy', sy(p[1]));
-        c.setAttribute('r', 4.5);
-        c.setAttribute('fill', '#121410');
-        c.setAttribute('stroke', '#e6b53d');
-        c.setAttribute('stroke-width', '2');
-        g.appendChild(c);
-      });
-
-    // faixa do topo só aparece ao rolar
-    var topbar = document.querySelector('.topbar');
-    var onScroll = function () {
-      topbar.classList.toggle('scrolled', window.scrollY > 8);
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  })();
-</script>
+<!-- A entrada desenhando o gráfico mora em site.js, junto com o resto do
+     movimento do site. Aqui não há script embutido: a preferência de menos
+     movimento é lida num lugar só, e uma política de segurança de conteúdo
+     não precisaria abrir exceção para esta página. -->
+<script src="/assets/js/site.js" defer></script>
 </body>
 </html>

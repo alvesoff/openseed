@@ -43,6 +43,16 @@ if (faq.status !== 0) {
     + (faq.stderr || "").trim().split("\n").map(l => "        " + l).join("\n"));
 }
 
+/* 1b. O traçado do gráfico do manifesto contra os dados que o geram.
+   O d é um bezier de 24 pontos de controle: ninguém confere isso a olho, e
+   editar o HTML sem passar pela ferramenta desliga silenciosamente a única
+   ligação entre o desenho e os números do estudo. */
+const grafico = cp.spawnSync(process.execPath, [path.join(__dirname, "grafico-manifesto.js"), "--conferir"], { encoding: "utf8" });
+if (grafico.status !== 0) {
+  erro("grafico", "o traçado de docs/manifesto.html não bate com os dados de tools/grafico-manifesto.js.\n"
+    + "        Rode: node tools/grafico-manifesto.js");
+}
+
 /* 2. Um número de WhatsApp só, em todo lugar.
    Ele está espalhado por seis arquivos e trocar num só já aconteceu. */
 const TEL = /(?:\+?55[\s.-]?)?\(?16\)?[\s.-]?9[\s.-]?\d{4}[\s.-]?\d{4}/g;
