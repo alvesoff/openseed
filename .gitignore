@@ -18,3 +18,7 @@ PIVOT/
 
 # Artefatos do navegador de teste
 .playwright-mcp/
+
+# Capturas soltas de verificação
+*.shot.png
+r1-*.png

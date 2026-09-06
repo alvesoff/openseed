@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>Ícones da marca (template)</title>
+<!-- Template para gerar os ícones em docs/assets/img/icons/. Não é página do
+     site. Renderize cada .tile com screenshot de elemento e salve com o nome
+     indicado no data-arquivo. A fonte precisa carregar antes: espere 2 s. -->
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@900&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #666; display: flex; flex-wrap: wrap; gap: 24px; padding: 24px; font-family: "Outfit", sans-serif; }
+  .tile { background: #0a0a0a; color: #f4f4f0; display: flex; flex-direction: column; justify-content: center; align-items: flex-start; overflow: hidden; }
+  .wm { font-weight: 900; text-transform: uppercase; letter-spacing: -.05em; line-height: .82; }
+  .wm .open { display: block; color: #c6f24e; letter-spacing: .14em; font-size: .42em; line-height: 1; margin-bottom: .12em; }
+  /* 512: ícone do manifest e do Android */
+  #i512 { width: 512px; height: 512px; border-radius: 96px; padding: 0 78px; }
+  #i512 .wm { font-size: 168px; }
+  /* 180: apple-touch-icon, sem raio (o iOS arredonda) */
+  #i180 { width: 180px; height: 180px; padding: 0 28px; }
+  #i180 .wm { font-size: 59px; }
+  /* 32 e 16: favicon. Só o S, o resto não se lê nesse tamanho. */
+  #i32 { width: 32px; height: 32px; border-radius: 7px; align-items: center; }
+  #i32 .s { font-weight: 900; font-size: 27px; line-height: 1; margin-top: 1px; }
+  #i32 .b { position: absolute; }
+  #i16 { width: 16px; height: 16px; border-radius: 4px; align-items: center; }
+  #i16 .s { font-weight: 900; font-size: 14px; line-height: 1; }
+</style>
+</head>
+<body>
+  <div class="tile" id="i512" data-arquivo="icon-512.png"><div class="wm"><span class="open">Open</span>Seed</div></div>
+  <div class="tile" id="i180" data-arquivo="apple-touch-icon.png"><div class="wm"><span class="open">Open</span>Seed</div></div>
+  <div class="tile" id="i32" data-arquivo="favicon-32.png"><span class="s">S</span></div>
+  <div class="tile" id="i16" data-arquivo="favicon-16.png"><span class="s">S</span></div>
+</body>
+</html>

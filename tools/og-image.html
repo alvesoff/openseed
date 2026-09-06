@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<title>OG image (template)</title>
+<!-- Template da imagem de compartilhamento (1200 por 630). Não é página do
+     site. Renderize #og com screenshot de elemento e salve em
+     docs/assets/img/og-image.png. Para a versão em inglês, use #og-en e salve
+     em docs/assets/img/og-image-en.png. Espere 2 s para a fonte carregar. -->
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&family=JetBrains+Mono:wght@500&family=Outfit:wght@900&display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #666; display: grid; gap: 24px; padding: 24px; }
+  .og {
+    width: 1200px; height: 630px; overflow: hidden; position: relative;
+    background: #0a0a0a; color: #f4f4f0;
+    padding: 64px 72px; display: flex; flex-direction: column; justify-content: space-between;
+    font-family: "DM Sans", sans-serif;
+  }
+  .wm { font-family: "Outfit", sans-serif; font-weight: 900; text-transform: uppercase; letter-spacing: -.05em; line-height: .82; font-size: 44px; }
+  .wm .open { display: block; color: #c6f24e; letter-spacing: .14em; font-size: .42em; line-height: 1; margin-bottom: .12em; }
+  h1 { font-family: "Outfit", sans-serif; font-weight: 900; text-transform: uppercase; letter-spacing: -.045em; line-height: .9; font-size: 118px; margin: 0; }
+  h1 .light { color: #7e7e77; }
+  h1 .accent { color: #c6f24e; }
+  .rodape { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
+  .tag { font-size: 27px; color: #a8a8a0; max-width: 700px; line-height: 1.35; }
+  .tag b { color: #f4f4f0; font-weight: 500; }
+  .local { font-family: "JetBrains Mono", monospace; font-size: 18px; letter-spacing: .16em; text-transform: uppercase; color: #7e7e77; white-space: nowrap; }
+  .local::before { content: ""; display: inline-block; width: 10px; height: 10px; border-radius: 50%; background: #c6f24e; margin-right: 12px; vertical-align: middle; }
+</style>
+</head>
+<body>
+  <div class="og" id="og">
+    <div class="wm"><span class="open">Open</span>Seed</div>
+    <h1><span class="light">Seu sistema</span><br>no ar em <span class="accent">semanas</span></h1>
+    <div class="rodape">
+      <div class="tag"><b>Software sob demanda, MVP e sistema interno</b> para pequenos negócios, com IA no núcleo.</div>
+      <div class="local">Ribeirão Preto, SP</div>
+    </div>
+  </div>
+
+  <div class="og" id="og-en">
+    <div class="wm"><span class="open">Open</span>Seed</div>
+    <h1><span class="light">Your system</span><br>live in <span class="accent">weeks</span></h1>
+    <div class="rodape">
+      <div class="tag"><b>Custom software, MVPs and internal systems</b> for small businesses, with AI at the core.</div>
+      <div class="local">Ribeirão Preto, Brazil</div>
+    </div>
+  </div>
+</body>
+</html>

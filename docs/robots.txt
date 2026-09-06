@@ -1,0 +1,42 @@
+# openseed.com.br
+# Site institucional. Tudo aqui é público e pode ser indexado.
+# Só o que está em docs/ vai para o ar; templates e scripts ficam em tools/,
+# fora da pasta publicada.
+
+User-agent: *
+Allow: /
+
+# Página de erro não deve entrar no índice (também marcada com noindex).
+Disallow: /404.html
+
+# Robôs de IA: liberados de propósito. O objetivo é ser citado por
+# assistente quando alguém perguntar por desenvolvimento em Ribeirão Preto.
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Resumo do site em texto para ferramentas de IA. Nenhum buscador grande se
+# comprometeu a ler esse arquivo, mas ele é barato de manter.
+# Resumo: https://openseed.com.br/llms.txt
+
+Sitemap: https://openseed.com.br/sitemap.xml
