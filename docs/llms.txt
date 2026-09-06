@@ -26,19 +26,13 @@ com formato e valor combinados antes do fechamento.
 - Automação com IA: agentes que consultam o sistema e resolvem, leitura de nota e contrato, busca em linguagem normal sobre os dados da empresa.
 - Integrações: WhatsApp Business API, ERP, planilha e gateway de pagamento.
 
-## Como funciona um projeto
-
-1. Conversa e escopo, até 3 dias úteis: o cliente conta o problema e recebe o que dá para fazer, em quanto tempo e por quanto.
-2. Protótipo e construção, ciclos de 1 semana: telas navegáveis antes do código, depois entregas semanais com ambiente de teste liberado.
-3. No ar e evolução: publicação, domínio, backup, monitoramento e treinamento do time do cliente.
-
 ## Tecnologias
 
 React, Next.js, TypeScript, Node.js, Python, PostgreSQL, Supabase, API da Anthropic, WhatsApp Business API.
 
 ## Páginas
 
-- [Início, em português](https://openseed.com.br/): serviços, processo, tecnologias e perguntas frequentes.
+- [Início, em português](https://openseed.com.br/): serviços, tecnologias e perguntas frequentes.
 - [Home, in English](https://openseed.com.br/en/): the same page in English.
 - [Sobre a OpenSeed](https://openseed.com.br/sobre.html): no que a OpenSeed acredita, a diferença entre SaaS e o modelo OaaS, e o que ela atende.
 - [Manifesto](https://openseed.com.br/manifesto.html): posicionamento da empresa sobre IA, com dados sobre conteúdo gerado por máquina.
@@ -49,7 +43,7 @@ React, Next.js, TypeScript, Node.js, Python, PostgreSQL, Supabase, API da Anthro
 A página inicial, nas duas línguas, registra ferramentas WebMCP em
 `document.modelContext`, com `navigator.modelContext` como alternativa para
 navegador mais antigo:
-`openseed_listar_servicos`, `openseed_explicar_processo`, `openseed_listar_tecnologias`,
+`openseed_listar_servicos`, `openseed_listar_tecnologias`,
 `openseed_listar_projetos`, `openseed_responder_duvida_comum` e `openseed_montar_contato`.
 
 Todas são de leitura e respondem em blocos de conteúdo, com o mesmo dado repetido em
