@@ -145,7 +145,7 @@ section[id], main[id], [id^="titulo"] { scroll-margin-top: calc(var(--nav-h) + 1
 /* Lista e botão de WhatsApp da barra só existem na tela larga. No celular a
    ação principal mora na barra de baixo, e repetir aqui virava três botões
    iguais na primeira tela. */
-.nav-links, .nav .btn { display: none; }
+.nav-links { display: none; }
 
 .lang {
   display: inline-flex; align-items: center; justify-content: center;
@@ -462,7 +462,6 @@ footer .wordmark { font-size: 30px; }
     transform: scaleX(0); transform-origin: left;
     transition: transform .35s cubic-bezier(.7, 0, .2, 1);
   }
-  .nav .btn { display: inline-flex; min-height: 42px; padding: 10px 18px; font-size: 14px; }
   .menu-btn, .menu-painel { display: none; }
   .barra-acao { display: none; }
 
