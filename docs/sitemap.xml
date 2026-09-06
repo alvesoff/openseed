@@ -8,7 +8,7 @@
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://openseed.com.br/</loc>
-    <xhtml:link rel="alternate" hreflang="pt-br" href="https://openseed.com.br/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://openseed.com.br/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://openseed.com.br/en/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://openseed.com.br/"/>
     <lastmod>2026-09-06</lastmod>
@@ -17,7 +17,7 @@
   </url>
   <url>
     <loc>https://openseed.com.br/en/</loc>
-    <xhtml:link rel="alternate" hreflang="pt-br" href="https://openseed.com.br/"/>
+    <xhtml:link rel="alternate" hreflang="pt-BR" href="https://openseed.com.br/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://openseed.com.br/en/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://openseed.com.br/"/>
     <lastmod>2026-09-06</lastmod>

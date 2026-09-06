@@ -611,6 +611,10 @@ footer .wordmark { font-size: 30px; }
 .bloco p + p { margin-top: 14px; }
 .bloco p strong { color: var(--ink); font-weight: 600; }
 .bloco .chips { margin-top: 22px; }
+/* O painel de contato pinta o próprio fundo de lima e traz a própria cor de
+   texto. Sem esta linha, a regra .bloco p acima o deixa cinza sobre lima:
+   1,85:1, contra o mínimo de 4,5:1. */
+.bloco .cta p, .bloco .cta .fine a { color: inherit; }
 
 /* Coluna de leitura corrida, para a privacidade e o que mais vier. */
 .prosa { max-width: 68ch; }
@@ -630,7 +634,14 @@ footer .wordmark { font-size: 30px; }
 
 /* Comparação de dois lados. No celular vira uma coluna, e o lado que
    interessa fica embaixo, que é onde o polegar para. */
-.duelo { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 20px; overflow: hidden; margin-top: 26px; }
+/* grid-auto-rows: 1fr deixa os dois lados com a mesma altura, empilhados no
+   celular e lado a lado na tela larga. Comparação com blocos de tamanhos
+   diferentes sugere que um lado tem mais peso, o que não é o caso. */
+.duelo {
+  display: grid; grid-auto-rows: 1fr; gap: 1px;
+  background: var(--line); border: 1px solid var(--line);
+  border-radius: 20px; overflow: hidden; margin-top: 26px;
+}
 .duelo > div { background: var(--bg-2); padding: 24px; }
 .duelo .nosso { background: var(--panel); }
 .duelo .selo {

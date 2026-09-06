@@ -2,415 +2,220 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Conheça a OpenSeed</title>
-<meta name="description" content="Atendemos qualquer solução tecnológica e soluções de IA. Nosso modelo é OaaS: montado em volta da sua ideia, e não um produto fechado ao qual você tem que se adaptar.">
-<meta name="theme-color" content="#0a0b09">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sobre a OpenSeed · No que a gente acredita</title>
+<meta name="description" content="A OpenSeed monta a solução em volta da sua ideia, em vez de encaixar a sua ideia num produto pronto. É o que a gente chama de Open as a Service.">
+<meta name="theme-color" content="#0a0a0a">
 <link rel="canonical" href="https://openseed.com.br/sobre.html">
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+
 <link rel="icon" href="/assets/img/icons/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/img/icons/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="/assets/img/icons/apple-touch-icon.png">
-<!-- Open Graph / preview ao compartilhar o link -->
+<link rel="manifest" href="/site.webmanifest">
+
 <meta property="og:type" content="website">
-<meta property="og:title" content="Conheça a OpenSeed">
-<meta property="og:description" content="Qualquer solução tecnológica e soluções de IA. Nosso modelo é OaaS: montado em volta da sua ideia.">
-<!-- Mexeu no domínio? Trocar aqui, no twitter:image, no index.html e no CNAME. -->
+<meta property="og:site_name" content="OpenSeed">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Sobre a OpenSeed · No que a gente acredita">
+<meta property="og:description" content="A solução se adapta a você, não o contrário. É o que a gente chama de Open as a Service.">
 <meta property="og:url" content="https://openseed.com.br/sobre.html">
 <meta property="og:image" content="https://openseed.com.br/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="OpenSeed: seu sistema no ar em semanas.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Conheça a OpenSeed">
-<meta name="twitter:description" content="Qualquer solução tecnológica e soluções de IA. Nosso modelo é OaaS: montado em volta da sua ideia.">
+<meta name="twitter:title" content="Sobre a OpenSeed · No que a gente acredita">
+<meta name="twitter:description" content="A solução se adapta a você, não o contrário.">
 <meta name="twitter:image" content="https://openseed.com.br/assets/img/og-image.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;700&family=Unbounded:wght@500;600;700&display=swap" rel="stylesheet">
-<style>
-  /* Tokens idênticos aos do index.html, porque as duas páginas são a mesma
-     marca. Mexeu numa, mexa na outra. */
-  :root {
-    --bg: #0a0b09;
-    --panel: #121410;
-    --ink: #f2f0e9;
-    --muted: #9a9b92;
-    /* Precisa render no mínimo 4,5:1 contra --bg para texto pequeno. */
-    --faint: #797a73;
-    --line: #21231d;
-    --seed: #56c884;
-    --amber: #e6b53d;
-    --mono: "JetBrains Mono", ui-monospace, "SF Mono", Consolas, monospace;
-    --sans: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
-    --display: "Unbounded", "Inter", system-ui, sans-serif;
-    --wordmark: "Bricolage Grotesque", "Inter", system-ui, sans-serif;
-    --shell: clamp(24px, 6vw, 64px);
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    color: var(--ink);
-    font-family: var(--sans);
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-  }
-  .shell { width: 100%; max-width: 1080px; margin: 0 auto; padding: 0 var(--shell); }
-  .narrow { max-width: 760px; }
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/site.css">
 
-  /* ---------- TOPO ----------
-     Idêntico ao do index.html: só a marca, centralizada, sem ações.
-     Mexeu num, mexa no outro. */
-  .topbar {
-    position: sticky; top: 0; z-index: 40;
-    text-align: center; padding: 18px 0;
-    background: transparent;
-    transition: background .25s ease, backdrop-filter .25s ease;
-  }
-  .topbar.scrolled { background: rgba(10, 11, 9, .72); backdrop-filter: blur(12px); }
-  .brand {
-    display: inline-flex; align-items: center; gap: 11px;
-    font-family: var(--wordmark); font-weight: 600; font-size: 24px; letter-spacing: -0.025em;
-    text-decoration: none; color: var(--ink);
-  }
-  .brand svg { width: auto; height: 30px; }
-  /* no rodapé a marca é menor, para não competir com o topo */
-  .foot-brand .brand { font-size: 21px; }
-  .foot-brand .brand svg { height: 26px; }
-
-  /* ---------- BOTÕES ---------- */
-  .btn {
-    display: inline-flex; align-items: center; gap: 10px;
-    font-weight: 700; font-size: 15px; letter-spacing: -0.01em;
-    padding: 12px 20px; border-radius: 999px; text-decoration: none;
-    border: 1px solid transparent; white-space: nowrap;
-    transition: transform .18s ease, box-shadow .18s ease, background .18s ease, border-color .18s ease, color .18s ease;
-  }
-  .btn svg { width: 17px; height: 17px; flex: none; }
-  .btn-primary { background: var(--seed); color: #07130c; }
-  .btn-primary:hover, .btn-primary:focus-visible { background: #6bd897; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(86, 200, 132, .2); }
-  .btn-ghost { color: var(--ink); border-color: var(--line); background: transparent; }
-  .btn-ghost:hover, .btn-ghost:focus-visible { border-color: var(--seed); color: var(--seed); }
-  .btn-lg { font-size: 17px; padding: 16px 26px; }
-
-  /* ---------- TIPOGRAFIA DE SEÇÃO ---------- */
-  .eyebrow {
-    font-family: var(--mono); font-size: 12px; font-weight: 700;
-    letter-spacing: .1em; text-transform: uppercase; color: var(--seed);
-    display: flex; align-items: center; gap: 10px; margin-bottom: 20px;
-  }
-  .eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--seed); flex: none; }
-  h1 {
-    font-family: var(--display); font-weight: 600;
-    font-size: clamp(34px, 6vw, 62px); line-height: 1.12; letter-spacing: -0.02em;
-  }
-  h1 em { font-style: normal; color: var(--seed); }
-  h2 {
-    font-family: var(--display); font-weight: 600;
-    font-size: clamp(26px, 4.2vw, 40px); line-height: 1.2; letter-spacing: -0.015em;
-    margin-bottom: 22px;
-  }
-  h2 em { font-style: normal; color: var(--seed); }
-  h3 { font-family: var(--display); font-weight: 600; font-size: 20px; letter-spacing: -0.01em; line-height: 1.3; }
-  p { font-size: 18px; line-height: 1.7; color: #d6d5cd; }
-  p + p { margin-top: 20px; }
-  .lead { font-size: clamp(19px, 2.4vw, 23px); line-height: 1.55; color: var(--ink); }
-  section { padding: clamp(72px, 10vw, 118px) 0; border-top: 1px solid var(--line); }
-
-  /* ---------- HERO ---------- */
-  .hero {
-    border-top: 0;
-    padding: clamp(64px, 11vw, 132px) 0 clamp(72px, 10vw, 118px);
-    background: radial-gradient(820px 460px at 12% -20%, rgba(86, 200, 132, .15), transparent 62%);
-  }
-  .hero h1 { margin-bottom: 28px; max-width: 15ch; }
-  .hero .lead { max-width: 60ch; }
-  .hero-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 40px; }
-
-  /* ---------- ATENDIMENTO / ABRANGÊNCIA ---------- */
-  .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 38px; }
-  .chip {
-    font-family: var(--mono); font-size: 13px; color: var(--muted);
-    border: 1px solid var(--line); border-radius: 999px; padding: 9px 15px;
-    background: var(--panel);
-  }
-  .chip.on { color: var(--seed); border-color: rgba(86, 200, 132, .35); }
-
-  /* ---------- MODELO: OaaS vs SaaS ---------- */
-  .versus { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-top: 42px; }
-  .vs-card { border: 1px solid var(--line); border-radius: 18px; padding: 28px 26px; background: var(--panel); }
-  .vs-card.pick { border-color: rgba(86, 200, 132, .4); background: linear-gradient(180deg, rgba(86, 200, 132, .06), transparent 70%), var(--panel); }
-  .vs-kicker { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--faint); margin-bottom: 6px; }
-  .vs-card.pick .vs-kicker { color: var(--seed); }
-  .vs-card h3 { margin-bottom: 16px; }
-  .vs-list { list-style: none; }
-  .vs-list li { position: relative; padding-left: 24px; margin-top: 13px; font-size: 16px; line-height: 1.55; color: #cfcec6; }
-  .vs-list li::before {
-    content: ""; position: absolute; left: 3px; top: 9px;
-    width: 7px; height: 7px; border-radius: 50%; background: var(--faint);
-  }
-  .vs-card.pick .vs-list li::before { background: var(--seed); }
-
-  /* ---------- PROCESSO (haste que cresce) ---------- */
-  .steps { margin-top: 46px; position: relative; padding-left: 46px; }
-  .steps::before {
-    content: ""; position: absolute; left: 15px; top: 8px; bottom: 8px; width: 2px;
-    background: linear-gradient(180deg, var(--seed), rgba(86, 200, 132, .12));
-    border-radius: 2px;
-  }
-  .step { position: relative; padding-bottom: 42px; }
-  .step:last-child { padding-bottom: 0; }
-  .step::before {
-    content: ""; position: absolute; left: -38px; top: 5px;
-    width: 12px; height: 12px; border-radius: 50%;
-    background: var(--bg); border: 2px solid var(--seed);
-  }
-  .step-n { font-family: var(--mono); font-size: 12px; font-weight: 700; color: var(--seed); letter-spacing: .09em; }
-  .step h3 { margin: 7px 0 10px; }
-  .step p { font-size: 17px; max-width: 62ch; }
-
-  /* ---------- CTA FINAL ---------- */
-  .close { border-top: 1px solid var(--line); }
-  .close-card {
-    border: 1px solid var(--line); border-radius: 22px;
-    padding: clamp(34px, 5vw, 58px);
-    background: radial-gradient(620px 320px at 88% -30%, rgba(86, 200, 132, .13), transparent 62%), var(--panel);
-  }
-  .close-card h2 { max-width: 18ch; }
-  .close-card p { max-width: 54ch; }
-  .close-actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 34px; }
-
-  /* ---------- RODAPÉ ---------- */
-  footer { border-top: 1px solid var(--line); padding: 60px 0 40px; }
-  .foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr; gap: 40px; }
-  .foot-tag { margin-top: 16px; font-size: 15px; line-height: 1.6; color: var(--muted); max-width: 34ch; }
-  .foot-h { font-family: var(--mono); font-size: 12px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--faint); margin-bottom: 16px; }
-  .foot-col a, .foot-col span { display: block; font-size: 15px; color: var(--muted); text-decoration: none; margin-bottom: 11px; }
-  .foot-col a:hover, .foot-col a:focus-visible { color: var(--seed); }
-  .foot-base {
-    margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line);
-    display: flex; flex-wrap: wrap; gap: 10px 20px; justify-content: space-between;
-    font-family: var(--mono); font-size: 12px; color: var(--faint);
-  }
-
-  @media (max-width: 860px) {
-    .versus { grid-template-columns: 1fr; }
-    .foot-grid { grid-template-columns: 1fr 1fr; }
-    .foot-brand { grid-column: 1 / -1; }
-  }
-  @media (max-width: 620px) {
-    .foot-grid { grid-template-columns: 1fr; gap: 32px; }
-    p { font-size: 17px; }
-    .steps { padding-left: 34px; }
-    .step::before { left: -30px; }
-    .steps::before { left: 11px; }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-      animation-duration: .001ms !important;
-      transition-duration: .001ms !important;
-      scroll-behavior: auto !important;
+<!-- Sem aggregateRating nem review: não há avaliação publicada, e nota
+     própria é motivo de penalidade. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://openseed.com.br/#site",
+      "url": "https://openseed.com.br/",
+      "name": "OpenSeed",
+      "inLanguage": "pt-BR",
+      "publisher": { "@id": "https://openseed.com.br/#organizacao" }
+    },
+    {
+      "@type": "AboutPage",
+      "@id": "https://openseed.com.br/sobre.html#pagina",
+      "url": "https://openseed.com.br/sobre.html",
+      "name": "Sobre a OpenSeed",
+      "description": "No que a OpenSeed acredita e como isso muda o formato do trabalho.",
+      "inLanguage": "pt-BR",
+      "isPartOf": { "@id": "https://openseed.com.br/#site" },
+      "about": { "@id": "https://openseed.com.br/#organizacao" }
     }
-  }
-</style>
+  ]
+}
+</script>
 </head>
 <body>
 
-<div class="topbar" id="topbar">
-  <a class="brand" href="/">
-    <svg viewBox="9.4 10 14.6 18.8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-      <path d="M16 24.4C16 20.4 15.6 16.6 16 12.6" stroke="#f2f0e9" stroke-width="1.9" stroke-linecap="round"/>
-      <path d="M16 18.2C20.1 17.6 23.4 14.6 24 10C19.5 10.6 16.5 13.7 16 18.2Z" fill="#f2f0e9"/>
-      <path d="M15.6 21C12.4 20.5 9.9 18.1 9.4 14.5C12.9 15 15.2 17.5 15.6 21Z" fill="#f2f0e9"/>
-      <ellipse cx="16" cy="26.2" rx="4.6" ry="2.6" fill="#f2f0e9"/>
-    </svg>
-    OpenSeed
+<div class="grain" aria-hidden="true"></div>
+<a class="skip" href="#conteudo">Pular para o conteúdo</a>
+
+<nav class="nav" id="nav" aria-label="Principal">
+  <a class="wordmark" href="/" aria-label="OpenSeed, página inicial">
+    <span class="open" aria-hidden="true">Open</span>
+    <span class="seed" aria-hidden="true">Seed</span>
   </a>
-</div>
 
-<header class="hero">
-  <div class="shell">
-    <div class="eyebrow">A OpenSeed</div>
-    <h1>A tecnologia se adapta a você. <em>Não o contrário.</em></h1>
-    <p class="lead">Existe uma distância entre ter uma ideia e ver a ideia funcionando. Essa distância é feita de linguagem técnica, de ferramenta que não conversa com a outra e de processo que ninguém escolheu. A gente existe para encurtar isso.</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary btn-lg js-wa" href="#contato">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24a8.2 8.2 0 0 1 8.24 8.25c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.54.06-.25-.13-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.47c-.16 0-.43.06-.65.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.13.17 1.74 2.66 4.22 3.73.59.25 1.05.4 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.68-1.18.2-.58.2-1.08.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
-        Falar com a gente
-      </a>
-      <a class="btn btn-ghost btn-lg" href="/manifesto.html">Ler o manifesto</a>
-    </div>
-  </div>
-</header>
+  <ul class="nav-links">
+    <li><a href="/#servicos">Serviços</a></li>
+    <li><a href="/#projetos">Projetos</a></li>
+    <li><a href="/manifesto.html">Manifesto</a></li>
+  </ul>
 
-<section id="atendemos">
-  <div class="shell">
-    <div class="narrow">
-      <div class="eyebrow">O que atendemos</div>
-      <h2>Qualquer solução tecnológica. E <em>soluções de IA</em>.</h2>
-      <p>Não trabalhamos com catálogo fechado. Se a sua ideia depende de tecnologia para existir, é problema nosso: do primeiro esboço até a coisa rodando na mão de quem vai usar.</p>
-      <p>Você não precisa chegar sabendo o que quer construir, nem falando a língua da máquina. Precisa saber o que quer resolver. A parte técnica é a nossa.</p>
-      <p>E a inteligência artificial entra onde ela realmente resolve, não onde fica bonito no material de venda. Usada com intenção, ela faz o que toda boa ferramenta fez antes: devolve tempo às pessoas. Usada sem intenção, é só mais uma camada para dar manutenção depois.</p>
-    </div>
-    <div class="chips">
-      <span class="chip on">Soluções de IA</span>
-      <span class="chip on">Automação</span>
-      <span class="chip">Tirar a ideia do papel</span>
-      <span class="chip">Sites e aplicativos</span>
-      <span class="chip">Protótipos</span>
-      <span class="chip">Sistemas sob medida</span>
-      <span class="chip">Integrações</span>
-      <span class="chip">Dados</span>
-      <span class="chip">Suporte e evolução</span>
-    </div>
+  <div class="nav-dir">
+    <a class="lang" href="/en/" hreflang="en" lang="en" aria-label="Switch to English">EN</a>
+    <a class="btn btn-lime" data-wa href="https://wa.me/5516997052711?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20OpenSeed%20e%20quero%20falar%20sobre%20um%20projeto%20de%20software." target="_blank" rel="noopener">
+      Falar no WhatsApp
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
+        <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+      </svg>
+    </a>
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="menuPainel" aria-label="Abrir menu">
+      <span aria-hidden="true"></span>
+    </button>
   </div>
-</section>
 
-<section id="modelo">
-  <div class="shell">
-    <div class="narrow">
-      <div class="eyebrow">Modelo de negócio</div>
-      <h2>Não somos SaaS. Somos <em>OaaS</em>.</h2>
-      <p>Software as a Service é um produto pronto. Ele foi desenhado antes de você existir, para um problema parecido com o seu, mas que não é o seu. Você já deve ter passado por isso: acha a ferramenta que quase serve, e acaba mudando a sua ideia para caber nela.</p>
-      <p><strong>Open as a Service é o contrário.</strong> Aberto quer dizer montado em volta da sua ideia, com as peças que fizerem sentido para ela. Você não recebe uma licença de algo que já existia. Você recebe a solução que o seu caso pedia.</p>
-    </div>
-    <div class="versus">
-      <div class="vs-card">
-        <div class="vs-kicker">SaaS</div>
-        <h3>Você se adapta ao produto</h3>
-        <ul class="vs-list">
-          <li>Foi decidido antes de você chegar</li>
-          <li>O que falta vira gambiarra ou fica de fora</li>
-          <li>Você paga pelo que usa e pelo que não usa</li>
-          <li>A ideia encolhe até caber na ferramenta</li>
-        </ul>
-      </div>
-      <div class="vs-card pick">
-        <div class="vs-kicker">OaaS · OpenSeed</div>
-        <h3>A solução se adapta a você</h3>
-        <ul class="vs-list">
-          <li>Desenhada a partir da sua ideia</li>
-          <li>Peça que não serve não entra</li>
-          <li>Você acompanha o que está sendo feito e por quê</li>
-          <li>A ideia continua sendo a sua</li>
-        </ul>
-      </div>
-    </div>
+  <div class="menu-painel" id="menuPainel" hidden>
+    <ul>
+      <li><a href="/#servicos">Serviços</a></li>
+      <li><a href="/#projetos">Projetos</a></li>
+      <li><a href="/manifesto.html">Manifesto</a></li>
+      <li><a href="/en/" hreflang="en" lang="en">English</a></li>
+    </ul>
   </div>
-</section>
+</nav>
 
-<section id="processo">
-  <div class="shell">
-    <div class="narrow">
-      <div class="eyebrow">Como o trabalho corre</div>
-      <h2>Você acompanha, do primeiro dia ao que vem depois.</h2>
-      <p>Entregar não é terminar. O que a gente combina no começo é um ciclo, e você enxerga cada volta dele sem precisar entender de tecnologia para isso.</p>
-    </div>
-    <div class="steps">
-      <div class="step">
-        <div class="step-n">01</div>
-        <h3>Entender a ideia</h3>
-        <p>Antes de propor qualquer coisa, a gente escuta. O que você quer que exista, para quem, o que já tentou e o que te travou. Sem exigir que você chegue com a solução pronta, porque essa parte é nossa.</p>
-      </div>
-      <div class="step">
-        <div class="step-n">02</div>
-        <h3>Construir junto</h3>
-        <p>Ritmo combinado e nada de caixa-preta. Você vê a coisa tomando forma enquanto ela é feita, em português, e pode mudar de ideia no meio do caminho sem que isso vire um problema.</p>
-      </div>
-      <div class="step">
-        <div class="step-n">03</div>
-        <h3>Ver se funcionou</h3>
-        <p>Depois que está no ar, a pergunta é uma só: resolveu? Quanto tempo economizou, o que destravou, o que ainda não mudou nada. Dito com clareza, inclusive quando a resposta é desconfortável.</p>
-      </div>
-      <div class="step">
-        <div class="step-n">04</div>
-        <h3>Continuar crescendo</h3>
-        <p>Com a resposta na mão, o próximo passo deixa de ser palpite. Ajusta o que precisa, tira o que não serviu e segue, porque a sua ideia daqui a seis meses não vai ser a de hoje.</p>
-      </div>
-    </div>
-  </div>
-</section>
+<main id="conteudo" tabindex="-1">
+  <div class="wrap pagina">
 
-<section class="close" id="contato">
-  <div class="shell">
-    <div class="close-card">
-      <div class="eyebrow">Conversa sem compromisso</div>
-      <h2>Toda revolução começou com uma <em>Seed</em>.</h2>
-      <p>Conta o que você está tentando resolver. Se for caso pra gente, a gente diz como faria. Se não for, a gente diz isso também.</p>
-      <div class="close-actions">
-        <a class="btn btn-primary btn-lg js-wa" href="#contato">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.22 8.22 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24a8.2 8.2 0 0 1 8.24 8.25c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.24-.64.8-.78.97-.15.16-.29.18-.54.06-.25-.13-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.01-.38.11-.5.11-.11.25-.29.37-.44.13-.15.17-.25.25-.42.09-.16.04-.31-.02-.43-.06-.13-.56-1.35-.77-1.84-.2-.48-.4-.42-.55-.43h-.47c-.16 0-.43.06-.65.31-.23.25-.86.84-.86 2.05s.88 2.38 1 2.54c.13.17 1.74 2.66 4.22 3.73.59.25 1.05.4 1.41.52.59.19 1.13.16 1.56.1.47-.07 1.47-.6 1.68-1.18.2-.58.2-1.08.14-1.18-.06-.11-.22-.17-.47-.29Z"/></svg>
-          Falar no WhatsApp
-        </a>
-        <a class="btn btn-ghost btn-lg" href="https://instagram.com/openseedbr" target="_blank" rel="noopener">
-          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5.4" stroke="currentColor" stroke-width="1.9"/><circle cx="12" cy="12" r="4.1" stroke="currentColor" stroke-width="1.9"/><circle cx="17.4" cy="6.6" r="1.2" fill="currentColor"/></svg>
-          @openseedbr
-        </a>
+    <header class="pagina-topo">
+      <p class="eyebrow"><span class="dot"></span> Sobre a OpenSeed</p>
+      <h1>A tecnologia se adapta a <span class="light">você</span>.</h1>
+      <p>Entre ter uma ideia e ver a ideia funcionando existe uma distância feita de
+        linguagem técnica, ferramenta que não conversa com a outra e processo que
+        ninguém escolheu. A gente existe para encurtar isso.</p>
+    </header>
+
+    <section class="bloco" aria-labelledby="tituloOaas">
+      <h2 id="tituloOaas">Não somos SaaS. Somos OaaS.</h2>
+      <p>Software as a Service é produto pronto. Foi desenhado antes de você existir,
+        para um problema parecido com o seu. Você acha a ferramenta que quase serve e
+        acaba mudando a sua ideia para caber nela.</p>
+      <p><strong>Open as a Service é o contrário.</strong> Aberto quer dizer montado em
+        volta da sua ideia, com as peças que fizerem sentido para ela.</p>
+
+      <div class="duelo">
+        <div>
+          <span class="selo">SaaS</span>
+          <h3>Você se adapta ao produto</h3>
+          <ul>
+            <li>Foi decidido antes de você chegar</li>
+            <li>O que falta vira gambiarra ou fica de fora</li>
+            <li>Você paga pelo que usa e pelo que não usa</li>
+          </ul>
+        </div>
+        <div class="nosso">
+          <span class="selo">OaaS · OpenSeed</span>
+          <h3>A solução se adapta a você</h3>
+          <ul>
+            <li>Desenhada a partir da sua ideia</li>
+            <li>Peça que não serve não entra</li>
+            <li>Você acompanha o que está sendo feito e por quê</li>
+          </ul>
+        </div>
       </div>
-    </div>
+    </section>
+
+    <section class="bloco" aria-labelledby="tituloAtende">
+      <h2 id="tituloAtende">Sem catálogo fechado.</h2>
+      <p>Se a sua ideia depende de tecnologia para existir, é problema nosso. Você não
+        precisa chegar sabendo o que construir, nem falando a língua da máquina. Precisa
+        saber o que quer resolver.</p>
+      <p>A inteligência artificial entra onde ela resolve, não onde fica bonita no
+        material de venda. Usada com intenção, devolve tempo às pessoas. Usada sem
+        intenção, é mais uma camada para dar manutenção depois.</p>
+      <div class="chips">
+        <span>Soluções de IA</span>
+        <span>Automação</span>
+        <span>Sites e aplicativos</span>
+        <span>Protótipos</span>
+        <span>Sistemas sob medida</span>
+        <span>Integrações</span>
+        <span>Dados</span>
+        <span>Suporte e evolução</span>
+      </div>
+    </section>
+
+    <section class="bloco" id="contato" aria-labelledby="tituloContato">
+      <div class="cta">
+        <div>
+          <h2 id="tituloContato">Toda revolução <br>começou com uma Seed.</h2>
+          <p>Conta o que você está tentando resolver. Se for caso para a gente, dizemos
+            como faríamos. Se não for, dizemos isso também.</p>
+        </div>
+        <div class="aside">
+          <a class="btn btn-dark" data-wa href="https://wa.me/5516997052711?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20OpenSeed%20e%20quero%20falar%20sobre%20um%20projeto%20de%20software." target="_blank" rel="noopener">
+            Chamar no WhatsApp
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
+              <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+            </svg>
+          </a>
+          <p class="fine">
+            Conversa gratuita de 20 minutos · Resposta no mesmo dia útil<br>
+            <a href="tel:+5516997052711">16 99705-2711</a> · <a href="mailto:contato@openseed.com.br">contato@openseed.com.br</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
   </div>
-</section>
+</main>
 
 <footer>
-  <div class="shell">
+  <div class="wrap">
     <div class="foot-grid">
-      <div class="foot-brand">
-        <a class="brand" href="/">
-          <svg viewBox="9.4 10 14.6 18.8" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M16 24.4C16 20.4 15.6 16.6 16 12.6" stroke="#f2f0e9" stroke-width="1.9" stroke-linecap="round"/>
-            <path d="M16 18.2C20.1 17.6 23.4 14.6 24 10C19.5 10.6 16.5 13.7 16 18.2Z" fill="#f2f0e9"/>
-            <path d="M15.6 21C12.4 20.5 9.9 18.1 9.4 14.5C12.9 15 15.2 17.5 15.6 21Z" fill="#f2f0e9"/>
-            <ellipse cx="16" cy="26.2" rx="4.6" ry="2.6" fill="#f2f0e9"/>
-          </svg>
-          OpenSeed
-        </a>
-        <p class="foot-tag">Soluções com IA que facilitam a vida das pessoas. Toda revolução começou com uma Seed.</p>
-      </div>
-      <div class="foot-col">
-        <div class="foot-h">Navegar</div>
+      <a class="wordmark" href="/" aria-label="OpenSeed, página inicial">
+        <span class="open" aria-hidden="true">Open</span>
+        <span class="seed" aria-hidden="true">Seed</span>
+      </a>
+      <nav class="foot-links" aria-label="Rodapé">
         <a href="/manifesto.html">Manifesto</a>
-        <a href="/">Desenvolvimento</a>
-        <a href="#atendemos">O que atendemos</a>
-        <a href="#modelo">Modelo OaaS</a>
-        <a href="#processo">Processo</a>
-      </div>
-      <div class="foot-col">
-        <div class="foot-h">Contato</div>
-        <a class="js-wa" href="#contato">WhatsApp</a>
+        <a href="/sobre.html">Sobre</a>
         <a href="https://instagram.com/openseedbr" target="_blank" rel="noopener">Instagram</a>
         <a href="/privacidade.html">Privacidade</a>
-      </div>
+        <a href="/en/" hreflang="en" lang="en">English</a>
+      </nav>
     </div>
-    <div class="foot-base">
-      <span>© 2026 OpenSeed · Todos os direitos reservados.</span>
-      <span>openseed.com.br</span>
-    </div>
+    <p class="foot-fine">© <span id="ano">2026</span> OPENSEED · RIBEIRÃO PRETO, SP · CONTATO@OPENSEED.COM.BR</p>
   </div>
 </footer>
 
-<script>
-  (function () {
-    /* Número do WhatsApp com DDI, só dígitos: 55 (Brasil) + 16 (DDD) + linha.
-       Trocou de número? Este é o único lugar do arquivo que muda, porque
-       todos os botões da página saem daqui. */
-    var WHATSAPP = '5516997052711';
-    var MENSAGEM = 'Olá! Vim pelo site da OpenSeed e queria conversar.';
+<div class="barra-acao">
+  <a class="btn btn-lime" data-wa href="https://wa.me/5516997052711?text=Ol%C3%A1%21%20Vim%20pelo%20site%20da%20OpenSeed%20e%20quero%20falar%20sobre%20um%20projeto%20de%20software." target="_blank" rel="noopener">
+    Chamar no WhatsApp
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
+      <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+    </svg>
+  </a>
+</div>
 
-    var botoes = document.querySelectorAll('.js-wa');
-    if (WHATSAPP) {
-      var url = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(MENSAGEM);
-      botoes.forEach(function (b) {
-        b.href = url;
-        b.target = '_blank';
-        b.rel = 'noopener';
-      });
-    } else {
-      console.warn('[OpenSeed] Número de WhatsApp não configurado em sobre.html: os botões de contato estão inertes.');
-    }
-
-    var topbar = document.getElementById('topbar');
-    var onScroll = function () { topbar.classList.toggle('scrolled', window.scrollY > 8); };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-  })();
-</script>
+<script src="/assets/js/site.js" defer></script>
 </body>
 </html>

@@ -162,6 +162,7 @@
         name: "openseed_listar_servicos",
         description: M.servicos,
         annotations: { readOnlyHint: true },
+        fonte: "#servicos .svc article",
         execute: function () {
           return Promise.resolve({
             servicos: $$("#servicos .svc article").map(function (a) {
@@ -174,6 +175,7 @@
         name: "openseed_explicar_processo",
         description: M.processo,
         annotations: { readOnlyHint: true },
+        fonte: "#fluxo ol li",
         execute: function () {
           return Promise.resolve({
             etapas: $$("#fluxo ol li").map(function (li, i) {
@@ -186,14 +188,16 @@
         name: "openseed_listar_tecnologias",
         description: M.tecnologias,
         annotations: { readOnlyHint: true },
+        fonte: "#servicos .chips span",
         execute: function () {
-          return Promise.resolve({ tecnologias: $$(".chips span").map(function (c) { return texto(c); }) });
+          return Promise.resolve({ tecnologias: $("#servicos .chips span").map(function (c) { return texto(c); }) });
         }
       },
       {
         name: "openseed_listar_projetos",
         description: M.projetos,
         annotations: { readOnlyHint: true },
+        fonte: "#projetos .proj",
         execute: function () {
           /* Card de exemplo não entra: lista curta é melhor que exemplo
              devolvido como se fosse caso real. */
@@ -207,6 +211,7 @@
         name: "openseed_responder_duvida_comum",
         description: M.duvidas,
         annotations: { readOnlyHint: true },
+        fonte: ".faq details",
         inputSchema: {
           type: "object",
           properties: { assunto: { type: "string", description: M.duvidaAssunto, enum: ["preco", "prazo", "codigo", "atendimento", "ia", "todas"] } }
@@ -241,7 +246,15 @@
       }
     ];
 
+    /* Cada ferramenta declara o seletor de onde tira a resposta. Nas páginas
+       internas, que não têm a estrutura da landing, ela simplesmente não é
+       registrada: melhor o agente não achar a ferramenta do que achá-la e
+       receber uma lista vazia, que ele leria como "não existe serviço".
+       openseed_montar_contato não declara fonte porque só usa constantes,
+       então vale em qualquer página. */
     ferramentas.forEach(function (t) {
+      if (t.fonte && !$(t.fonte)) return;
+      delete t.fonte;
       try { navigator.modelContext.registerTool(t); } catch (e) { /* nome repetido ou schema recusado: a página segue igual */ }
     });
   }
