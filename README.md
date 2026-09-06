@@ -23,7 +23,6 @@ openseed/
 │   ├── assets/
 │   │   ├── css/site.css       estilo das duas landings
 │   │   ├── js/site.js         comportamento das duas landings
-│   │   ├── marca/            marca em SVG e PNG, mais o pacote para baixar
 │   │   └── img/
 │   │       ├── og-image.png   imagem de compartilhamento (1200x630)
 │   │       ├── cases/         prints dos projetos, ver tools/capas-de-projeto.md
@@ -39,13 +38,12 @@ openseed/
 │   ├── conferir.js            roda as regras do site antes do PR
 │   ├── sincronizar-faq.js     escreve o FAQ do JSON-LD a partir da tela
 │   ├── grafico-manifesto.js   dados e traçado do gráfico do manifesto
-│   ├── empacotar-marca.js     monta o zip da marca a partir da pasta
 │   ├── instagram.html         template da foto de perfil, com prova em círculo
 │   ├── og-image.html          template da imagem de compartilhamento
 │   ├── icons.html             template dos ícones
 │   ├── capas-de-projeto.md    como publicar o print de um projeto
 │   ├── pendencias.md          o que falta e só o dono do negócio pode preencher
-│   └── marca/                 arquivos originais da marca
+│   └── marca/                 arquivos da marca, fora do ar
 │
 ├── DOMINIO.md                 como o domínio está configurado no Registro.br
 ├── PIVOT/                     referências e logo bruta, fora do versionamento
@@ -96,13 +94,12 @@ Para parar, `Ctrl+C`.
 node tools/conferir.js
 ```
 
-Treze regras que ninguém guarda de cabeça: FAQ visível contra JSON-LD, número de
+Doze regras que ninguém guarda de cabeça: FAQ visível contra JSON-LD, número de
 WhatsApp igual em toda parte, contagem de projetos coerente, `$` usado onde só `$$`
 funciona, a lista de `html[data-anim]` batendo com a do JavaScript, arquivo de
 trabalho dentro de `docs/`, sitemap nos dois sentidos, link e caminho de imagem
 quebrados, canonical apontando para a própria página, `hreflang` recíproco, card de
-exemplo marcado, o traçado do gráfico do manifesto contra os dados que o geram e o
-pacote da marca contra os arquivos da pasta dela.
+exemplo marcado e o traçado do gráfico do manifesto contra os dados que o geram.
 Sai com erro e diz o arquivo. Cada checagem está lá porque o erro correspondente já
 aconteceu neste repositório.
 
@@ -166,7 +163,8 @@ a resposta certa. Se criar uma pergunta nova, escolha um `data-assunto` e acresc
 
 ### Mexer na marca
 
-Os arquivos ficam em `docs/assets/marca/` e estão no ar:
+Os arquivos ficam em `tools/marca/` e **não** vão para o ar: a marca não é
+distribuída pelo site. Para mandar a alguém, anexe o arquivo.
 
 | arquivo | quando usar |
 | --- | --- |
@@ -175,13 +173,6 @@ Os arquivos ficam em `docs/assets/marca/` e estão no ar:
 | `openseed-marca-branca.svg` | fundo colorido ou foto |
 | `openseed-marca-*-1024.png`, `-2048.png` | quando o destino não aceita SVG |
 | `openseed-instagram-perfil.png` | foto de perfil do Instagram, 1080 x 1080 |
-| `openseed-marca.zip` | o pacote completo, com um LEIA-ME dentro |
-
-**Por que existe um zip.** O GitHub Pages não deixa mandar
-`Content-Disposition`, então um SVG ou um PNG **abre** no navegador em vez de
-baixar. Com `.zip` o navegador baixa, porque não sabe exibir. É a única forma de
-ter um link que baixa num site estático, e é por isso que `.zip` aparece na lista
-de extensões permitidas dentro de `docs/`.
 
 **O texto já está em contorno.** As letras não são `<text>`: são caminhos
 vetoriais extraídos da Outfit Black, então os arquivos não dependem de a fonte
@@ -194,16 +185,6 @@ foto: 110 px no perfil, 56 nos stories e 32 no comentário. A marca ocupa 76% da
 largura, e não mais: o Instagram recorta em círculo, os cantos somem, e com
 story ativo ele desenha um anel em volta e encolhe a imagem. Apague a classe
 `guia` antes de fotografar.
-
-Acrescentou ou trocou uma variante? Refaça o pacote, senão quem baixar leva um zip
-incompleto:
-
-```bash
-node tools/empacotar-marca.js              # refaz o zip
-node tools/empacotar-marca.js --conferir   # só compara
-```
-
-`node tools/conferir.js` chama esse `--conferir` sozinho.
 
 ### Mexer no gráfico do manifesto
 
