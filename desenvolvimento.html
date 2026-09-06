@@ -93,6 +93,9 @@
 
   .wrap { max-width: 1400px; margin: 0 auto; padding: 0 var(--gut); }
 
+  /* A barra é fixa, então o alvo de cada âncora precisa parar abaixo dela. */
+  :target, section[id], main[id] { scroll-margin-top: 88px; }
+
   /* ---------- MARCA ---------- */
   .wordmark {
     font-family: var(--display); font-weight: 900;
@@ -136,6 +139,45 @@
     transition: transform .35s cubic-bezier(.7, 0, .2, 1);
   }
   .nav-links a:hover::after { transform: scaleX(1); }
+
+  /* Botão do menu: aparece apenas no celular, onde a lista some. */
+  .menu-btn {
+    display: none;
+    width: 46px; height: 46px; flex: none;
+    align-items: center; justify-content: center;
+    background: transparent; border: 1px solid var(--line-2);
+    border-radius: 12px; color: var(--ink); cursor: pointer;
+  }
+  .menu-btn span {
+    display: block; width: 18px; height: 2px; background: currentColor;
+    border-radius: 2px; position: relative;
+  }
+  .menu-btn span::before, .menu-btn span::after {
+    content: ""; position: absolute; left: 0; width: 18px; height: 2px;
+    background: currentColor; border-radius: 2px;
+    transition: transform .25s ease;
+  }
+  .menu-btn span::before { top: -6px; }
+  .menu-btn span::after { top: 6px; }
+  .menu-btn[aria-expanded="true"] span { background: transparent; }
+  .menu-btn[aria-expanded="true"] span::before { transform: translateY(6px) rotate(45deg); }
+  .menu-btn[aria-expanded="true"] span::after { transform: translateY(-6px) rotate(-45deg); }
+
+  .menu-painel {
+    position: fixed; inset: 62px 0 auto; z-index: 55;
+    background: rgba(10, 10, 10, .97);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--line);
+    padding: 8px var(--gut) 20px;
+  }
+  .menu-painel ul { list-style: none; display: grid; }
+  .menu-painel a {
+    display: flex; align-items: center; min-height: 52px;
+    font-family: var(--display); font-weight: 700; font-size: 20px;
+    letter-spacing: -.02em; color: var(--ink); text-decoration: none;
+    border-bottom: 1px solid var(--line);
+  }
+  .menu-painel li:last-child a { border-bottom: none; }
 
   .btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 9px;
@@ -216,7 +258,7 @@
     padding: 5px 9px; border-radius: 999px;
   }
   .kard p { font-size: 13.5px; line-height: 1.55; color: var(--muted); }
-  .kard h2 {
+  .kard .kard-titulo {
     font-family: var(--display); font-weight: 700; font-size: 23px;
     line-height: 1.05; letter-spacing: -.02em; margin-top: auto;
   }
@@ -430,7 +472,12 @@
   }
   .wa-float:hover { transform: scale(1.07); }
 
-  @media (max-width: 720px) { .nav-links { display: none; } }
+  @media (max-width: 720px) {
+    .nav-links { display: none; }
+    .menu-btn { display: inline-flex; }
+    .nav .btn { padding: 10px 14px; font-size: 13px; }
+  }
+  @media (min-width: 721px) { .menu-painel { display: none; } }
 
   /* Sem movimento: nada da página depende de animação para aparecer. */
   @media (prefers-reduced-motion: reduce) {
@@ -458,15 +505,29 @@
     <li><a href="#projetos">Projetos</a></li>
     <li><a href="#contato">Contato</a></li>
   </ul>
-  <a class="btn btn-lime" data-wa href="#contato">
-    Falar no WhatsApp
-    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
-      <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
-    </svg>
-  </a>
+  <div style="display:flex; align-items:center; gap:10px">
+    <a class="btn btn-lime" data-wa href="#contato">
+      Falar no WhatsApp
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
+        <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+      </svg>
+    </a>
+    <button class="menu-btn" id="menuBtn" type="button"
+            aria-expanded="false" aria-controls="menuPainel" aria-label="Abrir menu">
+      <span aria-hidden="true"></span>
+    </button>
+  </div>
 </nav>
 
-<main id="conteudo">
+<div class="menu-painel" id="menuPainel" hidden>
+  <ul>
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#projetos">Projetos</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</div>
+
+<main id="conteudo" tabindex="-1">
 
   <!-- ===================== 1. HERO ===================== -->
   <header class="hero" id="hero">
@@ -498,27 +559,27 @@
       <li><article class="kard" data-rot="-3" data-depth="14">
         <span class="tag">Do zero</span>
         <p>Desenhado para o seu fluxo, não para um template.</p>
-        <h2>Software sob demanda</h2>
+        <p class="kard-titulo">Software sob demanda</p>
       </article></li>
       <li><article class="kard" data-rot="1.8" data-depth="10">
         <span class="tag">4 a 8 semanas</span>
         <p>Primeira versão no ar para validar com usuário real.</p>
-        <h2>MVP de startup</h2>
+        <p class="kard-titulo">MVP de startup</p>
       </article></li>
       <li><article class="kard" data-rot="-1.4" data-depth="8">
         <span class="tag">Operação</span>
         <p>Tira a operação da planilha e do grupo solto.</p>
-        <h2>Sistema interno</h2>
+        <p class="kard-titulo">Sistema interno</p>
       </article></li>
       <li><article class="kard" data-rot="2.4" data-depth="12">
         <span class="tag">IA aplicada</span>
         <p>Agentes que leem, respondem e executam.</p>
-        <h2>Automação com IA</h2>
+        <p class="kard-titulo">Automação com IA</p>
       </article></li>
       <li><article class="kard" data-rot="-2" data-depth="9">
         <span class="tag">Integração</span>
         <p>WhatsApp, ERP, planilha e pagamento no mesmo lugar.</p>
-        <h2>Integrações</h2>
+        <p class="kard-titulo">Integrações</p>
       </article></li>
     </ul>
 
@@ -529,12 +590,12 @@
   </header>
 
   <!-- ===================== 2. SERVIÇOS ===================== -->
-  <section id="servicos">
+  <section id="servicos" aria-labelledby="tituloServicos">
     <div class="wrap">
       <div class="sec-head">
         <div>
           <p class="eyebrow"><span class="dot"></span> O que entregamos</p>
-          <h2>Três formas<br><span class="light">de começar</span></h2>
+          <h2 id="tituloServicos">Três formas <br><span class="light">de começar</span></h2>
         </div>
         <p>Escopo e prazo fechados antes da primeira linha de código.</p>
       </div>
@@ -613,12 +674,12 @@
        público, troque <article class="proj"> por
        <a class="proj" href="..." target="_blank" rel="noopener">.
   -->
-  <section id="projetos">
+  <section id="projetos" aria-labelledby="tituloProjetos">
     <div class="wrap">
       <div class="sec-head">
         <div>
           <p class="eyebrow"><span class="dot"></span> Projetos</p>
-          <h2>O que já<br><span class="light">colocamos no ar</span></h2>
+          <h2 id="tituloProjetos">O que já <br><span class="light">colocamos no ar</span></h2>
         </div>
         <p>Oito sistemas entregues e rodando.</p>
       </div>
@@ -676,15 +737,15 @@
   </section>
 
   <!-- ===================== 4. CONTATO ===================== -->
-  <section id="contato">
+  <section id="contato" aria-labelledby="tituloContato">
     <div class="wrap">
       <div class="cta">
         <div>
-          <h2>Conta o problema.<br>A gente diz se resolve.</h2>
+          <h2 id="tituloContato">Conta o problema. <br>A gente diz se resolve.</h2>
           <p>Se não for algo que fazemos bem, falamos na hora.</p>
         </div>
         <div class="aside">
-          <a class="btn btn-dark" data-wa href="#">
+          <a class="btn btn-dark" data-wa href="#contato">
             Chamar no WhatsApp
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
               <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
@@ -696,7 +757,9 @@
     </div>
   </section>
 
-  <footer>
+</main>
+
+<footer>
     <div class="wrap">
       <div class="foot-grid">
         <a class="wordmark" href="/" aria-label="OpenSeed, página inicial">
@@ -713,8 +776,7 @@
       </div>
       <p class="foot-fine">© <span id="ano">2026</span> OPENSEED · SOLUÇÕES COM IA QUE FACILITAM A VIDA DAS PESSOAS</p>
     </div>
-  </footer>
-</main>
+</footer>
 
 <a class="wa-float" data-wa href="#contato" aria-label="Falar no WhatsApp">
   <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
@@ -746,8 +808,48 @@ addEventListener("scroll", function () {
   nav.classList.toggle("solid", scrollY > 24);
 }, { passive: true });
 
+/* Menu do celular. O botão diz o próprio estado por aria-expanded, o painel
+   fecha no Esc e ao escolher um destino, e o foco volta para o botão. */
+(function menuCelular() {
+  const botao = document.getElementById("menuBtn");
+  const painel = document.getElementById("menuPainel");
+
+  function abrir(sim) {
+    botao.setAttribute("aria-expanded", String(sim));
+    botao.setAttribute("aria-label", sim ? "Fechar menu" : "Abrir menu");
+    painel.hidden = !sim;
+    if (sim) painel.querySelector("a").focus();
+  }
+
+  botao.addEventListener("click", function () {
+    abrir(botao.getAttribute("aria-expanded") !== "true");
+  });
+
+  painel.querySelectorAll("a").forEach(function (a) {
+    a.addEventListener("click", function () { abrir(false); });
+  });
+
+  addEventListener("keydown", function (e) {
+    if (e.key === "Escape" && botao.getAttribute("aria-expanded") === "true") {
+      abrir(false);
+      botao.focus();
+    }
+  });
+
+  /* Voltou para o desktop com o menu aberto: fecha para não ficar preso. */
+  matchMedia("(min-width: 721px)").addEventListener("change", function (e) {
+    if (e.matches) abrir(false);
+  });
+})();
+
 const semMovimento = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const telaLarga = matchMedia("(min-width: 1000px)").matches && matchMedia("(hover: hover)").matches;
+
+/* O CSS do leque responde a esta mesma condição. Se ela mudar depois da carga,
+   por exemplo ao alargar a janela, a página recarrega os efeitos uma vez em
+   vez de ficar com o layout de tela larga sem o movimento que ele pressupõe. */
+const consultaLarga = matchMedia("(min-width: 1000px) and (hover: hover)");
+const telaLarga = consultaLarga.matches;
+consultaLarga.addEventListener("change", function () { location.reload(); });
 
 if (!semMovimento && window.gsap) {
   gsap.registerPlugin(ScrollTrigger);
@@ -795,6 +897,7 @@ if (!semMovimento && window.gsap) {
     .to(".hero-nota", { opacity: 1, y: 0, duration: .7 }, 1.35);
 
   const contador = document.getElementById("contador");
+  contador.textContent = "0";
   const conta = { v: 0 };
   gsap.to(conta, {
     v: 8, duration: 1.3, ease: "power2.out", delay: 1.45,
@@ -823,10 +926,16 @@ if (!semMovimento && window.gsap) {
       requestAnimationFrame(parallax);
     })();
 
-    /* Relevo ao passar o mouse. O mesmo efeito responde ao teclado, senão
-       quem navega com Tab não recebe retorno nenhum. */
+    /* Quanto o leque já abriu, de 0 a 1. Serve para o card voltar do hover
+       para o lugar certo do arco. */
+    const meio = (cards.length - 1) / 2;
+    let aberturaLeque = 0;
+    function giroAtual(card) {
+      const i = cards.indexOf(card);
+      return parseFloat(card.dataset.giro) + (i - meio) * 5 * aberturaLeque;
+    }
+
     cards.forEach(function (card) {
-      const giro = parseFloat(card.dataset.giro) || 0;
       function levantar(rx, ry) {
         gsap.to(card, {
           rotateX: rx, rotateY: ry, scale: 1.09, zIndex: 20,
@@ -836,7 +945,10 @@ if (!semMovimento && window.gsap) {
       }
       function baixar() {
         gsap.to(card, {
-          rotateX: 0, rotateY: 0, scale: 1, zIndex: "auto", rotation: giro,
+          rotateX: 0, rotateY: 0, scale: 1, zIndex: "auto",
+          /* Volta para a rotação que a rolagem definiu, não para a de repouso:
+             com o leque aberto, voltar para a base quebrava o arco. */
+          rotation: giroAtual(card),
           duration: .7, ease: "elastic.out(1, .6)", overwrite: "auto"
         });
       }
@@ -845,24 +957,20 @@ if (!semMovimento && window.gsap) {
         levantar(-((e.clientY - r.top) / r.height - .5) * 14, ((e.clientX - r.left) / r.width - .5) * 14);
       });
       card.addEventListener("mouseleave", baixar);
-      card.setAttribute("tabindex", "0");
-      card.addEventListener("focus", function () { levantar(0, 0); });
-      card.addEventListener("blur", baixar);
     });
 
     /* Leque abrindo conforme a página rola. O deslocamento sai da posição do
        card na fila, não de uma lista de pixels presa a uma largura de tela. */
-    const meio = (cards.length - 1) / 2;
     ScrollTrigger.create({
       trigger: ".hero", start: "top top", end: "bottom top", scrub: .8,
       onUpdate: function (self) {
-        const p = self.progress;
+        aberturaLeque = self.progress;
         cards.forEach(function (card, i) {
           const dist = i - meio;
           gsap.set(card, {
-            x: dist * 64 * p,
-            y: (26 - Math.abs(dist) * 11) * p,
-            rotation: parseFloat(card.dataset.giro) + dist * 5 * p
+            x: dist * 64 * aberturaLeque,
+            y: (26 - Math.abs(dist) * 11) * aberturaLeque,
+            rotation: parseFloat(card.dataset.giro) + dist * 5 * aberturaLeque
           });
         });
       }
