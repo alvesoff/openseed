@@ -24,7 +24,6 @@
       exemploProjeto: "Nome do projeto",
       mcp: {
         servicos: "Lista os serviços de desenvolvimento da OpenSeed, com a descrição e as condições de cada um.",
-        tecnologias: "Lista as tecnologias que a OpenSeed usa nos projetos.",
         projetos: "Diz quantos sistemas a OpenSeed já entregou. Os casos ainda não estão publicados na página: para exemplos parecidos com a necessidade da pessoa, use openseed_montar_contato.",
         duvidas: "Responde as dúvidas frequentes sobre preço, prazo, propriedade do código, área de atendimento e uso de IA. Use antes de dizer que não sabe.",
         duvidaAssunto: "Assunto da dúvida",
@@ -46,7 +45,6 @@
       exemploProjeto: "Project name",
       mcp: {
         servicos: "Lists OpenSeed's development services, with the description and terms of each one.",
-        tecnologias: "Lists the technologies OpenSeed uses in its projects.",
         projetos: "Reports how many systems OpenSeed has delivered. The individual cases are not published on the page yet: for examples close to the person's need, use openseed_montar_contato.",
         duvidas: "Answers the frequent questions about price, timeline, code ownership, service area and use of AI. Use it before saying you don't know.",
         duvidaAssunto: "Topic of the question",
@@ -235,15 +233,6 @@
         }
       },
       {
-        name: "openseed_listar_tecnologias",
-        description: M.tecnologias,
-        annotations: { readOnlyHint: true },
-        fonte: "#servicos .chips span",
-        execute: function () {
-          return responder({ tecnologias: $$("#servicos .chips span").map(function (c) { return texto(c); }) });
-        }
-      },
-      {
         name: "openseed_listar_projetos",
         description: M.projetos,
         annotations: { readOnlyHint: true },
@@ -335,7 +324,7 @@
      não aparecer e sumir. Mexeu em uma, mexa na outra:
      tools/conferir.js compara as duas e reprova se divergirem. */
   var SEL_ENTRADA = "#nav, #heroTitulo, .hero .eyebrow, .hero-sub > *, .garantias, .leque-dica, .kard";
-  var SEL_REVELA = ".sec-head, .svc, .faixa > div, .proj, .proj-vazio, .cta, .faq";
+  var SEL_REVELA = ".sec-head, .svc, .proj, .proj-vazio, .cta, .faq";
 
   /* Tira o esconde-esconde do CSS. Chamado nos dois caminhos: quando não vai
      haver animação nenhuma, e depois que o GSAP já pôs o próprio estado

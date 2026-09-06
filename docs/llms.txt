@@ -32,7 +32,7 @@ React, Next.js, TypeScript, Node.js, Python, PostgreSQL, Supabase, API da Anthro
 
 ## Páginas
 
-- [Início, em português](https://openseed.com.br/): serviços, tecnologias e perguntas frequentes.
+- [Início, em português](https://openseed.com.br/): serviços e perguntas frequentes.
 - [Home, in English](https://openseed.com.br/en/): the same page in English.
 - [Sobre a OpenSeed](https://openseed.com.br/sobre.html): no que a OpenSeed acredita, a diferença entre SaaS e o modelo OaaS, e o que ela atende.
 - [Manifesto](https://openseed.com.br/manifesto.html): posicionamento da empresa sobre IA, com dados sobre conteúdo gerado por máquina.
@@ -43,7 +43,7 @@ React, Next.js, TypeScript, Node.js, Python, PostgreSQL, Supabase, API da Anthro
 A página inicial, nas duas línguas, registra ferramentas WebMCP em
 `document.modelContext`, com `navigator.modelContext` como alternativa para
 navegador mais antigo:
-`openseed_listar_servicos`, `openseed_listar_tecnologias`,
+`openseed_listar_servicos`,
 `openseed_listar_projetos`, `openseed_responder_duvida_comum` e `openseed_montar_contato`.
 
 Todas são de leitura e respondem em blocos de conteúdo, com o mesmo dado repetido em
