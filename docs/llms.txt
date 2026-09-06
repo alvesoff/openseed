@@ -38,7 +38,7 @@ React, Next.js, TypeScript, Node.js, Python, PostgreSQL, Supabase, API da Anthro
 
 ## Páginas
 
-- [Início, em português](https://openseed.com.br/): serviços, processo, projetos, tecnologias e perguntas frequentes.
+- [Início, em português](https://openseed.com.br/): serviços, processo, tecnologias e perguntas frequentes.
 - [Home, in English](https://openseed.com.br/en/): the same page in English.
 - [Sobre a OpenSeed](https://openseed.com.br/sobre.html): como o estúdio trabalha e o que atende.
 - [Manifesto](https://openseed.com.br/manifesto.html): posicionamento da empresa sobre IA, com dados sobre conteúdo gerado por máquina.

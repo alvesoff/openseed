@@ -52,11 +52,13 @@
    tools/conferir.js compara as duas e reprova se divergirem.
    :where() em vez de :is() para o #nav lá dentro não inflar a especificidade
    da regra inteira. */
-html[data-anim] :where(#nav, .hero .eyebrow, .hero-sub > *, .garantias, .leque-dica, .kard,
+html[data-anim] :where(#nav, #heroTitulo, .hero .eyebrow, .hero-sub > *, .garantias, .leque-dica, .kard,
                        .sec-head, .svc, .fluxo li, .faixa > div, .proj, .proj-vazio, .cta, .faq) {
   opacity: 0;
 }
-html[data-anim] :where(#heroTitulo .line-mask > span) { transform: translateY(108%); }
+/* Só opacidade, nunca transform: o GSAP lê o transform vindo do CSS como
+   deslocamento em pixels e soma o próprio yPercent em cima, e o título
+   terminava a entrada 47px abaixo, cortado pela própria máscara. */
 
 html { -webkit-text-size-adjust: 100%; }
 
@@ -347,14 +349,14 @@ section { position: relative; z-index: 5; }
   font-size: 19px; letter-spacing: -.03em; line-height: 1;
   padding-bottom: .05em; margin-bottom: 12px;
 }
-.faixa ul { list-style: none; display: grid; gap: 8px; }
-.faixa li { font-size: 15.5px; line-height: 1.5; color: var(--muted); padding-left: 18px; position: relative; }
-.faixa li::before { content: "+"; position: absolute; left: 0; color: var(--lime); }
-.chips { display: flex; flex-wrap: wrap; gap: 8px; }
-.chips span {
-  font-family: var(--mono); font-size: 12.5px; color: var(--muted);
-  border: 1px solid var(--line); border-radius: 999px; padding: 8px 12px;
-}
+.faixa p { font-size: 15.5px; line-height: 1.55; color: var(--muted); max-width: 46ch; }
+/* Sem borda e sem cápsula: treze caixas arredondadas eram treze objetos
+   disputando um recado só, e é objeto, não palavra, que faz a página parecer
+   poluída. O <span> por tecnologia continua obrigatório: a ferramenta
+   openseed_listar_tecnologias lê "#servicos .chips span". */
+.chips { display: flex; flex-wrap: wrap; column-gap: 14px; row-gap: 6px; }
+.chips span { font-family: var(--mono); font-size: 12.5px; color: var(--faint); }
+.chips span + span::before { content: "·"; margin-right: 14px; color: var(--line-2); }
 
 /* ---------- 3. PROJETOS ---------- */
 .proj-grid { display: grid; gap: 14px; margin-top: 26px; }
@@ -390,6 +392,9 @@ section { position: relative; z-index: 5; }
   letter-spacing: .04em; margin-top: auto; padding-top: 10px;
   border-top: 1px solid var(--line); line-height: 1.6;
 }
+/* Sozinho na grade, ele ocupa a linha inteira em vez de virar um card
+   estreito ao lado de dois vazios. */
+.proj-vazio:only-child { grid-column: 1 / -1; }
 .proj-vazio {
   display: grid; place-items: center; text-align: center; gap: 6px;
   border: 1px dashed var(--line-2); border-radius: 18px;

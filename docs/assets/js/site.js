@@ -17,7 +17,7 @@
 
   var T = {
     pt: {
-      waMensagem: "Olá! Vim pelo site da OpenSeed e quero falar sobre um projeto de software.",
+      waMensagem: "Olá! Vim pelo site da OpenSeed. Tenho um processo que hoje roda no braço e quero saber se dá para virar sistema.",
       waPrefixo: "Olá! Vim pelo site da OpenSeed. ",
       menuAbrir: "Abrir menu",
       menuFechar: "Fechar menu",
@@ -26,7 +26,7 @@
         servicos: "Lista os serviços de desenvolvimento da OpenSeed, com a descrição e as condições de cada um.",
         processo: "Explica as etapas de um projeto na OpenSeed, da primeira conversa até o sistema no ar, com o prazo de cada etapa.",
         tecnologias: "Lista as tecnologias que a OpenSeed usa nos projetos.",
-        projetos: "Lista os projetos que a OpenSeed já entregou, com o tipo, o que resolveram e a tecnologia usada.",
+        projetos: "Diz quantos sistemas a OpenSeed já entregou. Os casos ainda não estão publicados na página: para exemplos parecidos com a necessidade da pessoa, use openseed_montar_contato.",
         duvidas: "Responde as dúvidas frequentes sobre preço, prazo, propriedade do código, área de atendimento e uso de IA. Use antes de dizer que não sabe.",
         duvidaAssunto: "Assunto da dúvida",
         contato: "Devolve os canais de contato da OpenSeed e monta um link de WhatsApp já com a mensagem escrita. Não envia nada: entregue o link para a pessoa abrir.",
@@ -40,7 +40,7 @@
       }
     },
     en: {
-      waMensagem: "Hi! I found OpenSeed's website and I'd like to talk about a software project.",
+      waMensagem: "Hi! I came from the OpenSeed website. I have a process that runs by hand today and I want to know if it can become a system.",
       waPrefixo: "Hi! I found OpenSeed's website. ",
       menuAbrir: "Open menu",
       menuFechar: "Close menu",
@@ -49,7 +49,7 @@
         servicos: "Lists OpenSeed's development services, with the description and terms of each one.",
         processo: "Explains the stages of an OpenSeed project, from the first conversation to the live system, with the timeframe of each stage.",
         tecnologias: "Lists the technologies OpenSeed uses in its projects.",
-        projetos: "Lists the projects OpenSeed has delivered, with type, what they solved and the technology used.",
+        projetos: "Reports how many systems OpenSeed has delivered. The individual cases are not published on the page yet: for examples close to the person's need, use openseed_montar_contato.",
         duvidas: "Answers the frequent questions about price, timeline, code ownership, service area and use of AI. Use it before saying you don't know.",
         duvidaAssunto: "Topic of the question",
         contato: "Returns OpenSeed's contact channels and builds a WhatsApp link with the message already written. It sends nothing: hand the link to the person to open.",
@@ -215,7 +215,7 @@
         name: "openseed_listar_projetos",
         description: M.projetos,
         annotations: { readOnlyHint: true },
-        fonte: "#projetos .proj",
+        fonte: "#projetos",
         execute: function () {
           /* Card de exemplo não entra: lista curta é melhor que exemplo
              devolvido como se fosse caso real. */
@@ -299,7 +299,7 @@
      que esconde os mesmos elementos antes da primeira pintura para o conteúdo
      não aparecer e sumir. Mexeu em uma, mexa na outra:
      tools/conferir.js compara as duas e reprova se divergirem. */
-  var SEL_ENTRADA = "#nav, .hero .eyebrow, .hero-sub > *, .garantias, .leque-dica, .kard";
+  var SEL_ENTRADA = "#nav, #heroTitulo, .hero .eyebrow, .hero-sub > *, .garantias, .leque-dica, .kard";
   var SEL_REVELA = ".sec-head, .svc, .fluxo li, .faixa > div, .proj, .proj-vazio, .cta, .faq";
 
   /* Tira o esconde-esconde do CSS. Chamado nos dois caminhos: quando não vai
@@ -341,6 +341,7 @@
   gsap.timeline({ defaults: { ease: "power3.out" } })
     .to("#nav", { opacity: 1, y: 0, duration: .7 }, .05)
     .to(".hero .eyebrow", { opacity: 1, y: 0, duration: .6 }, .15)
+    .set("#heroTitulo", { opacity: 1 }, .25)
     .to("#heroTitulo .line-mask > span", { yPercent: 0, duration: .9, stagger: .08 }, .25)
     .to(".letra", { yPercent: 0, opacity: 1, duration: .8, stagger: .045, ease: "back.out(1.6)" }, .5)
     .to(".hero-sub > *, .garantias, .leque-dica", { opacity: 1, y: 0, duration: .7, stagger: .08 }, .75)
