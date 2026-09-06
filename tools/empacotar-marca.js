@@ -16,58 +16,69 @@ const PASTA = path.join(__dirname, "..", "docs", "assets", "marca");
 const PACOTE = path.join(PASTA, "openseed-marca.zip");
 const conferir = process.argv.indexOf("--conferir") > -1;
 
-const LEIAME = `MARCA OPENSEED
-==============
+/* O que cada arquivo é. O inventário do LEIA-ME é montado a partir da pasta e
+   consultado aqui: acrescentar uma variante sem descrever derruba o script, em
+   vez de entregar um pacote cujo texto mente sobre o próprio conteúdo. */
+const DESCRICOES = {
+  "openseed-marca.svg": "cores da marca, para fundo escuro",
+  "openseed-marca-preta.svg": "uma cor só, para fundo claro",
+  "openseed-marca-branca.svg": "uma cor só, para fundo colorido ou foto",
+  "openseed-marca-1024.png": "cores da marca, 1024 px de largura, fundo transparente",
+  "openseed-marca-2048.png": "a mesma, 2048 px, para impressão e tela grande",
+  "openseed-marca-preta-1024.png": "preta, 1024 px, fundo transparente",
+  "openseed-marca-branca-1024.png": "branca, 1024 px, fundo transparente",
+  "openseed-instagram-perfil.png": "foto de perfil do Instagram, 1080 x 1080",
+};
 
-O que tem aqui
---------------
-
-openseed-marca.svg              cores da marca, para fundo escuro
-openseed-marca-preta.svg        uma cor só, para fundo claro
-openseed-marca-branca.svg       uma cor só, para fundo colorido ou foto
-openseed-marca-1024.png         cores da marca, 1024 px de largura, fundo transparente
-openseed-marca-2048.png         a mesma, 2048 px, para impressão e tela grande
-openseed-marca-preta-1024.png   preta, 1024 px, fundo transparente
-openseed-marca-branca-1024.png  branca, 1024 px, fundo transparente
-openseed-instagram-perfil.png   foto de perfil do Instagram, 1080 x 1080
-
-Prefira o SVG sempre que der. Ele não perde qualidade em nenhum tamanho e o
-texto já está em contorno, então não depende de a fonte estar instalada.
-
-As cores
---------
-
-Verde-limão   #c6f24e   a palavra OPEN
-Branco-osso   #f4f4f0   a palavra SEED
-Preto-carvão  #0a0a0a   o fundo da marca
-
-O verde-limão sobre branco dá 1,4 de contraste e não se lê. Em fundo claro use
-a versão preta, nunca a colorida.
-
-A foto de perfil do Instagram
------------------------------
-
-openseed-instagram-perfil.png já está pronta para subir: 1080 por 1080, que é
-o que o Instagram reamostra sem borrar em tela densa.
-
-A marca ocupa 76% da largura de propósito. O Instagram recorta a foto em
-círculo e os cantos do quadrado somem; e quando há story ativo ele ainda
-desenha um anel em volta e encolhe a imagem um pouco. Os 76% deixam folga para
-os dois. Não aumente a marca para "aproveitar o espaço": o espaço não é seu.
-
-Como usar
----------
-
-Respeite uma margem livre em volta da marca do tamanho da altura da palavra
-OPEN. Nada entra nesse espaço.
-
-Não estique, não incline, não troque as cores, não ponha sombra, não redesenhe
-o espaçamento entre as letras. Se precisar de uma versão que não está aqui,
-peça em contato@openseed.com.br.
-
-A marca é composta em Outfit Black. O texto destes arquivos já está
-convertido em contorno, então nada aqui depende da fonte.
-`;
+function leiame(inventario) {
+  return [
+    "MARCA OPENSEED",
+    "==============",
+    "",
+    "O que tem aqui",
+    "--------------",
+    "",
+    inventario,
+    "",
+    "Prefira o SVG sempre que der. Ele não perde qualidade em nenhum tamanho e o",
+    "texto já está em contorno, então não depende de a fonte estar instalada.",
+    "",
+    "As cores",
+    "--------",
+    "",
+    "Verde-limão   #c6f24e   a palavra OPEN",
+    "Branco-osso   #f4f4f0   a palavra SEED",
+    "Preto-carvão  #0a0a0a   o fundo da marca",
+    "",
+    "O verde-limão sobre branco dá 1,4 de contraste e não se lê. Em fundo claro use",
+    "a versão preta, nunca a colorida.",
+    "",
+    "A foto de perfil do Instagram",
+    "-----------------------------",
+    "",
+    "openseed-instagram-perfil.png já está pronta para subir: 1080 por 1080, que é",
+    "o que o Instagram reamostra sem borrar em tela densa.",
+    "",
+    "A marca ocupa 76% da largura de propósito. O Instagram recorta a foto em",
+    "círculo e os cantos do quadrado somem; e quando há story ativo ele ainda",
+    "desenha um anel em volta e encolhe a imagem um pouco. Os 76% deixam folga para",
+    "os dois. Não aumente a marca para aproveitar o espaço: o espaço não é seu.",
+    "",
+    "Como usar",
+    "---------",
+    "",
+    "Respeite uma margem livre em volta da marca do tamanho da altura da palavra",
+    "OPEN. Nada entra nesse espaço.",
+    "",
+    "Não estique, não incline, não troque as cores, não ponha sombra, não redesenhe",
+    "o espaçamento entre as letras. Se precisar de uma versão que não está aqui,",
+    "peça em contato@openseed.com.br.",
+    "",
+    "A marca é composta em Outfit Black. O texto destes arquivos já está",
+    "convertido em contorno, então nada aqui depende da fonte.",
+    "",
+  ].join("\n");
+}
 
 /* ------------------------------------------------------------------ ZIP */
 const TABELA_CRC = (() => {
@@ -85,9 +96,9 @@ function crc32(buf) {
   return (c ^ -1) >>> 0;
 }
 
-/* Data fixa dentro do ZIP. Sem isto, cada execução gera bytes diferentes só
-   pelo relógio, e o --conferir acusaria mudança em arquivo idêntico. */
-const DATA_FIXA = { hora: 0, data: (2026 - 1980) << 9 | (1 << 5) | 1 };
+/* Data fixa dentro do ZIP: sem isto o relógio entraria nos bytes e dois
+   pacotes de conteúdo idêntico sairiam diferentes. */
+const DATA_FIXA = { hora: 0, data: ((2026 - 1980) << 9) | (1 << 5) | 1 };
 
 function zip(entradas) {
   const locais = [], centrais = [];
@@ -141,28 +152,83 @@ function zip(entradas) {
   return Buffer.concat([Buffer.concat(locais), corpoCentral, fim]);
 }
 
+/* Lê nome, tamanho e CRC de cada membro pelo diretório central.
+   Comparar por CRC, e não pelos bytes do arquivo inteiro, é o que impede a
+   checagem de amarrar numa versão específica do zlib: outra versão comprime
+   diferente e devolve o mesmo CRC, porque ele é calculado sobre o conteúdo
+   cru. Sem isso, um clone intocado falharia noutra máquina. */
+function lerZip(buf) {
+  let fim = -1;
+  for (let i = buf.length - 22; i >= 0 && i > buf.length - 65558; i--) {
+    if (buf.readUInt32LE(i) === 0x06054b50) { fim = i; break; }
+  }
+  if (fim < 0) return null;
+  const quantos = buf.readUInt16LE(fim + 10);
+  let p = buf.readUInt32LE(fim + 16);
+  const membros = {};
+  for (let i = 0; i < quantos; i++) {
+    if (p + 46 > buf.length || buf.readUInt32LE(p) !== 0x02014b50) return null;
+    const crc = buf.readUInt32LE(p + 16);
+    const tamanho = buf.readUInt32LE(p + 24);
+    const nomeLen = buf.readUInt16LE(p + 28);
+    const extraLen = buf.readUInt16LE(p + 30);
+    const comentLen = buf.readUInt16LE(p + 32);
+    membros[buf.toString("utf8", p + 46, p + 46 + nomeLen)] = { crc, tamanho };
+    p += 46 + nomeLen + extraLen + comentLen;
+  }
+  return membros;
+}
+
 /* ---------------------------------------------------------------- USO */
+if (!fs.existsSync(PASTA)) { console.error("pasta da marca não existe: " + PASTA); process.exit(1); }
+
 const membros = fs.readdirSync(PASTA)
   .filter(n => /\.(svg|png)$/.test(n))
   .sort()
   .map(n => ({ nome: "openseed-marca/" + n, dados: fs.readFileSync(path.join(PASTA, n)) }));
 
 if (!membros.length) { console.error("nenhum arquivo de marca em " + PASTA); process.exit(1); }
-membros.unshift({ nome: "openseed-marca/LEIA-ME.txt", dados: Buffer.from(LEIAME, "utf8") });
 
-const novo = zip(membros);
-const atual = fs.existsSync(PACOTE) ? fs.readFileSync(PACOTE) : null;
+const semDescricao = membros.map(m => path.basename(m.nome)).filter(n => !DESCRICOES[n]);
+if (semDescricao.length) {
+  console.error("arquivo de marca sem descrição em DESCRICOES, no topo deste script:");
+  semDescricao.forEach(n => console.error("  " + n));
+  console.error("Descreva cada um: o inventário do LEIA-ME é montado a partir dessa lista.");
+  process.exit(1);
+}
 
-if (atual && atual.equals(novo)) {
+const larguraNome = Math.max(...membros.map(m => path.basename(m.nome).length)) + 2;
+const inventario = membros
+  .map(m => { const n = path.basename(m.nome); return n.padEnd(larguraNome) + DESCRICOES[n]; })
+  .join("\n");
+membros.unshift({ nome: "openseed-marca/LEIA-ME.txt", dados: Buffer.from(leiame(inventario), "utf8") });
+
+const esperado = {};
+membros.forEach(m => { esperado[m.nome] = { crc: crc32(m.dados), tamanho: m.dados.length }; });
+const atual = fs.existsSync(PACOTE) ? lerZip(fs.readFileSync(PACOTE)) : null;
+
+const igual = atual
+  && Object.keys(atual).length === Object.keys(esperado).length
+  && Object.keys(esperado).every(n => atual[n] && atual[n].crc === esperado[n].crc && atual[n].tamanho === esperado[n].tamanho);
+
+if (igual) {
   console.log("igual: o pacote já contém estes " + membros.length + " arquivos");
   process.exit(0);
 }
 if (conferir) {
   console.error("DIFERE: docs/assets/marca/openseed-marca.zip não bate com os arquivos da pasta.");
+  const nomes = new Set(Object.keys(esperado).concat(Object.keys(atual || {})));
+  for (const n of [...nomes].sort()) {
+    const a = atual && atual[n], e = esperado[n];
+    if (!a) console.error("  falta no pacote: " + n);
+    else if (!e) console.error("  sobra no pacote: " + n);
+    else if (a.crc !== e.crc || a.tamanho !== e.tamanho) console.error("  mudou: " + n);
+  }
   console.error("Rode sem --conferir para refazer o pacote.");
   process.exit(1);
 }
-fs.writeFileSync(PACOTE, novo);
+
+fs.writeFileSync(PACOTE, zip(membros));
 console.log("escrito: docs/assets/marca/openseed-marca.zip");
 membros.forEach(m => console.log("  " + m.nome + " (" + m.dados.length + " bytes)"));
-console.log("total: " + novo.length + " bytes");
+console.log("total: " + fs.statSync(PACOTE).size + " bytes");

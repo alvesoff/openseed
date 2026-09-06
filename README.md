@@ -188,7 +188,7 @@ vetoriais extraídos da Outfit Black, então os arquivos não dependem de a font
 estar instalada em lugar nenhum. A geometria foi conferida contra o que o
 navegador pinta no site, e bate dentro de um pixel.
 
-**A foto de perfil sai de `tools/instagram.html`**, que já traz o círculo do
+**A foto de perfil sai de `/tools/instagram.html`**, que já traz o círculo do
 recorte como guia e mostra a prova nos três tamanhos em que o Instagram exibe a
 foto: 110 px no perfil, 56 nos stories e 32 no comentário. A marca ocupa 76% da
 largura, e não mais: o Instagram recorta em círculo, os cantos somem, e com
@@ -223,22 +223,24 @@ recorte do estudo. `node tools/conferir.js` chama esse `--conferir` sozinho.
 ### Gerar a imagem de compartilhamento e os ícones
 
 Os templates são páginas HTML que você fotografa. `tools/serve.js` publica só
-`docs/`, então sirva `tools/` à parte, numa porta qualquer:
+`docs/`, então sirva a **raiz do repositório** à parte, numa porta qualquer:
 
 ```bash
-npx --yes serve tools -l 8901
+npx --yes serve . -l 8901
 ```
 
-**Não abra por `file://`.** A fonte Outfit vem do Google Fonts e não carrega nesse
-protocolo; a imagem sai com a fonte errada e ninguém percebe até estar no ar.
+**Tem que ser a raiz, não a pasta `tools/`.** O template do Instagram lê o SVG da
+marca lá em `docs/`; servindo só `tools/` a página abre em branco. E **não abra por
+`file://`**: a fonte Outfit vem do Google Fonts e não carrega nesse protocolo, então
+a imagem sai com a fonte errada e ninguém percebe até estar no ar.
 
-1. Abra <http://127.0.0.1:8901/og-image.html> e espere `document.fonts.ready`
+1. Abra <http://127.0.0.1:8901/tools/og-image.html> e espere `document.fonts.ready`
    resolver, mais um segundo de folga.
 2. Fotografe o elemento `#og` e salve em `docs/assets/img/og-image.png`. Repita com
    `#og-en` para `og-image-en.png`.
 3. **Confira o tamanho: tem que dar exatamente 1200 por 630.** Se vier maior, alguém
    tirou o `box-sizing: border-box` do template e o padding virou tamanho.
-4. Os ícones saem de `icons.html` do mesmo jeito, cada bloco com o nome do atributo
+4. Os ícones saem de `/tools/icons.html` do mesmo jeito, cada bloco com o nome do atributo
    `data-arquivo`, dentro de `docs/assets/img/icons/`.
 5. O `favicon.svg` é desenhado à mão, não sai de template. O `favicon-32.png` é ele
    rasterizado: se mudar um, refaça o outro. O SVG precisa começar no caractere `<`,

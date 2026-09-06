@@ -6,8 +6,10 @@
 <!-- Template da foto de perfil. Não é página do site.
 
      Receita:
-     1. Sirva a pasta tools/ numa porta qualquer, com a pasta da marca dentro
-        do alcance. Por file:// o SVG não carrega.
+     1. Sirva a RAIZ DO REPOSITÓRIO numa porta qualquer e abra
+        /tools/instagram.html. Tem que ser a raiz: este template lê o SVG da
+        marca lá em docs/, e servir só tools/ deixa o quadro em branco. Por
+        file:// o SVG também não carrega.
      2. Fotografe #perfil e salve em
         docs/assets/marca/openseed-instagram-perfil.png.
      3. Confira: 1080 por 1080. Antes de fotografar, apague a classe "guia",
@@ -58,7 +60,7 @@
 <body>
   <figure>
     <div class="tile guia" id="perfil">
-      <img src="/marca/openseed-marca.svg" alt="">
+      <img src="../docs/assets/marca/openseed-marca.svg" alt="">
     </div>
     <figcaption>openseed-instagram-perfil.png · 1080x1080 · tire a classe guia antes</figcaption>
   </figure>
@@ -66,15 +68,15 @@
   <figure>
     <div class="provas">
       <div class="prova">
-        <div class="redondo r110"><div class="redondo-fundo"><img src="/marca/openseed-marca.svg" alt=""></div></div>
+        <div class="redondo r110"><div class="redondo-fundo"><img src="../docs/assets/marca/openseed-marca.svg" alt=""></div></div>
         <span>110 px<br>perfil</span>
       </div>
       <div class="prova">
-        <div class="redondo r56"><div class="redondo-fundo"><img src="/marca/openseed-marca.svg" alt=""></div></div>
+        <div class="redondo r56"><div class="redondo-fundo"><img src="../docs/assets/marca/openseed-marca.svg" alt=""></div></div>
         <span>56 px<br>stories</span>
       </div>
       <div class="prova">
-        <div class="redondo r32"><div class="redondo-fundo"><img src="/marca/openseed-marca.svg" alt=""></div></div>
+        <div class="redondo r32"><div class="redondo-fundo"><img src="../docs/assets/marca/openseed-marca.svg" alt=""></div></div>
         <span>32 px<br>comentário</span>
       </div>
     </div>

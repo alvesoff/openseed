@@ -43,6 +43,15 @@ if (faq.status !== 0) {
     + (faq.stderr || "").trim().split("\n").map(l => "        " + l).join("\n"));
 }
 
+/* O que a ferramenta filha escreveu no stderr. Sem isto, um erro dentro dela
+   (pasta sumida, arquivo ilegível) chega aqui como "não bate", e a correção
+   sugerida quebra do mesmo jeito, sem explicação. */
+function rodape(processo) {
+  const saida = (processo.stderr || "").trim();
+  if (!saida) return "";
+  return "\n" + saida.split("\n").map(l => "        " + l).join("\n");
+}
+
 /* 1b. O traçado do gráfico do manifesto contra os dados que o geram.
    O d é um bezier de 24 pontos de controle: ninguém confere isso a olho, e
    editar o HTML sem passar pela ferramenta desliga silenciosamente a única
@@ -50,7 +59,7 @@ if (faq.status !== 0) {
 const grafico = cp.spawnSync(process.execPath, [path.join(__dirname, "grafico-manifesto.js"), "--conferir"], { encoding: "utf8" });
 if (grafico.status !== 0) {
   erro("grafico", "o traçado de docs/manifesto.html não bate com os dados de tools/grafico-manifesto.js.\n"
-    + "        Rode: node tools/grafico-manifesto.js");
+    + "        Rode: node tools/grafico-manifesto.js" + rodape(grafico));
 }
 
 /* 1c. O pacote da marca contra os arquivos da pasta. Acrescentar uma variante
@@ -59,7 +68,7 @@ if (grafico.status !== 0) {
 const pacote = cp.spawnSync(process.execPath, [path.join(__dirname, "empacotar-marca.js"), "--conferir"], { encoding: "utf8" });
 if (pacote.status !== 0) {
   erro("marca", "docs/assets/marca/openseed-marca.zip não bate com os arquivos da pasta.\n"
-    + "        Rode: node tools/empacotar-marca.js");
+    + "        Rode: node tools/empacotar-marca.js" + rodape(pacote));
 }
 
 /* 2. Um número de WhatsApp só, em todo lugar.
