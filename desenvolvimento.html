@@ -315,10 +315,14 @@
 
   .eyebrow {
     font-family: var(--mono); font-size: 11.5px; letter-spacing: .18em;
-    text-transform: uppercase; color: var(--faint);
-    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+    line-height: 1.6; text-transform: uppercase; color: var(--faint);
   }
-  .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); flex: none; }
+  /* Inline em vez de item de flex: assim a bolinha acompanha a primeira
+     palavra em vez de ocupar uma linha sozinha quando o texto quebra. */
+  .eyebrow .dot {
+    display: inline-block; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--lime); margin-right: 9px; vertical-align: middle;
+  }
 
   /* ---------- 1. HERO ---------- */
   .hero {
@@ -384,6 +388,28 @@
      card por cima de card escondia o fim das frases. */
   @media (min-width: 1000px) and (hover: hover) {
     .leque { overflow: visible; perspective: 1200px; }
+  }
+
+  /* Três respostas às objeções que aparecem antes de qualquer conversa. */
+  .garantias {
+    display: flex; flex-wrap: wrap; gap: 8px 18px;
+    margin-top: 18px; list-style: none;
+  }
+  .garantias li {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 13.5px; color: var(--muted);
+  }
+  .garantias svg { flex: none; color: var(--lime); }
+
+  /* Dica de que o carrossel do celular arrasta. Some na tela larga. */
+  .leque-dica {
+    display: none; margin-top: 26px;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .14em;
+    text-transform: uppercase; color: var(--faint);
+    align-items: center; gap: 8px;
+  }
+  .leque-dica::after {
+    content: ""; width: 26px; height: 1px; background: var(--line-2);
   }
 
   .hero-nota {
@@ -610,6 +636,23 @@
   .foot-links a:hover { color: var(--ink); }
   .foot-fine { font-family: var(--mono); font-size: 11px; color: var(--faint); letter-spacing: .08em; margin-top: 18px; }
 
+  /* No celular a ação principal vira barra na base, dentro do alcance do
+     polegar e sempre visível. O botão redondo fica só para tela grande. */
+  .barra-acao {
+    display: none;
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 75;
+    padding: 10px var(--gut) calc(10px + env(safe-area-inset-bottom, 0px));
+    background: rgba(10, 10, 10, .93);
+    backdrop-filter: blur(14px);
+    border-top: 1px solid var(--line);
+  }
+  .barra-acao .btn { width: 100%; min-height: 52px; font-size: 16px; }
+  .barra-acao .fine {
+    display: block; text-align: center; margin-top: 7px;
+    font-family: var(--mono); font-size: 10.5px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--faint);
+  }
+
   .wa-float {
     position: fixed; right: 18px; bottom: 18px; z-index: 70;
     width: 56px; height: 56px; border-radius: 50%;
@@ -624,6 +667,17 @@
     .nav-links { display: none; }
     .menu-btn { display: inline-flex; }
     .nav .btn { padding: 10px 14px; font-size: 13px; }
+
+    .barra-acao { display: block; }
+    .wa-float { display: none; }
+    .leque-dica { display: flex; }
+    /* Espaço para a barra não cobrir o fim da página. */
+    body { padding-bottom: 96px; }
+    /* Alvo confortável para o polegar em toda a página. */
+    .btn { min-height: 50px; width: 100%; }
+    .hero-actions { width: 100%; }
+    .nav .btn, .barra-acao .btn { width: auto; }
+    .barra-acao .btn { width: 100%; }
   }
   @media (min-width: 721px) { .menu-painel { display: none; } }
 
@@ -703,6 +757,13 @@
       </div>
     </div>
 
+    <ul class="garantias">
+      <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Escopo e preço fechados antes de começar</li>
+      <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Código no seu repositório desde o primeiro commit</li>
+      <li><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg> Sem fidelidade e sem mensalidade obrigatória</li>
+    </ul>
+
+    <p class="leque-dica" aria-hidden="true">Arraste para ver</p>
     <ul class="leque" id="leque" aria-label="O que construímos">
       <li><article class="kard" data-rot="-3" data-depth="14">
         <span class="tag">Do zero</span>
@@ -899,7 +960,7 @@
               <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
             </svg>
           </a>
-          <p class="fine">Resposta no mesmo dia útil</p>
+          <p class="fine">Conversa de 20 minutos · Resposta no mesmo dia útil</p>
         </div>
       </div>
 
@@ -951,6 +1012,16 @@
       <p class="foot-fine">© <span id="ano">2026</span> OPENSEED · SOLUÇÕES COM IA QUE FACILITAM A VIDA DAS PESSOAS</p>
     </div>
 </footer>
+
+<div class="barra-acao">
+  <a class="btn btn-lime" data-wa href="#contato">
+    Chamar no WhatsApp
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true">
+      <line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/>
+    </svg>
+  </a>
+  <span class="fine">Conversa de 20 minutos, sem compromisso</span>
+</div>
 
 <a class="wa-float" data-wa href="#contato" aria-label="Falar no WhatsApp">
   <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
