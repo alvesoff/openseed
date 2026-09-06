@@ -2,8 +2,8 @@
    OpenSeed · comportamento da landing (PT e EN usam este mesmo arquivo)
 
    O idioma vem do atributo lang do <html>. Tudo que é texto para pessoa ou
-   para agente de IA sai do dicionário T. Os dados dos serviços, do processo
-   e das dúvidas são lidos do próprio HTML, para a resposta de um agente
+   para agente de IA sai do dicionário T. Os dados dos serviços e das
+   dúvidas são lidos do próprio HTML, para a resposta de um agente
    nunca divergir do que está na tela.
    ===================================================================== */
 (function () {
@@ -24,7 +24,6 @@
       exemploProjeto: "Nome do projeto",
       mcp: {
         servicos: "Lista os serviços de desenvolvimento da OpenSeed, com a descrição e as condições de cada um.",
-        processo: "Explica as etapas de um projeto na OpenSeed, da primeira conversa até o sistema no ar, com o prazo de cada etapa.",
         tecnologias: "Lista as tecnologias que a OpenSeed usa nos projetos.",
         projetos: "Diz quantos sistemas a OpenSeed já entregou. Os casos ainda não estão publicados na página: para exemplos parecidos com a necessidade da pessoa, use openseed_montar_contato.",
         duvidas: "Responde as dúvidas frequentes sobre preço, prazo, propriedade do código, área de atendimento e uso de IA. Use antes de dizer que não sabe.",
@@ -47,7 +46,6 @@
       exemploProjeto: "Project name",
       mcp: {
         servicos: "Lists OpenSeed's development services, with the description and terms of each one.",
-        processo: "Explains the stages of an OpenSeed project, from the first conversation to the live system, with the timeframe of each stage.",
         tecnologias: "Lists the technologies OpenSeed uses in its projects.",
         projetos: "Reports how many systems OpenSeed has delivered. The individual cases are not published on the page yet: for examples close to the person's need, use openseed_montar_contato.",
         duvidas: "Answers the frequent questions about price, timeline, code ownership, service area and use of AI. Use it before saying you don't know.",
@@ -237,19 +235,6 @@
         }
       },
       {
-        name: "openseed_explicar_processo",
-        description: M.processo,
-        annotations: { readOnlyHint: true },
-        fonte: "#fluxo ol li",
-        execute: function () {
-          return responder({
-            etapas: $$("#fluxo ol li").map(function (li, i) {
-              return { ordem: i + 1, etapa: texto(li, "h3"), descricao: texto(li, "p"), prazo: texto(li, ".quando") };
-            })
-          });
-        }
-      },
-      {
         name: "openseed_listar_tecnologias",
         description: M.tecnologias,
         annotations: { readOnlyHint: true },
@@ -350,7 +335,7 @@
      não aparecer e sumir. Mexeu em uma, mexa na outra:
      tools/conferir.js compara as duas e reprova se divergirem. */
   var SEL_ENTRADA = "#nav, #heroTitulo, .hero .eyebrow, .hero-sub > *, .garantias, .leque-dica, .kard";
-  var SEL_REVELA = ".sec-head, .svc, .fluxo li, .faixa > div, .proj, .proj-vazio, .cta, .faq";
+  var SEL_REVELA = ".sec-head, .svc, .faixa > div, .proj, .proj-vazio, .cta, .faq";
 
   /* Tira o esconde-esconde do CSS. Chamado nos dois caminhos: quando não vai
      haver animação nenhuma, e depois que o GSAP já pôs o próprio estado
@@ -431,17 +416,6 @@
     });
   });
 
-  /* O fio do processo enche conforme a rolagem. O CSS decide o eixo, vertical
-     no celular e horizontal na tela larga, e aqui só anda de 0 a 1. Assim
-     girar o aparelho não deixa o fio preso no eixo errado. O valor nasce em 1
-     no CSS: sem JavaScript o fio aparece cheio, nunca vazio. */
-  var fio = $("#fluxoFill");
-  if (fio) {
-    gsap.fromTo(fio, { "--fluxo-p": 0 }, {
-      "--fluxo-p": 1, ease: "none",
-      scrollTrigger: { trigger: "#fluxo", start: "top 82%", end: "bottom 72%", scrub: .6 }
-    });
-  }
 
   /* Daqui para baixo, só tela larga com mouse: leque que abre na rolagem,
      inclinação 3D no card e parallax do ponteiro. Nada disso tem equivalente

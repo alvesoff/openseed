@@ -6,14 +6,6 @@
    Regra geral: o celular é o padrão; a tela larga é a exceção em @media.
    ===================================================================== */
 
-/* Progresso do fio do processo, de 0 a 1. Registrada como número para o
-   navegador interpolar sozinho e para nascer em 1: sem JavaScript, sem GSAP
-   ou com movimento reduzido, o fio aparece cheio em vez de sumir. */
-@property --fluxo-p {
-  syntax: "<number>";
-  inherits: false;
-  initial-value: 1;
-}
 
 :root {
   --bg: #0a0a0a;
@@ -53,7 +45,7 @@
    :where() em vez de :is() para o #nav lá dentro não inflar a especificidade
    da regra inteira. */
 html[data-anim] :where(#nav, #heroTitulo, .hero .eyebrow, .hero-sub > *, .garantias, .leque-dica, .kard,
-                       .sec-head, .svc, .fluxo li, .faixa > div, .proj, .proj-vazio, .cta, .faq) {
+                       .sec-head, .svc, .faixa > div, .proj, .proj-vazio, .cta, .faq) {
   opacity: 0;
 }
 /* Só opacidade, nunca transform: o GSAP lê o transform vindo do CSS como
@@ -312,33 +304,6 @@ section { position: relative; z-index: 5; }
   border-top: 1px solid var(--line);
 }
 
-/* Processo em três nós */
-.fluxo { position: relative; margin-top: 34px; }
-.fluxo-linha {
-  position: absolute; left: 6px; top: 10px; bottom: 10px; width: 2px;
-  background: var(--line-2); border-radius: 2px;
-}
-/* O fio nasce cheio. Quem encolhe é o JavaScript, e só na tela larga onde
-   ele de fato anima o preenchimento. Assim celular, tablet, navegador sem
-   GSAP e quem pediu menos movimento veem o fio inteiro, nunca o nada. */
-.fluxo-linha i {
-  display: block; width: 100%; height: 100%;
-  background: var(--lime); border-radius: 2px;
-  transform: scaleY(var(--fluxo-p, 1)); transform-origin: top;
-}
-.fluxo ol { list-style: none; position: relative; display: grid; gap: 22px; }
-.fluxo li { position: relative; display: flex; flex-direction: column; gap: 6px; padding-left: 30px; }
-.fluxo .pip {
-  position: absolute; left: 0; top: 4px;
-  width: 14px; height: 14px; border-radius: 50%;
-  background: var(--bg); border: 2px solid var(--lime);
-}
-.fluxo h3 {
-  font-family: var(--display); font-weight: 900; text-transform: uppercase;
-  font-size: 19px; line-height: 1; letter-spacing: -.03em; padding-bottom: .05em;
-}
-.fluxo p { font-size: 15.5px; line-height: 1.55; color: var(--muted); max-width: 40ch; }
-.fluxo .quando { font-family: var(--mono); font-size: 12px; color: var(--faint); letter-spacing: .06em; margin-top: 2px; }
 
 .faixa {
   display: grid; gap: 26px; margin-top: 36px; padding-top: 26px;
@@ -549,21 +514,6 @@ footer .wordmark { font-size: 30px; }
   .svc h3 { font-size: clamp(21px, 2.2vw, 28px); }
   .svc p { font-size: 14.5px; }
 
-  /* A linha vai do centro do primeiro pip ao centro do último. Com três
-     colunas iguais e o pip no início de cada uma, o último centro fica a
-     2/3 da largura útil, então sobra 1/3 menos dois terços do vão. */
-  .fluxo { --fluxo-gap: clamp(18px, 3vw, 40px); margin-top: clamp(34px, 5vw, 58px); }
-  .fluxo-linha {
-    left: 7px; right: calc(33.3333% - (var(--fluxo-gap) * 2 / 3) - 7px);
-    top: 21px; bottom: auto; width: auto; height: 2px;
-  }
-  .fluxo-linha i { transform: scaleX(var(--fluxo-p, 1)); transform-origin: left; }
-  .fluxo ol { grid-template-columns: repeat(3, 1fr); gap: var(--fluxo-gap); }
-  .fluxo li { padding-left: 0; gap: 10px; }
-  .fluxo .pip { position: static; margin: 15px 0 6px; }
-  .fluxo h3 { font-size: clamp(18px, 1.9vw, 23px); }
-  .fluxo p { font-size: 14px; }
-  .fluxo .quando { margin-top: auto; padding-top: 4px; }
 
   .faixa { grid-template-columns: 1fr 1fr; gap: clamp(22px, 4vw, 52px); margin-top: clamp(36px, 5vw, 60px); padding-top: clamp(26px, 4vw, 42px); }
   .faixa h3 { font-size: clamp(19px, 2vw, 24px); }
@@ -720,7 +670,6 @@ footer .wordmark { font-size: 30px; }
 
 /* Sem movimento: nada da página depende de animação para aparecer. */
 @media (prefers-reduced-motion: reduce) {
-  .fluxo-linha i { --fluxo-p: 1; }
   *, *::before, *::after {
     animation-duration: .01ms !important; animation-iteration-count: 1 !important;
     transition-duration: .01ms !important; scroll-behavior: auto !important;
