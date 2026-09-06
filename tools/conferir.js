@@ -74,6 +74,43 @@ if (contagens.size > 1) {
     + ". Confira docs/index.html, docs/en/index.html e docs/assets/js/site.js.");
 }
 
+/* 3b. $ devolve um elemento e $$ devolve um array. Chamar .map, .forEach ou
+   .filter no resultado de $ lança TypeError, e só na hora em que a função é
+   chamada, o que numa ferramenta WebMCP significa quebrar em produção sem
+   ninguém ver. Já aconteceu duas vezes neste arquivo. */
+const CHAMADA_ERRADA = /(?<!\$)\$\([^)]*\)\.(map|forEach|filter|slice|some|every)\b/g;
+{
+  const linhas = js.split("\n");
+  linhas.forEach((l, i) => {
+    CHAMADA_ERRADA.lastIndex = 0;
+    if (CHAMADA_ERRADA.test(l)) {
+      erro("javascript", "docs/assets/js/site.js:" + (i + 1) + " chama método de lista no resultado de $(), que devolve um elemento só. Use $$().\n        " + l.trim());
+    }
+  });
+}
+
+/* 3c. A regra html[data-anim] do CSS esconde os mesmos elementos que o
+   JavaScript anima na entrada, para não haver piscar. Se as duas listas
+   divergirem, ou algo fica escondido para sempre, ou volta o piscar. */
+{
+  const pegar = re => { const m = js.match(re); return m ? m[1] : null; };
+  const entrada = pegar(/var SEL_ENTRADA = "([^"]+)"/);
+  const revela = pegar(/var SEL_REVELA = "([^"]+)"/);
+  const cssRegra = fs.readFileSync(path.join(DOCS, "assets", "css", "site.css"), "utf8")
+    .match(/html\[data-anim\] :where\(([\s\S]*?)\)\s*\{/);
+  if (!entrada || !revela) erro("animacao", "não achei SEL_ENTRADA ou SEL_REVELA em site.js.");
+  else if (!cssRegra) erro("animacao", "não achei a regra html[data-anim] :where(...) em site.css.");
+  else {
+    const norm = s => s.split(",").map(x => x.trim().replace(/\s+/g, " ")).filter(Boolean).sort().join(" | ");
+    const noJs = norm(entrada + ", " + revela);
+    const noCss = norm(cssRegra[1]);
+    if (noJs !== noCss) {
+      erro("animacao", "a lista de html[data-anim] em site.css não bate com SEL_ENTRADA mais SEL_REVELA em site.js.\n"
+        + "        css: " + noCss + "\n        js : " + noJs);
+    }
+  }
+}
+
 /* 4. Nada de arquivo de trabalho dentro de docs/.
    O motivo de docs/ existir é que o repositório inteiro ia para o ar. */
 const PERMITIDO = /\.(html|css|js|png|jpg|jpeg|svg|ico|webmanifest|xml|txt|woff2?)$/;

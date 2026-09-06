@@ -6,6 +6,10 @@
 <title>Desenvolvimento de software com IA em Ribeirão Preto · OpenSeed</title>
 <meta name="description" content="Software sob demanda, MVP para startup e sistema interno em Ribeirão Preto e região. Escopo e preço fechados antes de começar e resposta no mesmo dia útil.">
 <meta name="theme-color" content="#0a0a0a">
+<!-- O GitHub Pages não deixa mandar cabeçalho, então a política de referência
+     vai na meta. Terceiro (Google Fonts, cdnjs) recebe só a origem, nunca o
+     caminho completo da página que a pessoa está lendo. -->
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <link rel="canonical" href="https://openseed.com.br/">
 <link rel="alternate" hreflang="pt-BR" href="https://openseed.com.br/">
 <link rel="alternate" hreflang="en" href="https://openseed.com.br/en/">
@@ -39,6 +43,23 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400..700&family=JetBrains+Mono:wght@400;500&family=Outfit:wght@700;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/css/site.css">
+
+<!-- Antes da primeira pintura: marca a página para o CSS já nascer com os
+     elementos da entrada escondidos, e só quando a pessoa não pediu menos
+     movimento. Sem isto o conteúdo aparece, o GSAP zera a opacidade quando
+     termina de baixar, e some e volta. O tempo limite é rede de segurança
+     para CDN fora do ar: em 2,5 s a página aparece de qualquer jeito. -->
+<script>
+(function () {
+  try {
+    if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var h = document.documentElement;
+    h.setAttribute("data-anim", "");
+    setTimeout(function () { h.removeAttribute("data-anim"); }, 2500);
+  } catch (e) { /* navegador sem matchMedia: a página nasce visível, que é o certo */ }
+})();
+</script>
+
 
 <!-- Dados estruturados. Sem aggregateRating nem review: não há avaliação
      publicada, e nota própria é motivo de penalidade. -->
@@ -567,8 +588,19 @@
   </a>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+<!-- GSAP vem de um servidor que não é nosso. O integrity é o resumo do
+     arquivo esperado: se o cdnjs entregar qualquer outra coisa, o navegador
+     recusa executar em vez de rodar código de estranho na página de quem nos
+     visita. Trocou a versão? Pegue o resumo novo em
+     https://api.cdnjs.com/libraries/gsap/<versão>?fields=sri
+     crossorigin é obrigatório para o integrity valer em recurso de outra
+     origem. Sem GSAP a página funciona igual, só sem movimento. -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+        integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"
+        integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
 <script src="/assets/js/site.js" defer></script>
 </body>
 </html>

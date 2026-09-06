@@ -141,10 +141,28 @@
 
   /* ---------- WebMCP ----------
      A página se apresenta como ferramentas para agentes de IA que rodam no
-     navegador (rascunho do W3C Web Machine Learning CG, Chrome 146+, HTTPS).
-     Todas são de leitura. O site não tem servidor: nada grava nem envia. */
-  if ("modelContext" in navigator && navigator.modelContext && typeof navigator.modelContext.registerTool === "function") {
+     navegador (rascunho do W3C Web Machine Learning CG, só em HTTPS).
+     Todas são de leitura. O site não tem servidor: nada grava nem envia.
+
+     O getter saiu de Navigator e foi para Document no rascunho, e
+     navigator.modelContext ficou como apelido a caminho da remoção. Procurar
+     nos dois é o que faz a página funcionar no navegador de hoje e no de
+     ontem, e custa uma linha. */
+  var hospedeiro = (typeof document !== "undefined" && document.modelContext) || navigator.modelContext;
+  if (hospedeiro && typeof hospedeiro.registerTool === "function") {
     var M = T.mcp;
+
+    /* A especificação pede blocos de conteúdo, não objeto cru: um agente que
+       siga o esquema atual não consegue ler { servicos: [...] } solto.
+       structuredContent vai junto para o host que prefere o objeto pronto,
+       e os dois carregam exatamente o mesmo dado. */
+    var responder = function (dados) {
+      return Promise.resolve({
+        content: [{ type: "text", text: JSON.stringify(dados, null, 2) }],
+        structuredContent: dados
+      });
+    };
+
     var CONTATO = {
       empresa: "OpenSeed",
       o_que_faz: M.oQueFaz,
@@ -164,7 +182,7 @@
         annotations: { readOnlyHint: true },
         fonte: "#servicos .svc article",
         execute: function () {
-          return Promise.resolve({
+          return responder({
             servicos: $$("#servicos .svc article").map(function (a) {
               return { titulo: texto(a, "h3"), descricao: texto(a, "p:not(.prazo)"), condicoes: texto(a, ".prazo") };
             })
@@ -177,7 +195,7 @@
         annotations: { readOnlyHint: true },
         fonte: "#fluxo ol li",
         execute: function () {
-          return Promise.resolve({
+          return responder({
             etapas: $$("#fluxo ol li").map(function (li, i) {
               return { ordem: i + 1, etapa: texto(li, "h3"), descricao: texto(li, "p"), prazo: texto(li, ".quando") };
             })
@@ -190,7 +208,7 @@
         annotations: { readOnlyHint: true },
         fonte: "#servicos .chips span",
         execute: function () {
-          return Promise.resolve({ tecnologias: $("#servicos .chips span").map(function (c) { return texto(c); }) });
+          return responder({ tecnologias: $$("#servicos .chips span").map(function (c) { return texto(c); }) });
         }
       },
       {
@@ -204,7 +222,7 @@
           var projetos = $$("#projetos .proj:not([data-exemplo])").map(function (p) {
             return { nome: texto(p, "h3"), tipo: texto(p, ".selo"), resumo: texto(p, ".proj-corpo p:not(.proj-meta)"), detalhes: texto(p, ".proj-meta") };
           }).filter(function (p) { return p.nome; });
-          return Promise.resolve({ total_entregue: 8, projetos_publicados: projetos, observacao: projetos.length ? null : M.semProjetos });
+          return responder({ total_entregue: 8, projetos_publicados: projetos, observacao: projetos.length ? null : M.semProjetos });
         }
       },
       {
@@ -221,8 +239,8 @@
             return { assunto: d.getAttribute("data-assunto"), pergunta: texto(d, "summary"), resposta: texto(d, "p") };
           });
           var pedido = entrada && entrada.assunto;
-          if (!pedido || pedido === "todas") return Promise.resolve({ duvidas: todas });
-          return Promise.resolve({ duvidas: todas.filter(function (d) { return d.assunto === pedido; }) });
+          if (!pedido || pedido === "todas") return responder({ duvidas: todas });
+          return responder({ duvidas: todas.filter(function (d) { return d.assunto === pedido; }) });
         }
       },
       {
@@ -241,7 +259,7 @@
           saida.link_whatsapp = linkWhatsapp(mensagem);
           saida.mensagem_sugerida = mensagem;
           saida.aviso = M.avisoContato;
-          return Promise.resolve(saida);
+          return responder(saida);
         }
       }
     ];
@@ -252,10 +270,21 @@
        receber uma lista vazia, que ele leria como "não existe serviço".
        openseed_montar_contato não declara fonte porque só usa constantes,
        então vale em qualquer página. */
+    /* unregisterTool saiu do rascunho e deu lugar a um AbortSignal passado no
+       registro. A página é estática e nunca cancela, mas o sinal é o contrato
+       de hoje e é o que um host novo espera receber. */
+    var controle = typeof AbortController === "function" ? new AbortController() : null;
     ferramentas.forEach(function (t) {
       if (t.fonte && !$(t.fonte)) return;
       delete t.fonte;
-      try { navigator.modelContext.registerTool(t); } catch (e) { /* nome repetido ou schema recusado: a página segue igual */ }
+      try {
+        if (controle) hospedeiro.registerTool(t, { signal: controle.signal });
+        else hospedeiro.registerTool(t);
+      } catch (e) {
+        /* Host antigo pode recusar o segundo argumento. Tenta sem ele antes
+           de desistir; se recusar de novo, a página segue igual. */
+        try { hospedeiro.registerTool(t); } catch (e2) { /* nada a fazer */ }
+      }
     });
   }
 
@@ -265,7 +294,20 @@
      instante em que a animação correspondente é criada. */
   var semMovimento = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var telaLarga = window.matchMedia("(min-width: 1000px) and (hover: hover)").matches;
-  if (semMovimento || !window.gsap) return;
+
+  /* Estas duas listas existem também em site.css, na regra html[data-anim],
+     que esconde os mesmos elementos antes da primeira pintura para o conteúdo
+     não aparecer e sumir. Mexeu em uma, mexa na outra:
+     tools/conferir.js compara as duas e reprova se divergirem. */
+  var SEL_ENTRADA = "#nav, .hero .eyebrow, .hero-sub > *, .garantias, .leque-dica, .kard";
+  var SEL_REVELA = ".sec-head, .svc, .fluxo li, .faixa > div, .proj, .proj-vazio, .cta, .faq";
+
+  /* Tira o esconde-esconde do CSS. Chamado nos dois caminhos: quando não vai
+     haver animação nenhuma, e depois que o GSAP já pôs o próprio estado
+     inline, que vence o CSS. A página nunca fica escondida esperando. */
+  var liberar = function () { document.documentElement.removeAttribute("data-anim"); };
+
+  if (semMovimento || !window.gsap) { liberar(); return; }
 
   /* Última palavra do título entra letra por letra. O h1 tem aria-label e as
      letras estão em um span aria-hidden, então o leitor de tela não soletra. */
@@ -284,12 +326,15 @@
   var cards = $$(".kard");
   cards.forEach(function (c) { c.setAttribute("data-giro", telaLarga ? (c.getAttribute("data-rot") || "0") : "0"); });
 
-  gsap.set("#nav", { opacity: 0, y: -18 });
+  /* A opacidade sai da mesma lista que o CSS escondeu. Os deslocamentos vêm
+     depois, um grupo por vez, porque cada um entra de um jeito. */
+  gsap.set(SEL_ENTRADA, { opacity: 0 });
+  gsap.set("#nav", { y: -18 });
   gsap.set("#heroTitulo .line-mask > span", { yPercent: 108 });
   gsap.set(".letra", { yPercent: 108, opacity: 0 });
-  gsap.set(".hero .eyebrow, .hero-sub > *, .garantias, .leque-dica", { opacity: 0, y: 20 });
+  gsap.set(".hero .eyebrow, .hero-sub > *, .garantias, .leque-dica", { y: 20 });
   gsap.set(cards, {
-    y: telaLarga ? -110 : 28, opacity: 0, scale: telaLarga ? .88 : .97,
+    y: telaLarga ? -110 : 28, scale: telaLarga ? .88 : .97,
     rotation: function (i, el) { return parseFloat(el.getAttribute("data-giro")) + (telaLarga ? 8 : 0); }
   });
 
@@ -316,8 +361,12 @@
      rolagem chegar, então anima o bloco inteiro.
      No celular o deslocamento e a duração são menores: tela pequena com
      muito movimento cansa, e cada quadro custa mais caro. */
-  var reveals = $$(".sec-head, .svc, .fluxo li, .faixa > div, .proj, .proj-vazio, .cta, .faq");
+  var reveals = $$(SEL_REVELA);
   gsap.set(reveals, { opacity: 0, y: telaLarga ? 34 : 18 });
+
+  /* Deste ponto em diante o estado é do GSAP, em style inline, que vence o
+     CSS. Pode soltar. */
+  liberar();
   reveals.forEach(function (el) {
     gsap.to(el, {
       opacity: 1, y: 0, duration: telaLarga ? .75 : .5, ease: "power3.out",

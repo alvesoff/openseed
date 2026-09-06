@@ -39,6 +39,25 @@
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* ---------- ESTADO INICIAL DA ENTRADA ----------
+   O atributo data-anim é posto no <html> por um script no cabeçalho, antes da
+   primeira pintura, e só quando a pessoa não pediu menos movimento. Sem isto o
+   conteúdo aparece, o GSAP zera a opacidade quando termina de baixar e ele
+   some e volta: no celular, em rede lenta, o piscar é visível.
+
+   O mesmo script tira o atributo em 2,5 s como rede de segurança, e o site.js
+   tira assim que assume o controle. Nenhum caminho deixa a página em branco.
+
+   A lista tem que continuar igual a SEL_ENTRADA e SEL_REVELA em site.js.
+   tools/conferir.js compara as duas e reprova se divergirem.
+   :where() em vez de :is() para o #nav lá dentro não inflar a especificidade
+   da regra inteira. */
+html[data-anim] :where(#nav, .hero .eyebrow, .hero-sub > *, .garantias, .leque-dica, .kard,
+                       .sec-head, .svc, .fluxo li, .faixa > div, .proj, .proj-vazio, .cta, .faq) {
+  opacity: 0;
+}
+html[data-anim] :where(#heroTitulo .line-mask > span) { transform: translateY(108%); }
+
 html { -webkit-text-size-adjust: 100%; }
 
 body {
@@ -227,6 +246,11 @@ section[id], main[id], [id^="titulo"] { scroll-margin-top: calc(var(--nav-h) + 1
   margin: 12px calc(-1 * var(--gut)) 0; padding: 8px var(--gut) 8px;
   overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding: 0 var(--gut);
   scrollbar-width: none; -ms-overflow-style: none;
+  /* Sem isto, ao chegar no último card o gesto continua para o ancestral: no
+     iOS vira o deslize de voltar página, no Android vira rolagem vertical.
+     "contain" e não "none": none mata também o efeito de borracha, que é o
+     que avisa a pessoa de que os cards acabaram. */
+  overscroll-behavior-inline: contain;
 }
 .leque::-webkit-scrollbar { display: none; }
 /* O li vira caixa flexível para o card esticar até a altura do maior da fila.
@@ -444,6 +468,11 @@ footer .wordmark { font-size: 30px; }
    leitor de tela. A visibilidade cai no fim do deslize, não no começo, para
    a saída continuar visível. */
 .barra-acao.oculta { transform: translateY(110%); visibility: hidden; transition: transform .3s ease, visibility 0s linear .3s; }
+/* Com o menu aberto numa tela baixa, o último item da lista cai debaixo da
+   barra fixa e o toque abre o WhatsApp em vez de navegar. A nav e a barra são
+   irmãs diretas no body, e as duas somem acima de 721px, então a regra não
+   vaza para o desktop. */
+.nav.aberta ~ .barra-acao { transform: translateY(110%); visibility: hidden; }
 .barra-acao .btn { min-height: 52px; }
 
 /* O botão redondo flutuante não existe mais: no celular a barra faz o
