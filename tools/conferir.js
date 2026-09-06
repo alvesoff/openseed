@@ -160,7 +160,9 @@ const CHAMADA_ERRADA = /(?<!\$)\$\([^)]*\)\.(map|forEach|filter|slice|some|every
     const linha = llms.match(/^## Tecnologias\s*\n+([^\n]+)/m);
     if (!linha) erro("llms", "docs/llms.txt não tem a seção Tecnologias.");
     else {
-      const noResumo = linha[1].replace(/\.$/, "").split(",").map(t => t.trim());
+      // trim antes do ponto final: em clone no Windows a linha termina com \r,
+      // e sem isto o último item vinha com o ponto grudado e nunca batia.
+      const noResumo = linha[1].trim().replace(/\.$/, "").split(",").map(t => t.trim());
       const faltando = naPagina.filter(t => noResumo.indexOf(t) < 0);
       const sobrando = noResumo.filter(t => naPagina.indexOf(t) < 0);
       if (faltando.length || sobrando.length) {
