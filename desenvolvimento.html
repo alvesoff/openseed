@@ -200,7 +200,7 @@
   .leque > li { flex: none; scroll-snap-align: center; }
 
   .kard {
-    width: clamp(206px, 23vw, 244px); min-height: 214px;
+    width: clamp(206px, 22vw, 236px); min-height: 214px;
     background: var(--panel); border: 1px solid var(--line);
     border-radius: 16px; padding: 18px;
     display: flex; flex-direction: column; gap: 12px;
@@ -220,19 +220,18 @@
     font-family: var(--display); font-weight: 700; font-size: 23px;
     line-height: 1.05; letter-spacing: -.02em; margin-top: auto;
   }
+  /* Na tela larga o leque para de rolar e ganha profundidade. Sem sobrepor:
+     card por cima de card escondia o fim das frases. */
   @media (min-width: 1000px) and (hover: hover) {
-    .leque { overflow: visible; gap: 0; perspective: 1200px; }
-    .leque > li { margin-right: -30px; }
-    .leque > li:last-child { margin-right: 0; }
+    .leque { overflow: visible; perspective: 1200px; }
   }
 
   .hero-nota {
-    margin-top: 20px; font-size: 15px; color: var(--muted);
-    display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+    margin-top: 20px; font-size: 15px; line-height: 1.6; color: var(--muted);
   }
   .hero-nota b {
-    font-family: var(--display); font-weight: 900; font-size: 24px;
-    color: var(--lime); letter-spacing: -.03em;
+    font-family: var(--display); font-weight: 900; font-size: 22px;
+    color: var(--lime); letter-spacing: -.03em; margin-right: 5px;
   }
 
   /* ---------- SEÇÕES ---------- */
@@ -481,9 +480,8 @@
 
     <div class="hero-sub">
       <p>
-        A OpenSeed desenvolve <strong>software sob demanda</strong>, <strong>MVP para startup</strong> e
-        <strong>sistemas internos</strong> para pequenos negócios. IA está no núcleo do que construímos,
-        não colada por cima no fim do projeto.
+        <strong>Software sob demanda</strong>, <strong>MVP de startup</strong> e
+        <strong>sistema interno</strong>, com IA no núcleo.
       </p>
       <div class="hero-actions">
         <a class="btn btn-lime" data-wa href="#contato">
@@ -499,34 +497,34 @@
     <ul class="leque" id="leque" aria-label="O que construímos">
       <li><article class="kard" data-rot="-3" data-depth="14">
         <span class="tag">Do zero</span>
-        <p>Sistema web completo, desenhado para o seu fluxo e não para um template.</p>
+        <p>Desenhado para o seu fluxo, não para um template.</p>
         <h2>Software sob demanda</h2>
       </article></li>
       <li><article class="kard" data-rot="1.8" data-depth="10">
         <span class="tag">4 a 8 semanas</span>
-        <p>Primeira versão no ar rápido, para validar com usuário real antes de gastar mais.</p>
+        <p>Primeira versão no ar para validar com usuário real.</p>
         <h2>MVP de startup</h2>
       </article></li>
       <li><article class="kard" data-rot="-1.4" data-depth="8">
         <span class="tag">Operação</span>
-        <p>Tira o processo da planilha solta e do grupo de WhatsApp, com histórico e permissão.</p>
+        <p>Tira a operação da planilha e do grupo solto.</p>
         <h2>Sistema interno</h2>
       </article></li>
       <li><article class="kard" data-rot="2.4" data-depth="12">
         <span class="tag">IA aplicada</span>
-        <p>Agentes que leem documento, respondem cliente e executam tarefa repetitiva.</p>
+        <p>Agentes que leem, respondem e executam.</p>
         <h2>Automação com IA</h2>
       </article></li>
       <li><article class="kard" data-rot="-2" data-depth="9">
         <span class="tag">Integração</span>
-        <p>Conecta o que você já usa: WhatsApp, ERP, planilha, gateway de pagamento.</p>
+        <p>WhatsApp, ERP, planilha e pagamento no mesmo lugar.</p>
         <h2>Integrações</h2>
       </article></li>
     </ul>
 
     <p class="hero-nota">
       <b id="contador">8</b>
-      <span>projetos entregues e rodando. Time enxuto, sem intermediário: você fala direto com quem constrói.</span>
+      <span>projetos entregues. Você fala direto com quem constrói.</span>
     </p>
   </header>
 
@@ -538,38 +536,26 @@
           <p class="eyebrow"><span class="dot"></span> O que entregamos</p>
           <h2>Três formas<br><span class="light">de começar</span></h2>
         </div>
-        <p>
-          Cada frente tem escopo fechado e prazo combinado antes da primeira linha de código.
-          Nada de contrato aberto e conta que cresce sozinha.
-        </p>
+        <p>Escopo e prazo fechados antes da primeira linha de código.</p>
       </div>
 
       <div class="svc">
         <article>
           <span class="idx">01 / SOB DEMANDA</span>
-          <h3>Software feito para o seu processo</h3>
-          <p>
-            Do desenho da tela ao deploy em produção. Construímos o sistema que a sua operação
-            precisa quando nenhuma ferramenta de prateleira resolve.
-          </p>
+          <h3>Feito para o seu processo</h3>
+          <p>Do desenho da tela ao deploy, para quando nenhuma ferramenta de prateleira resolve.</p>
           <p class="prazo">Escopo fechado · Código no seu repositório</p>
         </article>
         <article>
           <span class="idx">02 / MVP</span>
-          <h3>Primeira versão da sua startup</h3>
-          <p>
-            O suficiente para colocar na mão do usuário e aprender de verdade. Recorte enxuto,
-            base bem feita, pronta para crescer se a validação vier.
-          </p>
+          <h3>Primeira versão da startup</h3>
+          <p>O essencial na mão do usuário, sobre uma base pronta para crescer.</p>
           <p class="prazo">4 a 8 semanas · Métricas desde o dia um</p>
         </article>
         <article>
           <span class="idx">03 / INTERNO</span>
           <h3>Sistema interno da empresa</h3>
-          <p>
-            Estoque, pedido, ordem de serviço, aprovação, relatório. O que hoje vive em planilha
-            compartilhada vira sistema com histórico, permissão e responsável.
-          </p>
+          <p>Estoque, pedido, ordem de serviço e aprovação, com histórico e responsável.</p>
           <p class="prazo">Migração dos dados · Treinamento do time</p>
         </article>
       </div>
@@ -580,19 +566,19 @@
           <li>
             <span class="pip" aria-hidden="true"></span>
             <h3>Conversa e escopo</h3>
-            <p>Você conta o problema no WhatsApp ou numa call curta. Devolvemos o que dá para fazer, em quanto tempo e por quanto.</p>
+            <p>Você conta o problema. Devolvemos escopo, prazo e preço.</p>
             <span class="quando">Até 3 dias úteis</span>
           </li>
           <li>
             <span class="pip" aria-hidden="true"></span>
             <h3>Protótipo e construção</h3>
-            <p>Telas navegáveis antes do código, depois entregas em ciclos de uma semana com ambiente de teste sempre liberado.</p>
+            <p>Telas navegáveis antes do código, depois entregas semanais.</p>
             <span class="quando">Ciclos de 1 semana</span>
           </li>
           <li>
             <span class="pip" aria-hidden="true"></span>
             <h3>No ar e evolução</h3>
-            <p>Publicação, domínio, backup e monitoramento. Seu time sai treinado e a gente segue por demanda se fizer sentido.</p>
+            <p>Publicação, backup, monitoramento e seu time treinado.</p>
             <span class="quando">Fim do prazo combinado</span>
           </li>
         </ol>
@@ -602,9 +588,9 @@
         <div>
           <h3>IA no núcleo</h3>
           <ul>
-            <li>Agentes que consultam o sistema e resolvem, não apenas respondem</li>
-            <li>Leitura de nota, contrato e planilha antiga, sem digitar campo por campo</li>
-            <li>Busca em linguagem normal sobre os dados da empresa, com a fonte citada</li>
+            <li>Agentes que consultam o sistema e resolvem</li>
+            <li>Leitura de nota, contrato e planilha antiga</li>
+            <li>Busca nos dados da empresa, com a fonte citada</li>
           </ul>
         </div>
         <div>
@@ -634,10 +620,7 @@
           <p class="eyebrow"><span class="dot"></span> Projetos</p>
           <h2>O que já<br><span class="light">colocamos no ar</span></h2>
         </div>
-        <p>
-          Oito sistemas entregues e rodando. Abaixo alguns deles, com o problema que
-          cada um resolveu e as peças usadas na construção.
-        </p>
+        <p>Oito sistemas entregues e rodando.</p>
       </div>
 
       <div class="proj-grid">
@@ -650,7 +633,7 @@
           </div>
           <div class="proj-corpo">
             <h3>Nome do projeto</h3>
-            <p>Uma frase sobre o problema que o cliente tinha e o que o sistema resolveu no dia a dia dele.</p>
+            <p>O problema do cliente e o que o sistema resolveu.</p>
             <p class="proj-meta">Segmento do cliente · 2026<br>React, Node, PostgreSQL</p>
           </div>
         </article>
@@ -664,7 +647,7 @@
           </div>
           <div class="proj-corpo">
             <h3>Nome do projeto</h3>
-            <p>Uma frase sobre o problema que o cliente tinha e o que o sistema resolveu no dia a dia dele.</p>
+            <p>O problema do cliente e o que o sistema resolveu.</p>
             <p class="proj-meta">Segmento do cliente · 2026<br>Next.js, Supabase</p>
           </div>
         </article>
@@ -678,7 +661,7 @@
           </div>
           <div class="proj-corpo">
             <h3>Nome do projeto</h3>
-            <p>Uma frase sobre o problema que o cliente tinha e o que o sistema resolveu no dia a dia dele.</p>
+            <p>O problema do cliente e o que o sistema resolveu.</p>
             <p class="proj-meta">Segmento do cliente · 2026<br>Python, API da Anthropic</p>
           </div>
         </article>
@@ -698,10 +681,7 @@
       <div class="cta">
         <div>
           <h2>Conta o problema.<br>A gente diz se resolve.</h2>
-          <p>
-            Manda uma mensagem com o que você precisa. Se não for algo que fazemos bem,
-            falamos na hora e indicamos outro caminho.
-          </p>
+          <p>Se não for algo que fazemos bem, falamos na hora.</p>
         </div>
         <div class="aside">
           <a class="btn btn-dark" data-wa href="#">
