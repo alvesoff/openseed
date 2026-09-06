@@ -212,7 +212,28 @@ section[id], main[id], [id^="titulo"] { scroll-margin-top: calc(var(--nav-h) + 1
 .hero-sub { position: relative; z-index: 2; margin-top: 18px; }
 .hero-sub p { font-size: 17px; line-height: 1.55; color: var(--muted); max-width: 44ch; }
 .hero-sub p strong { color: var(--ink); font-weight: 700; }
-.hero-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+.hero-actions { display: flex; align-items: center; gap: 4px 18px; flex-wrap: wrap; margin-top: 18px; }
+
+/* O caminho secundário não é botão. Duas cápsulas lado a lado disputavam o
+   mesmo clique e tiravam o peso do verde, que é a única ação que importa
+   aqui. Vira link: fio apagado parado, fio lime que corre no hover.
+   min-height mantém o alvo tocável do botão que ele substituiu. */
+.link-acao {
+  position: relative; display: inline-flex; align-items: center; gap: 8px;
+  min-height: 50px; padding: 0 2px;
+  font-family: var(--sans); font-size: 16px; font-weight: 700;
+  color: var(--ink); text-decoration: none; white-space: nowrap;
+}
+.link-acao::before, .link-acao::after {
+  content: ""; position: absolute; left: 2px; right: 2px; bottom: 13px; height: 1px;
+}
+.link-acao::before { background: var(--line-2); }
+.link-acao::after {
+  background: var(--lime); transform: scaleX(0); transform-origin: left;
+  transition: transform .4s cubic-bezier(.6, 0, .2, 1);
+}
+.link-acao svg { flex: none; transition: transform .4s cubic-bezier(.6, 0, .2, 1); }
+.link-acao:focus-visible::after { transform: scaleX(1); }
 /* No celular o WhatsApp está na barra fixa; o hero mostra só o caminho
    secundário, senão eram dois botões iguais a dez centímetros um do outro. */
 .hero-actions .btn-lime { display: none; }
@@ -473,7 +494,9 @@ footer .wordmark { font-size: 30px; }
   }
   .hero-sub p { font-size: clamp(16px, 1.5vw, 19px); }
   .hero-actions { margin-top: 0; }
-  .hero-actions .btn-lime { display: inline-flex; }
+  /* Rótulo curto encolhe a cápsula, e a ação principal não pode ser o menor
+     objeto da dobra. O respiro devolve o peso sem mudar a forma. */
+  .hero-actions .btn-lime { display: inline-flex; padding: 13px 32px; }
   .garantias { display: flex; flex-wrap: wrap; gap: 8px 18px; }
   .garantias li { font-size: 13.5px; }
   .leque-dica { display: none; }
@@ -545,6 +568,8 @@ footer .wordmark { font-size: 30px; }
   .btn:hover { transform: translateY(-2px); }
   .btn-lime:hover { background: #d5ff63; }
   .btn-ghost:hover { border-color: var(--ink); }
+  .link-acao:hover::after { transform: scaleX(1); }
+  .link-acao:hover svg { transform: translateX(3px); }
   .nav-links a:hover { color: var(--ink); }
   .nav-links a:hover::after { transform: scaleX(1); }
   .lang:hover { color: var(--ink); border-color: var(--line-2); }
