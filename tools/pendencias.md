@@ -60,8 +60,8 @@ nos dois idiomas.
 **Onde entra:** `docs/index.html` e `docs/en/index.html`, seção `#projetos`.
 
 Hoje a seção mostra um bloco só, dizendo que os casos estão sendo preparados. Não há
-card de exemplo ali de propósito: card escrito "Nome do projeto" logo abaixo de "Oito
-sistemas entregues" prova o contrário do que a frase afirma.
+card de exemplo ali de propósito: card escrito "Nome do projeto" é molde, e molde
+publicado desmente o título da seção.
 
 Para cada projeto que puder ser publicado, o passo a passo está em
 `tools/capas-de-projeto.md`. O que precisa de você, por projeto:

@@ -80,5 +80,5 @@ continua honesto, porque o texto ao lado é verdadeiro.
 
 **Cliente que não autoriza o nome ainda dá caso.** "Distribuidora de autopeças, 2026,
 pedido e estoque num sistema só" vende sem identificar ninguém. O que não vale é
-publicar card com texto de molde: enquanto disser "Nome do projeto", ele prova o
-contrário de "Oito sistemas entregues".
+publicar card com texto de molde: enquanto disser "Nome do projeto", ele desmente o
+título da seção.
