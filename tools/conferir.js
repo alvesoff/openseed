@@ -53,6 +53,15 @@ if (grafico.status !== 0) {
     + "        Rode: node tools/grafico-manifesto.js");
 }
 
+/* 1c. O pacote da marca contra os arquivos da pasta. Acrescentar uma variante
+   e esquecer de refazer o zip entrega um pacote incompleto a quem baixa, e o
+   erro não aparece em lugar nenhum. */
+const pacote = cp.spawnSync(process.execPath, [path.join(__dirname, "empacotar-marca.js"), "--conferir"], { encoding: "utf8" });
+if (pacote.status !== 0) {
+  erro("marca", "docs/assets/marca/openseed-marca.zip não bate com os arquivos da pasta.\n"
+    + "        Rode: node tools/empacotar-marca.js");
+}
+
 /* 2. Um número de WhatsApp só, em todo lugar.
    Ele está espalhado por seis arquivos e trocar num só já aconteceu. */
 const TEL = /(?:\+?55[\s.-]?)?\(?16\)?[\s.-]?9[\s.-]?\d{4}[\s.-]?\d{4}/g;
@@ -190,7 +199,12 @@ const CHAMADA_ERRADA = /(?<!\$)\$\([^)]*\)\.(map|forEach|filter|slice|some|every
 
 /* 4. Nada de arquivo de trabalho dentro de docs/.
    O motivo de docs/ existir é que o repositório inteiro ia para o ar. */
-const PERMITIDO = /\.(html|css|js|png|jpg|jpeg|svg|ico|webmanifest|xml|txt|woff2?)$/;
+/* .zip está aqui por um motivo só: o pacote da marca. O GitHub Pages não deixa
+   mandar Content-Disposition, então um SVG ou um PNG abre no navegador em vez
+   de baixar. Com .zip o navegador baixa, porque não sabe exibir. É a única
+   forma de ter um link que baixa num site estático. Não use a extensão para
+   publicar outra coisa. */
+const PERMITIDO = /\.(html|css|js|png|jpg|jpeg|svg|ico|webmanifest|xml|txt|woff2?|zip)$/;
 for (const p of todos) {
   const nome = path.basename(p);
   if (nome === "CNAME" || nome === ".gitkeep") continue;
