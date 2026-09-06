@@ -280,10 +280,13 @@ section { position: relative; z-index: 5; }
   position: absolute; left: 6px; top: 10px; bottom: 10px; width: 2px;
   background: var(--line-2); border-radius: 2px;
 }
+/* O fio nasce cheio. Quem encolhe é o JavaScript, e só na tela larga onde
+   ele de fato anima o preenchimento. Assim celular, tablet, navegador sem
+   GSAP e quem pediu menos movimento veem o fio inteiro, nunca o nada. */
 .fluxo-linha i {
   display: block; width: 100%; height: 100%;
   background: var(--lime); border-radius: 2px;
-  transform: scaleY(0); transform-origin: top;
+  transform-origin: top;
 }
 .fluxo ol { list-style: none; position: relative; display: grid; gap: 22px; }
 .fluxo li { position: relative; display: flex; flex-direction: column; gap: 6px; padding-left: 30px; }
@@ -420,11 +423,15 @@ footer .wordmark { font-size: 30px; }
   background: rgba(10, 10, 10, .93);
   -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
   border-top: 1px solid var(--line);
-  transition: transform .3s ease;
+  transition: transform .3s ease, visibility 0s;
+  visibility: visible;
 }
 /* Some quando o botão grande da seção de contato está na tela: dois botões
    iguais um em cima do outro não ajudam ninguém. */
-.barra-acao.oculta { transform: translateY(110%); }
+/* Só empurrar para fora da tela deixaria o botão focável e anunciado pelo
+   leitor de tela. A visibilidade cai no fim do deslize, não no começo, para
+   a saída continuar visível. */
+.barra-acao.oculta { transform: translateY(110%); visibility: hidden; transition: transform .3s ease, visibility 0s linear .3s; }
 .barra-acao .btn { min-height: 52px; }
 
 /* O botão redondo flutuante não existe mais: no celular a barra faz o
@@ -494,7 +501,7 @@ footer .wordmark { font-size: 30px; }
     left: 7px; right: calc(33.3333% - (var(--fluxo-gap) * 2 / 3) - 7px);
     top: 21px; bottom: auto; width: auto; height: 2px;
   }
-  .fluxo-linha i { transform: scaleX(0); transform-origin: left; }
+  .fluxo-linha i { transform-origin: left; }
   .fluxo ol { grid-template-columns: repeat(3, 1fr); gap: var(--fluxo-gap); }
   .fluxo li { padding-left: 0; gap: 10px; }
   .fluxo .pip { position: static; margin: 15px 0 6px; }
@@ -560,7 +567,6 @@ footer .wordmark { font-size: 30px; }
 
 /* Sem movimento: nada da página depende de animação para aparecer. */
 @media (prefers-reduced-motion: reduce) {
-  .fluxo-linha i { transform: none; }
   *, *::before, *::after {
     animation-duration: .01ms !important; animation-iteration-count: 1 !important;
     transition-duration: .01ms !important; scroll-behavior: auto !important;

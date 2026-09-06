@@ -68,7 +68,10 @@
   var $$ = function (sel, raiz) { return Array.prototype.slice.call((raiz || document).querySelectorAll(sel)); };
   var texto = function (el, sel) {
     var alvo = sel ? (el && el.querySelector(sel)) : el;
-    return alvo ? alvo.textContent.trim().replace(/\s+/g, " ") : null;
+    if (!alvo) return null;
+    /* innerText respeita <br> e vira espaço. textContent colaria as duas
+       metades num token só, e o replace abaixo não teria o que consertar. */
+    return (alvo.innerText || alvo.textContent).trim().replace(/\s+/g, " ");
   };
   var linkWhatsapp = function (mensagem) {
     return "https://wa.me/" + WHATSAPP_NUMERO + "?text=" + encodeURIComponent(mensagem);
@@ -78,7 +81,12 @@
      JavaScript. Aqui só garantimos que a mensagem acompanhe o idioma da
      página, caso alguém troque o texto em um lugar só. */
   $$("[data-wa]").forEach(function (el) {
-    if (el.href.indexOf("wa.me/" + WHATSAPP_NUMERO) === -1) el.href = linkWhatsapp(T.waMensagem);
+    /* Compara a mensagem, não o número: todo link já traz o número, então
+       comparar por ele nunca dispararia. O caso que interessa é um bloco em
+       português copiado para a página em inglês. */
+    var atual = null;
+    try { atual = new URL(el.href).searchParams.get("text"); } catch (e) { atual = null; }
+    if (atual !== T.waMensagem) el.href = linkWhatsapp(T.waMensagem);
   });
 
   var ano = $("#ano");
@@ -189,9 +197,9 @@
         execute: function () {
           /* Card de exemplo não entra: lista curta é melhor que exemplo
              devolvido como se fosse caso real. */
-          var projetos = $$("#projetos .proj").map(function (p) {
+          var projetos = $$("#projetos .proj:not([data-exemplo])").map(function (p) {
             return { nome: texto(p, "h3"), tipo: texto(p, ".selo"), resumo: texto(p, ".proj-corpo p:not(.proj-meta)"), detalhes: texto(p, ".proj-meta") };
-          }).filter(function (p) { return p.nome && p.nome !== T.exemploProjeto; });
+          }).filter(function (p) { return p.nome; });
           return Promise.resolve({ total_entregue: 8, projetos_publicados: projetos, observacao: projetos.length ? null : M.semProjetos });
         }
       },
@@ -246,9 +254,6 @@
   var telaLarga = window.matchMedia("(min-width: 1000px) and (hover: hover)").matches;
   if (semMovimento || !window.gsap) return;
 
-  gsap.registerPlugin(ScrollTrigger);
-  ScrollTrigger.config({ ignoreMobileResize: true });
-
   /* Última palavra do título entra letra por letra. O h1 tem aria-label e as
      letras estão em um span aria-hidden, então o leitor de tela não soletra. */
   var palavra = $("#heroPalavra");
@@ -291,6 +296,9 @@
      já está visível e a rolagem não dispara nada. */
   if (!telaLarga) return;
 
+  gsap.registerPlugin(ScrollTrigger);
+  ScrollTrigger.config({ ignoreMobileResize: true });
+
   var meio = (cards.length - 1) / 2;
   var aberturaLeque = 0;
   var giroAtual = function (card) {
@@ -308,11 +316,15 @@
   });
   hero.addEventListener("mouseleave", function () { mx = 0; my = 0; });
   (function parallax() {
-    tx += (mx - tx) * .05; ty += (my - ty) * .05;
-    cards.forEach(function (card) {
-      var d = parseFloat(card.getAttribute("data-depth")) || 8;
-      card.style.translate = (tx * d).toFixed(2) + "px " + (ty * d * .5).toFixed(2) + "px";
-    });
+    /* Parado é parado: sem esta saída o laço reescrevia translate nos cinco
+       cards a cada quadro, com o mouse imóvel. */
+    if (Math.abs(mx - tx) > .0005 || Math.abs(my - ty) > .0005) {
+      tx += (mx - tx) * .05; ty += (my - ty) * .05;
+      cards.forEach(function (card) {
+        var d = parseFloat(card.getAttribute("data-depth")) || 8;
+        card.style.translate = (tx * d).toFixed(2) + "px " + (ty * d * .5).toFixed(2) + "px";
+      });
+    }
     requestAnimationFrame(parallax);
   })();
 
@@ -354,5 +366,13 @@
     gsap.to(el, { opacity: 1, y: 0, duration: .75, ease: "power3.out", scrollTrigger: { trigger: el, start: "top 88%", once: true } });
   });
 
-  gsap.to("#fluxoFill", { scaleX: 1, scaleY: 1, ease: "none", scrollTrigger: { trigger: "#fluxo", start: "top 82%", end: "bottom 72%", scrub: .6 } });
+  /* O fio nasce cheio no CSS: quem não tem GSAP, não tem tela larga ou pediu
+     menos movimento vê o fio inteiro, em vez de nada. Só aqui ele é zerado,
+     um instante antes de a rolagem passar a controlá-lo. Neste ponto a tela
+     tem no mínimo 1000px, então o fio é sempre horizontal. */
+  var fio = $("#fluxoFill");
+  if (fio) {
+    gsap.set(fio, { scaleX: 0 });
+    gsap.to(fio, { scaleX: 1, ease: "none", scrollTrigger: { trigger: "#fluxo", start: "top 82%", end: "bottom 72%", scrub: .6 } });
+  }
 })();

@@ -6,8 +6,9 @@
 User-agent: *
 Allow: /
 
-# Página de erro não deve entrar no índice (também marcada com noindex).
-Disallow: /404.html
+# A página de erro sai do índice pela meta robots noindex dela mesma.
+# Não existe Disallow aqui de propósito: robô proibido de buscar a página
+# nunca chega a ler o noindex, e o endereço acaba indexado assim mesmo.
 
 # Robôs de IA: liberados de propósito. O objetivo é ser citado por
 # assistente quando alguém perguntar por desenvolvimento em Ribeirão Preto.

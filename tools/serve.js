@@ -6,10 +6,16 @@ const tipos = { ".html": "text/html; charset=utf-8", ".css": "text/css; charset=
   ".png": "image/png", ".svg": "image/svg+xml", ".ico": "image/x-icon", ".xml": "application/xml", ".txt": "text/plain; charset=utf-8",
   ".webmanifest": "application/manifest+json", ".json": "application/json", ".woff2": "font/woff2" };
 http.createServer(function (req, res) {
-  let url = decodeURIComponent(req.url.split("?")[0]);
+  let url;
+  // Um escape percent quebrado (/%, /%zz) faz decodeURIComponent lançar. Sem o
+  // try o processo inteiro morre no meio da sua sessão, por causa de um robô.
+  try { url = decodeURIComponent(req.url.split("?")[0]); }
+  catch (e) { res.writeHead(400, { "Content-Type": "text/plain; charset=utf-8" }); return res.end("400"); }
   if (url.endsWith("/")) url += "index.html";
   let arq = path.normalize(path.join(raiz, url));
-  if (!arq.startsWith(raiz)) { res.writeHead(403); return res.end(); }
+  // Comparar com raiz + separador. Só "startsWith(raiz)" deixaria passar uma
+  // pasta irmã cujo nome comece igual, do tipo docs-privado.
+  if (arq !== raiz && !arq.startsWith(raiz + path.sep)) { res.writeHead(403); return res.end(); }
   if (!fs.existsSync(arq) && fs.existsSync(arq + ".html")) arq += ".html";
   if (!fs.existsSync(arq) || fs.statSync(arq).isDirectory()) {
     res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
