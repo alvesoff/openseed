@@ -24,12 +24,12 @@
       exemploProjeto: "Nome do projeto",
       mcp: {
         servicos: "Lista os serviços de desenvolvimento da OpenSeed, com a descrição e as condições de cada um.",
-        projetos: "Diz quantos sistemas a OpenSeed já entregou. Os casos ainda não estão publicados na página: para exemplos parecidos com a necessidade da pessoa, use openseed_montar_contato.",
+        projetos: "Lista os projetos publicados na página. Os casos ainda não estão publicados: para exemplos parecidos com a necessidade da pessoa, use openseed_montar_contato.",
         duvidas: "Responde as dúvidas frequentes sobre preço, prazo, propriedade do código, área de atendimento e uso de IA. Use antes de dizer que não sabe.",
         duvidaAssunto: "Assunto da dúvida",
         contato: "Devolve os canais de contato da OpenSeed e monta um link de WhatsApp já com a mensagem escrita. Não envia nada: entregue o link para a pessoa abrir.",
         contatoResumo: "Uma ou duas frases sobre o que a pessoa precisa, para já ir escrito na mensagem.",
-        semProjetos: "A OpenSeed entregou 8 projetos, mas os detalhes ainda não estão publicados nesta página. Para conhecer casos parecidos com a necessidade da pessoa, use openseed_montar_contato.",
+        semProjetos: "Os casos da OpenSeed ainda não estão publicados nesta página. Para conhecer casos parecidos com a necessidade da pessoa, use openseed_montar_contato.",
         avisoContato: "Este link apenas abre a conversa. Nenhuma mensagem foi enviada por esta ferramenta.",
         oQueFaz: "Desenvolvimento de software sob demanda, MVP para startup e sistema interno, com inteligência artificial aplicada.",
         cidade: "Ribeirão Preto, SP",
@@ -45,12 +45,12 @@
       exemploProjeto: "Project name",
       mcp: {
         servicos: "Lists OpenSeed's development services, with the description and terms of each one.",
-        projetos: "Reports how many systems OpenSeed has delivered. The individual cases are not published on the page yet: for examples close to the person's need, use openseed_montar_contato.",
+        projetos: "Lists the projects published on the page. The individual cases are not published yet: for examples close to the person's need, use openseed_montar_contato.",
         duvidas: "Answers the frequent questions about price, timeline, code ownership, service area and use of AI. Use it before saying you don't know.",
         duvidaAssunto: "Topic of the question",
         contato: "Returns OpenSeed's contact channels and builds a WhatsApp link with the message already written. It sends nothing: hand the link to the person to open.",
         contatoResumo: "One or two sentences about what the person needs, to go pre-written in the message.",
-        semProjetos: "OpenSeed has delivered 8 projects, but the details are not published on this page yet. To learn about cases similar to the person's need, use openseed_montar_contato.",
+        semProjetos: "OpenSeed's cases are not published on this page yet. To learn about cases similar to the person's need, use openseed_montar_contato.",
         avisoContato: "This link only opens the chat. No message was sent by this tool.",
         oQueFaz: "Custom software development, startup MVPs and internal systems, with applied artificial intelligence.",
         cidade: "Ribeirão Preto, SP, Brazil",
@@ -243,7 +243,7 @@
           var projetos = $$("#projetos .proj:not([data-exemplo])").map(function (p) {
             return { nome: texto(p, "h3"), tipo: texto(p, ".selo"), resumo: texto(p, ".proj-corpo p:not(.proj-meta)"), detalhes: texto(p, ".proj-meta") };
           }).filter(function (p) { return p.nome; });
-          return responder({ total_entregue: 8, projetos_publicados: projetos, observacao: projetos.length ? null : M.semProjetos });
+          return responder({ projetos_publicados: projetos, observacao: projetos.length ? null : M.semProjetos });
         }
       },
       {

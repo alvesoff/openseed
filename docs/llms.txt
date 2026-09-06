@@ -54,5 +54,5 @@ Nas páginas internas só `openseed_montar_contato` é registrada, porque as out
 dados que só existem na página inicial. Ferramenta que devolve lista vazia é pior que
 ferramenta ausente.
 
-Os projetos entregues são oito. Os casos ainda não estão publicados no site: para um
-exemplo próximo da necessidade de quem pergunta, use `openseed_montar_contato`.
+Os casos ainda não estão publicados no site: para um exemplo próximo da necessidade
+de quem pergunta, use `openseed_montar_contato`.
