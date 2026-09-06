@@ -3,10 +3,16 @@
 <head>
 <meta charset="UTF-8">
 <title>OG image (template)</title>
-<!-- Template da imagem de compartilhamento (1200 por 630). Não é página do
-     site. Renderize #og com screenshot de elemento e salve em
-     docs/assets/img/og-image.png. Para a versão em inglês, use #og-en e salve
-     em docs/assets/img/og-image-en.png. Espere 2 s para a fonte carregar. -->
+<!-- Template da imagem de compartilhamento, 1200 por 630. Não é página do site.
+
+     Receita que funciona:
+     1. Sirva a pasta tools/ numa porta qualquer. Por file:// a fonte do
+        Google não carrega e a imagem sai com a fonte errada.
+     2. Espere document.fonts.ready resolver, mais um segundo de folga.
+     3. Fotografe #og pelo id e salve em docs/assets/img/og-image.png.
+        Repita com #og-en para docs/assets/img/og-image-en.png.
+     4. Confira: o arquivo tem que ter exatamente 1200 por 630. Se vier
+        maior, o box-sizing do topo desta folha foi removido. -->
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@500&family=JetBrains+Mono:wght@500&family=Outfit:wght@900&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; }

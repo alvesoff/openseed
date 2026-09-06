@@ -3,9 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Ícones da marca (template)</title>
-<!-- Template para gerar os ícones em docs/assets/img/icons/. Não é página do
-     site. Renderize cada .tile com screenshot de elemento e salve com o nome
-     indicado no data-arquivo. A fonte precisa carregar antes: espere 2 s. -->
+<!-- Template dos ícones de docs/assets/img/icons/. Não é página do site.
+
+     Receita que funciona:
+     1. Sirva a pasta tools/ numa porta qualquer. Abrir por file:// não
+        carrega a fonte do Google e o ícone sai com a fonte errada.
+     2. Espere document.fonts.ready resolver, mais um segundo de folga.
+     3. Fotografe cada .tile pelo id e salve com o nome do data-arquivo.
+        Confira o tamanho do arquivo gerado: tem que bater com o do bloco. -->
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@900&display=swap" rel="stylesheet">
 <style>
   * { box-sizing: border-box; }
@@ -19,18 +24,12 @@
   /* 180: apple-touch-icon, sem raio (o iOS arredonda) */
   #i180 { width: 180px; height: 180px; padding: 0 28px; }
   #i180 .wm { font-size: 59px; }
-  /* 32 e 16: favicon. Só o S, o resto não se lê nesse tamanho. */
-  #i32 { width: 32px; height: 32px; border-radius: 7px; align-items: center; }
-  #i32 .s { font-weight: 900; font-size: 27px; line-height: 1; margin-top: 1px; }
-  #i32 .b { position: absolute; }
-  #i16 { width: 16px; height: 16px; border-radius: 4px; align-items: center; }
-  #i16 .s { font-weight: 900; font-size: 14px; line-height: 1; }
+  /* O favicon de 32 e 16 sai de docs/assets/img/icons/favicon.svg,
+     rasterizado. Não se redesenha aqui, senão os dois divergem. */
 </style>
 </head>
 <body>
   <div class="tile" id="i512" data-arquivo="icon-512.png"><div class="wm"><span class="open">Open</span>Seed</div></div>
   <div class="tile" id="i180" data-arquivo="apple-touch-icon.png"><div class="wm"><span class="open">Open</span>Seed</div></div>
-  <div class="tile" id="i32" data-arquivo="favicon-32.png"><span class="s">S</span></div>
-  <div class="tile" id="i16" data-arquivo="favicon-16.png"><span class="s">S</span></div>
 </body>
 </html>

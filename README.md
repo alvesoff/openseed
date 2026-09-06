@@ -27,7 +27,7 @@ openseed/
 │   │   └── img/
 │   │       ├── og-image.png imagem de compartilhamento (1200x630)
 │   │       ├── cases/       prints dos projetos, ver LEIA-ME.md de lá
-│   │       └── icons/       favicon e ícones de aplicativo
+│   │       └── icons/       favicon (SVG e PNG) e ícones de aplicativo
 │   ├── CNAME                domínio do GitHub Pages, não apagar
 │   ├── robots.txt           regras de rastreamento, inclui os robôs de IA
 │   ├── sitemap.xml          mapa do site com as duas línguas
@@ -103,14 +103,27 @@ a resposta certa. Se criar uma pergunta nova, escolha um `data-assunto` e acresc
 
 ### Gerar a imagem de compartilhamento e os ícones
 
-Os templates são páginas HTML que você abre no navegador e fotografa:
+Os templates são páginas HTML que você fotografa. `tools/serve.js` publica só
+`docs/`, então sirva `tools/` à parte, numa porta qualquer:
 
-1. `node tools/serve.js` não serve `tools/`, então abra o arquivo direto pelo navegador.
-2. Espere dois segundos para as fontes carregarem.
-3. Fotografe o elemento (`#og` para português, `#og-en` para inglês) e salve em
-   `docs/assets/img/og-image.png` e `og-image-en.png`, em 1200 por 630.
-4. Para os ícones, use `tools/icons.html` e salve cada bloco com o nome que está no
-   atributo `data-arquivo`, dentro de `docs/assets/img/icons/`.
+```bash
+npx --yes serve tools -l 8901
+```
+
+**Não abra por `file://`.** A fonte Outfit vem do Google Fonts e não carrega nesse
+protocolo; a imagem sai com a fonte errada e ninguém percebe até estar no ar.
+
+1. Abra <http://127.0.0.1:8901/og-image.html> e espere `document.fonts.ready`
+   resolver, mais um segundo de folga.
+2. Fotografe o elemento `#og` e salve em `docs/assets/img/og-image.png`. Repita com
+   `#og-en` para `og-image-en.png`.
+3. **Confira o tamanho: tem que dar exatamente 1200 por 630.** Se vier maior, alguém
+   tirou o `box-sizing: border-box` do template e o padding virou tamanho.
+4. Os ícones saem de `icons.html` do mesmo jeito, cada bloco com o nome do atributo
+   `data-arquivo`, dentro de `docs/assets/img/icons/`.
+5. O `favicon.svg` é desenhado à mão, não sai de template. O `favicon-32.png` é ele
+   rasterizado: se mudar um, refaça o outro. O SVG precisa começar no caractere `<`,
+   sem linha em branco antes, senão o Safari mostra um quadrado branco.
 
 Depois de trocar a imagem, passe o link no
 [Facebook Sharing Debugger](https://developers.facebook.com/tools/debug/) e clique em
