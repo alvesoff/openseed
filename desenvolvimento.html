@@ -968,23 +968,23 @@
            mexa lá também: marcação de FAQ sem o texto visível é spam. -->
       <div class="faq">
         <h3>Perguntas que sempre aparecem</h3>
-        <details>
+        <details data-assunto="preco">
           <summary>Quanto custa desenvolver um sistema sob demanda?</summary>
           <p>Depende do escopo, e por isso o orçamento sai fechado antes de começar. Você conta o problema, a gente devolve em até 3 dias úteis o que dá para fazer, em quanto tempo e por quanto. Um MVP de startup costuma ficar entre 4 e 8 semanas de trabalho.</p>
         </details>
-        <details>
+        <details data-assunto="prazo">
           <summary>Em quanto tempo o sistema fica pronto?</summary>
           <p>Um MVP leva de 4 a 8 semanas. Sistema interno varia conforme a quantidade de fluxos, e a entrega acontece em ciclos de uma semana, com ambiente de teste liberado para você acompanhar desde o começo.</p>
         </details>
-        <details>
+        <details data-assunto="codigo">
           <summary>De quem é o código depois que o projeto termina?</summary>
           <p>Seu. O código fica no seu repositório desde o primeiro commit, junto com o acesso à infraestrutura. Você não fica dependente da OpenSeed para seguir com outro time.</p>
         </details>
-        <details>
+        <details data-assunto="atendimento">
           <summary>Vocês atendem fora de Ribeirão Preto?</summary>
           <p>Sim. A base é Ribeirão Preto e a região atendida presencialmente inclui Sertãozinho, Cravinhos e Jardinópolis. Projeto em outra cidade a gente atende remoto, com as mesmas reuniões de acompanhamento.</p>
         </details>
-        <details>
+        <details data-assunto="ia">
           <summary>O que significa usar IA no núcleo do projeto?</summary>
           <p>Significa aplicar IA onde ela derruba trabalho manual: agente que consulta o sistema e resolve o pedido, leitura automática de nota e contrato, busca em linguagem normal sobre os dados da empresa. Quando um script simples resolve melhor, a gente fala isso na proposta.</p>
         </details>
@@ -1159,9 +1159,8 @@ const WHATSAPP_MENSAGEM = "Olá! Vim pelo site da OpenSeed e quero falar sobre u
         }
       },
       execute: async function (entrada) {
-        const chaves = ["preco", "prazo", "codigo", "atendimento", "ia"];
-        const todas = Array.from(document.querySelectorAll(".faq details")).map(function (d, i) {
-          return { assunto: chaves[i] || String(i), pergunta: texto(d, "summary"), resposta: texto(d, "p") };
+        const todas = Array.from(document.querySelectorAll(".faq details")).map(function (d) {
+          return { assunto: d.dataset.assunto, pergunta: texto(d, "summary"), resposta: texto(d, "p") };
         });
         const pedido = entrada && entrada.assunto;
         if (!pedido || pedido === "todas") return { duvidas: todas };
@@ -1260,12 +1259,9 @@ addEventListener("scroll", function () {
 
 const semMovimento = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-/* O CSS do leque responde a esta mesma condição. Se ela mudar depois da carga,
-   por exemplo ao alargar a janela, a página recarrega os efeitos uma vez em
-   vez de ficar com o layout de tela larga sem o movimento que ele pressupõe. */
-const consultaLarga = matchMedia("(min-width: 1000px) and (hover: hover)");
-const telaLarga = consultaLarga.matches;
-consultaLarga.addEventListener("change", function () { location.reload(); });
+/* Vale a largura da carga. Quem alarga a janela depois fica com os cards lado
+   a lado sem parallax, que e um estado inteiro: nada some nem se sobrepoe. */
+const telaLarga = matchMedia("(min-width: 1000px) and (hover: hover)").matches;
 
 if (!semMovimento && window.gsap) {
   gsap.registerPlugin(ScrollTrigger);
