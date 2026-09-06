@@ -12,3 +12,6 @@ desktop.ini
 .inner.html
 .shot*.png
 preview-*.png
+
+# Assets de trabalho do pivô (refs de terceiros, logo bruta)
+PIVOT/
