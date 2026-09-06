@@ -329,6 +329,12 @@
     box-shadow: 0 0 18px rgba(198, 242, 78, .35);
   }
 
+  /* Sem GSAP o trilho lima nunca cresceria, entao ja nasce cheio. */
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .flow .rail-fill { transform: scaleY(1); }
+  }
+
   .flow ol { list-style: none; display: grid; gap: clamp(16px, 2.6vw, 30px); }
   .flow li { position: relative; padding-left: 62px; }
 
@@ -881,11 +887,9 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
-/* =====================================================================
-   TROCAR AQUI: número de WhatsApp da OpenSeed, formato internacional,
-   só dígitos (55 + DDD + número). Todo link com data-wa aponta para ele.
-   ===================================================================== */
-const WHATSAPP_NUMERO = "5516000000000";
+/* Numero de WhatsApp da OpenSeed, o mesmo usado em sobre.html.
+   Trocou o numero? Trocar nos dois arquivos juntos. */
+const WHATSAPP_NUMERO = "5516997052711";
 const WHATSAPP_MENSAGEM = "Olá! Vim pelo site da OpenSeed e quero falar sobre um projeto de software.";
 
 (function aplicarWhatsapp() {
@@ -942,7 +946,7 @@ if (!semMovimento && window.gsap) {
   /* ---- Contadores ---- */
   gsap.utils.toArray(".stats .num[data-count]").forEach(function (el) {
     const alvo = parseInt(el.dataset.count, 10);
-    const marcador = el.firstChild.nodeType === 3 ? el.firstChild : el.childNodes[1];
+    const marcador = el.firstChild;
     const obj = { v: 0 };
     gsap.to(obj, {
       v: alvo, duration: 1.4, ease: "power2.out",

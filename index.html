@@ -156,6 +156,13 @@
   .cta:hover, .cta:focus-visible { background: #6bd897; transform: translateY(-2px); box-shadow: 0 12px 30px rgba(86, 200, 132, .2); }
   .cta svg { width: 18px; height: 18px; flex: none; }
   .cta-note { margin-top: 16px; font-size: 15px; color: var(--faint); }
+  .cta-alt {
+    display: inline-block; margin-top: 14px; font-size: 16px; font-weight: 600;
+    color: var(--ink); text-decoration: none;
+    border-bottom: 2px solid var(--seed); padding-bottom: 2px;
+    transition: color .16s ease;
+  }
+  .cta-alt:hover, .cta-alt:focus-visible { color: var(--seed); }
 
   /* ---------- RODAPÉ ---------- */
   .foot { margin-top: 80px; }
@@ -288,12 +295,14 @@
         </svg>
       </a>
       <div class="cta-note">Como trabalhamos, o que atendemos e o modelo por trás disso.</div>
+      <a class="cta-alt" href="desenvolvimento.html">Precisa de um sistema? Veja o que desenvolvemos</a>
     </div>
 
     <div class="foot">
       <div class="foot-tag">OpenSeed · Todos os Direitos Reservados.</div>
       <div class="foot-links">
         <a href="sobre.html">Conheça a OpenSeed</a>
+        <a href="desenvolvimento.html">Desenvolvimento de software</a>
         <a href="https://instagram.com/openseedbr" target="_blank" rel="noopener">Instagram</a>
         <a href="privacidade.html">Privacidade</a>
       </div>
