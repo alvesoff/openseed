@@ -37,6 +37,7 @@ openseed/
 │   ├── serve.js               servidor local que imita o GitHub Pages
 │   ├── conferir.js            roda as regras do site antes do PR
 │   ├── sincronizar-faq.js     escreve o FAQ do JSON-LD a partir da tela
+│   ├── grafico-manifesto.js   dados e traçado do gráfico do manifesto
 │   ├── og-image.html          template da imagem de compartilhamento
 │   ├── icons.html             template dos ícones
 │   ├── capas-de-projeto.md    como publicar o print de um projeto
@@ -92,12 +93,12 @@ Para parar, `Ctrl+C`.
 node tools/conferir.js
 ```
 
-Onze regras que ninguém guarda de cabeça: FAQ visível contra JSON-LD, número de
+Doze regras que ninguém guarda de cabeça: FAQ visível contra JSON-LD, número de
 WhatsApp igual em toda parte, contagem de projetos coerente, `$` usado onde só `$$`
 funciona, a lista de `html[data-anim]` batendo com a do JavaScript, arquivo de
 trabalho dentro de `docs/`, sitemap nos dois sentidos, link e caminho de imagem
-quebrados, canonical apontando para a própria página, `hreflang` recíproco e card de
-exemplo marcado.
+quebrados, canonical apontando para a própria página, `hreflang` recíproco, card de
+exemplo marcado e o traçado do gráfico do manifesto contra os dados que o geram.
 Sai com erro e diz o arquivo. Cada checagem está lá porque o erro correspondente já
 aconteceu neste repositório.
 
@@ -158,6 +159,21 @@ sincronização a edição se perde.
 O atributo `data-assunto` de cada `<details>` é o que a ferramenta de IA usa para achar
 a resposta certa. Se criar uma pergunta nova, escolha um `data-assunto` e acrescente ao
 `enum` da ferramenta `openseed_responder_duvida_comum`, em `docs/assets/js/site.js`.
+
+### Mexer no gráfico do manifesto
+
+O traçado das duas linhas é um bezier de 24 pontos de controle escrito no atributo
+`d` do HTML, para o gráfico existir sem JavaScript. **Não edite o `d` à mão.** Os
+números do estudo, a escala e o algoritmo que gera o traçado moram em
+`tools/grafico-manifesto.js`:
+
+```bash
+node tools/grafico-manifesto.js              # escreve o traçado no HTML
+node tools/grafico-manifesto.js --conferir   # só compara
+```
+
+Mexeu nos dados? Rode o script e atualize a nota de fonte da página, que diz o
+recorte do estudo. `node tools/conferir.js` chama esse `--conferir` sozinho.
 
 ### Gerar a imagem de compartilhamento e os ícones
 
