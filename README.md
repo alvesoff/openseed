@@ -40,9 +40,11 @@ openseed/
 │   ├── og-image.html          template da imagem de compartilhamento
 │   ├── icons.html             template dos ícones
 │   ├── capas-de-projeto.md    como publicar o print de um projeto
+│   ├── pendencias.md          o que falta e só o dono do negócio pode preencher
 │   └── marca/                 arquivos originais da marca
 │
 ├── DOMINIO.md                 como o domínio está configurado no Registro.br
+├── PIVOT/                     referências e logo bruta, fora do versionamento
 └── README.md                  este arquivo
 ```
 
@@ -90,10 +92,106 @@ Para parar, `Ctrl+C`.
 node tools/conferir.js
 ```
 
-Nove regras que ninguém guarda de cabeça: FAQ visível contra JSON-LD, número de
-WhatsApp igual em toda parte, contagem de projetos coerente, arquivo de trabalho
-dentro de `docs/`, sitemap nos dois sentidos, caminho de imagem quebrado, canonical
-apontando para a própria página, `hreflang` recíproco e card de exemplo marcado.
+Onze regras que ninguém guarda de cabeça: FAQ visível contra JSON-LD, número de
+WhatsApp igual em toda parte, contagem de projetos coerente, `# OpenSeed
+
+Site da OpenSeed, estúdio de desenvolvimento de software com IA em Ribeirão Preto, SP.
+No ar em **[openseed.com.br](https://openseed.com.br)**, servido pelo GitHub Pages a
+partir da pasta `docs/` da branch `main`.
+
+Site estático: HTML, CSS e JavaScript escritos à mão. Sem build, sem dependência para
+instalar, sem framework. Editar um arquivo e dar `git push` publica.
+
+---
+
+## Estrutura
+
+```
+openseed/
+├── docs/                      ← isto, e só isto, vai para o ar
+│   ├── index.html             landing em português (página inicial)
+│   ├── en/index.html          a mesma página em inglês
+│   ├── manifesto.html         manifesto da marca, com o gráfico de conteúdo sintético
+│   ├── sobre.html             quem é a OpenSeed e o modelo de trabalho
+│   ├── privacidade.html       política de privacidade
+│   ├── 404.html               página de erro
+│   ├── assets/
+│   │   ├── css/site.css       estilo das duas landings
+│   │   ├── js/site.js         comportamento das duas landings
+│   │   └── img/
+│   │       ├── og-image.png   imagem de compartilhamento (1200x630)
+│   │       ├── cases/         prints dos projetos, ver tools/capas-de-projeto.md
+│   │       └── icons/         favicon (SVG e PNG) e ícones de aplicativo
+│   ├── CNAME                  domínio do GitHub Pages, não apagar
+│   ├── robots.txt             regras de rastreamento, inclui os robôs de IA
+│   ├── sitemap.xml            mapa do site com as duas línguas
+│   ├── llms.txt               resumo do site em texto, para ferramentas de IA
+│   └── site.webmanifest       nome e ícones ao salvar na tela inicial
+│
+├── tools/                     ← ferramentas de trabalho, fora do ar
+│   ├── serve.js               servidor local que imita o GitHub Pages
+│   ├── conferir.js            roda as regras do site antes do PR
+│   ├── sincronizar-faq.js     escreve o FAQ do JSON-LD a partir da tela
+│   ├── og-image.html          template da imagem de compartilhamento
+│   ├── icons.html             template dos ícones
+│   ├── capas-de-projeto.md    como publicar o print de um projeto
+│   ├── pendencias.md          o que falta e só o dono do negócio pode preencher
+│   └── marca/                 arquivos originais da marca
+│
+├── DOMINIO.md                 como o domínio está configurado no Registro.br
+├── PIVOT/                     referências e logo bruta, fora do versionamento
+└── README.md                  este arquivo
+```
+
+**Por que `docs/` existe.** Antes, o repositório inteiro ia para o ar, e isso incluía
+templates que não são páginas do site (`og-image.html`, os arquivos de marca).
+Qualquer pessoa conseguia abrir esses HTML soltos no domínio. Agora só `docs/` é
+publicado, e o que é ferramenta fica em `tools/`, inalcançável pela web.
+
+A regra não se defende sozinha, então `node tools/conferir.js` reclama de qualquer
+arquivo dentro de `docs/` que não pareça arquivo de site.
+
+**O GitHub Pages precisa estar apontado para `/docs`.** É configuração de
+repositório, não de código: *Settings → Pages → Source → Deploy from a branch →
+main → /docs*. Pela linha de comando:
+
+```bash
+gh api -X PUT repos/alvesoff/openseed/pages -f "source[branch]=main" -f "source[path]=/docs"
+```
+
+Se um dia o site sair do ar mostrando o README em vez da página, é a primeira coisa
+a conferir.
+
+---
+
+## Rodar o site na sua máquina
+
+Precisa de [Node.js](https://nodejs.org) instalado. Nada além disso.
+
+```bash
+node tools/serve.js
+```
+
+Abra <http://127.0.0.1:8899>. O servidor imita o GitHub Pages: a raiz é `docs/`,
+`/en/` carrega `docs/en/index.html` e o que não existe cai no `404.html`.
+
+Para parar, `Ctrl+C`.
+
+---
+
+## Tarefas do dia a dia
+
+### Conferir tudo antes de abrir o PR
+
+```bash
+node tools/conferir.js
+```
+
+ usado onde só `$`
+funciona, a lista de `html[data-anim]` batendo com a do JavaScript, arquivo de
+trabalho dentro de `docs/`, sitemap nos dois sentidos, link e caminho de imagem
+quebrados, canonical apontando para a própria página, `hreflang` recíproco e card de
+exemplo marcado.
 Sai com erro e diz o arquivo. Cada checagem está lá porque o erro correspondente já
 aconteceu neste repositório.
 
@@ -102,28 +200,30 @@ lê texto.
 
 ### Publicar um projeto na seção Projetos
 
-1. Salve o print em `docs/assets/img/cases/`, com o nome `01.png`, `02.png`, na mesma
-   ordem dos cards. Proporção 16 por 10, até 300 KB, sem dado sensível de cliente na tela.
-2. Em `docs/index.html`, ache o card e tire a linha `<img ...>` de dentro do comentário.
-3. Troque o texto do `alt` para descrever a tela: quem usa leitor de tela depende dele.
-4. Preencha `<h3>`, a frase do problema e a linha de meta (segmento, ano, tecnologias).
-5. **Apague o atributo `data-exemplo` do `<article>`.** Enquanto ele estiver lá, a
-   ferramenta `openseed_listar_projetos` trata o card como molde e não o mostra a
-   nenhum agente de IA. Trocar só o `<h3>` não basta.
-6. Repita em `docs/en/index.html`, em inglês.
-7. Quando a grade encher, remova o bloco `.proj-vazio`.
+A seção existe e hoje mostra um bloco só, dizendo que os casos estão sendo preparados.
+**Não há card de exemplo dentro do HTML de propósito:** card escrito "Nome do projeto"
+logo abaixo de "Oito sistemas entregues" prova o contrário do que a frase afirma, e
+ausência de prova custa menos que prova negativa.
 
-Detalhes em `tools/capas-de-projeto.md`.
+O molde do card, com o passo a passo e a especificação da imagem, está em
+`tools/capas-de-projeto.md`. Em resumo:
+
+1. Salve o print em `docs/assets/img/cases/`, proporção 16 por 10, até 300 KB, sem
+   dado sensível de cliente na tela.
+2. Copie o molde para dentro de `<div class="proj-grid">`, nas duas línguas.
+3. Escreva um `alt` que descreva a tela. Quem usa leitor de tela depende dele.
+4. Apague o bloco `.proj-vazio` quando o primeiro projeto real entrar.
+5. Rode `node tools/conferir.js`.
 
 ### Mudar o número de WhatsApp
 
-Ele aparece em dezenove pontos, espalhados por seis arquivos:
+Ele aparece em vários pontos, espalhados por cinco arquivos:
 
 - `docs/assets/js/site.js`, constante `WHATSAPP_NUMERO` e `CONTATO.whatsapp`
 - `docs/index.html` e `docs/en/index.html`: os `href` dos links `data-wa`, o link
   `tel:` da seção de contato e o `telephone` do JSON-LD, duas vezes em cada página
+- `docs/sobre.html` e `docs/privacidade.html`, nos `href` escritos direto no HTML
 - `docs/llms.txt`
-- `docs/sobre.html` e `docs/privacidade.html`, constante `WHATSAPP`
 
 Não confie nesta lista: troque, rode `node tools/conferir.js` e ele aponta o que ficou
 para trás. Ele normaliza formato, então `16 99705-2711` e `+5516997052711` contam como
@@ -207,10 +307,22 @@ ferramentas de IA, e nada mais.
 
 ### Movimento é enfeite, nunca conteúdo
 
-As animações só rodam em tela larga com mouse, e apenas quando
-`prefers-reduced-motion` não pede o contrário. No celular a página já nasce visível.
-Se você animar algo novo, garanta que o estado sem animação seja o estado visível,
-senão quem pediu menos movimento vê a página em branco.
+A entrada por rolagem e o fio do processo valem em qualquer tela. Ficam só no desktop
+as coisas que dependem de mouse e não têm equivalente no toque: o leque de cards que
+abre na rolagem, a inclinação 3D do card e o parallax do ponteiro.
+
+**O estado sem animação tem que ser o estado visível.** São três caminhos que precisam
+terminar com a página na tela: `prefers-reduced-motion`, GSAP que não carregou, e
+JavaScript desligado. Teste os três antes de animar algo novo.
+
+Para não haver piscar, os elementos da entrada nascem escondidos por CSS, na regra
+`html[data-anim]`, marcada por um script no cabeçalho antes da primeira pintura. **A
+lista de seletores dessa regra existe também em `site.js`, em `SEL_ENTRADA` e
+`SEL_REVELA`**, e `node tools/conferir.js` reprova se as duas divergirem.
+
+Nessa regra, só `opacity`, nunca `transform`: o GSAP lê o transform que vem do CSS
+como deslocamento em pixels e soma o próprio por cima. Foi assim que o título do hero
+terminou a entrada 47 pixels abaixo, cortado pela própria máscara.
 
 ### A cor tem conta feita
 
@@ -228,9 +340,26 @@ logo de cliente, nem depoimento fabricado. Marcar `aggregateRating` sem avaliaç
 ## O site para agentes de IA
 
 A landing se apresenta como um conjunto de ferramentas para agentes que rodam dentro do
-navegador, seguindo o rascunho de **WebMCP** do W3C Web Machine Learning Community Group
-(`navigator.modelContext`, Chrome 146 em diante, só em HTTPS). Navegador sem suporte
-ignora o bloco e a página funciona igual.
+navegador, seguindo o rascunho de **WebMCP** do W3C Web Machine Learning Community
+Group. Só funciona em HTTPS, e navegador sem suporte ignora o bloco: a página funciona
+igual.
+
+Três detalhes da especificação que o código segue e que mudam com frequência:
+
+- **O objeto vive em `document.modelContext`.** Ele nasceu em `navigator` e migrou;
+  `navigator.modelContext` ficou como apelido a caminho da remoção. O código procura
+  nos dois, nessa ordem.
+- **`execute` devolve blocos de conteúdo**, não objeto solto: `{ content: [{ type:
+  "text", text: "..." }], structuredContent: {...} }`. Os dois campos carregam o mesmo
+  dado. Devolver `{ servicos: [...] }` cru faz o agente não conseguir ler a resposta.
+- **O registro recebe um `AbortSignal`**: `registerTool(t, { signal })`. O
+  `unregisterTool` saiu do rascunho.
+
+Cada ferramenta declara em `fonte` o seletor de onde tira a resposta, e só é registrada
+se a página tiver aquele elemento. Nas páginas internas sobra só
+`openseed_montar_contato`, que usa apenas constantes. O motivo: agente que acha a
+ferramenta e recebe lista vazia entende "essa empresa não tem serviço", o que é pior do
+que não achar a ferramenta.
 
 São seis ferramentas, todas de leitura:
 
@@ -257,6 +386,40 @@ Além do WebMCP, a página traz dados estruturados em JSON-LD (`WebSite`,
 Sobre o `llms.txt`, sem ilusão: o Google declarou publicamente que o ignora e nenhum
 provedor grande se comprometeu a lê-lo. Ele fica porque custa quase nada manter. Quem
 faz o trabalho de verdade é o JSON-LD.
+
+---
+
+## Segurança
+
+O site não tem servidor, então não há banco para invadir nem sessão para roubar. O que
+sobra de superfície são os arquivos que vêm de fora e o que a página conta a terceiros.
+
+**Script de terceiro só com verificação de integridade.** As duas tags do GSAP carregam
+com `integrity` e `crossorigin`. Se o cdnjs for comprometido e entregar outro arquivo,
+o navegador recusa executar em vez de rodar código de estranho na página de quem nos
+visita. Sem GSAP a página funciona igual, só sem movimento. **Ao trocar a versão do
+GSAP, pegue o resumo novo:**
+
+```bash
+curl "https://api.cdnjs.com/libraries/gsap/3.12.5?fields=sri"
+```
+
+**Política de referência em `meta`.** O GitHub Pages não deixa mandar cabeçalho HTTP,
+então `<meta name="referrer" content="strict-origin-when-cross-origin">` vai no
+cabeçalho de cada página. Google Fonts e cdnjs recebem só a origem, nunca o caminho
+completo da página que a pessoa está lendo.
+
+**Não há Content-Security-Policy.** Uma CSP por `<meta>` cobriria parte do caso, mas o
+site usa `<style>` inline em página interna e um script inline no cabeçalho da landing,
+então uma CSP honesta precisaria de `unsafe-inline` e não protegeria de nada. Se um dia
+o site sair do GitHub Pages para um servidor que mande cabeçalho, vale refazer a conta.
+
+**`tools/` é inalcançável pela web** porque não está dentro de `docs/`. O servidor
+local imita isso: devolve 403 para travessia de caminho, inclusive codificada em
+percent, e 400 para escape quebrado, em vez de morrer.
+
+**Nada de segredo no repositório.** O site é estático e público. Se um dia precisar de
+chave de API, ela não pode viver aqui.
 
 ---
 
