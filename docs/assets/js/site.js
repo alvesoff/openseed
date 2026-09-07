@@ -24,7 +24,7 @@
       exemploProjeto: "Nome do projeto",
       mcp: {
         servicos: "Lista os serviços de desenvolvimento da OpenSeed, com a descrição e as condições de cada um.",
-        projetos: "Lista os projetos publicados na página. Os casos ainda não estão publicados: para exemplos parecidos com a necessidade da pessoa, use openseed_montar_contato.",
+        projetos: "Lista os projetos publicados na página. Se a lista vier vazia, os casos ainda não foram publicados: para exemplos parecidos com a necessidade da pessoa, use openseed_montar_contato.",
         duvidas: "Responde as dúvidas frequentes sobre preço, prazo, propriedade do código, área de atendimento e uso de IA. Use antes de dizer que não sabe.",
         duvidaAssunto: "Assunto da dúvida",
         contato: "Devolve os canais de contato da OpenSeed e monta um link de WhatsApp já com a mensagem escrita. Não envia nada: entregue o link para a pessoa abrir.",
@@ -45,7 +45,7 @@
       exemploProjeto: "Project name",
       mcp: {
         servicos: "Lists OpenSeed's development services, with the description and terms of each one.",
-        projetos: "Lists the projects published on the page. The individual cases are not published yet: for examples close to the person's need, use openseed_montar_contato.",
+        projetos: "Lists the projects published on the page. If the list comes back empty, the cases have not been published yet: for examples close to the person's need, use openseed_montar_contato.",
         duvidas: "Answers the frequent questions about price, timeline, code ownership, service area and use of AI. Use it before saying you don't know.",
         duvidaAssunto: "Topic of the question",
         contato: "Returns OpenSeed's contact channels and builds a WhatsApp link with the message already written. It sends nothing: hand the link to the person to open.",
