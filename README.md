@@ -110,8 +110,8 @@ lê texto.
 
 A seção existe e hoje mostra um bloco só, dizendo que os casos estão sendo preparados.
 **Não há card de exemplo dentro do HTML de propósito:** card escrito "Nome do projeto"
-logo abaixo de "Oito sistemas entregues" prova o contrário do que a frase afirma, e
-ausência de prova custa menos que prova negativa.
+é molde, e molde publicado desmente o título da seção. Ausência de prova custa menos
+que prova negativa.
 
 O molde do card, com o passo a passo e a especificação da imagem, está em
 `tools/capas-de-projeto.md`. Em resumo:
@@ -210,10 +210,9 @@ Os templates são páginas HTML que você fotografa. `tools/serve.js` publica s�
 npx --yes serve . -l 8901
 ```
 
-**Tem que ser a raiz, não a pasta `tools/`.** O template do Instagram lê o SVG da
-marca lá em `docs/`; servindo só `tools/` a página abre em branco. E **não abra por
-`file://`**: a fonte Outfit vem do Google Fonts e não carrega nesse protocolo, então
-a imagem sai com a fonte errada e ninguém percebe até estar no ar.
+**Sirva a raiz, não abra por `file://`**: a fonte Outfit vem do Google Fonts e não
+carrega nesse protocolo, então a imagem sai com a fonte errada e ninguém percebe até
+estar no ar. O template do Instagram lê o SVG de `tools/marca/`, ao lado dele.
 
 1. Abra <http://127.0.0.1:8901/tools/og-image.html> e espere `document.fonts.ready`
    resolver, mais um segundo de folga.
@@ -257,7 +256,7 @@ ferramentas de IA, e nada mais.
 
 ### Movimento é enfeite, nunca conteúdo
 
-A entrada por rolagem e o fio do processo valem em qualquer tela. Ficam só no desktop
+A entrada por rolagem vale em qualquer tela. Ficam só no desktop
 as coisas que dependem de mouse e não têm equivalente no toque: o leque de cards que
 abre na rolagem, a inclinação 3D do card e o parallax do ponteiro.
 
@@ -281,8 +280,9 @@ de 4,5:1 para texto pequeno. Clarear o fundo sem refazer a conta quebra a acessi
 
 ### Nenhum número inventado
 
-O site diz oito projetos porque são oito. Não existe nota de avaliação no JSON-LD, nem
-logo de cliente, nem depoimento fabricado. Marcar `aggregateRating` sem avaliação real
+O site não afirma quantidade de projetos entregues, porque os casos não estão
+publicados. Não existe nota de avaliação no JSON-LD, nem logo de cliente, nem
+depoimento fabricado. Marcar `aggregateRating` sem avaliação real
 é motivo de punição do Google, além de ser mentira.
 
 ---
@@ -311,13 +311,11 @@ se a página tiver aquele elemento. Nas páginas internas sobra só
 ferramenta e recebe lista vazia entende "essa empresa não tem serviço", o que é pior do
 que não achar a ferramenta.
 
-São seis ferramentas, todas de leitura:
+São quatro ferramentas, todas de leitura:
 
 | Ferramenta | O que devolve |
 | --- | --- |
 | `openseed_listar_servicos` | Os três serviços, com descrição e condições |
-| `openseed_explicar_processo` | As etapas de um projeto, com prazo de cada uma |
-| `openseed_listar_tecnologias` | A stack usada |
 | `openseed_listar_projetos` | Os projetos publicados, filtrando os cards de exemplo |
 | `openseed_responder_duvida_comum` | Preço, prazo, código, atendimento e uso de IA |
 | `openseed_montar_contato` | Canais de contato e um link de WhatsApp já escrito |
